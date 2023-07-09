@@ -1,0 +1,2 @@
+src/libriscv__mmachine__freedom-e310-arty-xmem_a-vector.o: \
+ /home/albertojor/GitHub/freedom-e-sdk/freedom-metal/src/vector.S

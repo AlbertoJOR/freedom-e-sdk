@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/doc/html" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/freedom-devicetree-tools" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/freedom-metal" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/freedom-metal/doc/html" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/lightweight_aead" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/scripts/elf2hex" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/software/asconC/lightweight_aead" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/software/cflush" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/software/clic-hardware-vector-interrupts" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/software/clic-selective-vector-interrupts" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/software/clic-vector-interrupts" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/software/coremark" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/software/dhrystone" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/software/empty" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/software/example-itim" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/software/example-pmp" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/software/example-rtc" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/software/example-spi" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/software/example-user-mode" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/software/example-user-syscall" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/software/example-watchdog" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/software/hello" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/software/local-interrupt" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/software/local-vector-interrupts" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/software/multicore-hello" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/software/plic-interrupts" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/software/return-fail" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/software/return-pass" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/software/sifive-welcome" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/software/software-interrupt" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/software/test-coreip" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/software/timer-interrupt" vcs="Git" />
+  </component>
+</project>
