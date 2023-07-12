@@ -23,3 +23,6 @@ make BSP=metal PROGRAM=MyRoCC2 TARGET=freedom-e310-arty-xmem clean
 make BSP=metal PROGRAM=MyRoCC2 TARGET=freedom-e310-arty-xmem software
 make BSP=metal PROGRAM=MyRoCC2 TARGET=freedom-e310-arty-xmem upload
 
+make BSP=metal PROGRAM=E300RW TARGET=freedom-e310-arty-xmem clean
+make BSP=metal PROGRAM=E300RW TARGET=freedom-e310-arty-xmem software
+make BSP=metal PROGRAM=E300RW TARGET=freedom-e310-arty-xmem upload
