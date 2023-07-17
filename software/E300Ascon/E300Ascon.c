@@ -1,16 +1,25 @@
 #include "../RoCCcommon/csr.h"
 #include "../RoCCcommon/rocc.h"
 #include "AEAD_HW.h"
-
+#include "aead.h"
+#include "printf.h"
+//#include "stdio.h"
+#include "word.h"
 #include <stdio.h>
 
 int main(void) {
     static unsigned plain_text [8]={0x2124, 0x2678, 0x2389, 0x1892};
     static unsigned asso_text [8]={0xacad, 0xdefe, 0x8381, 0x5d4d};
     static unsigned cipher_text [8]= {0xf, 0xf, 0xf , 0xf};
+    static unsigned cipher_text_sw [12]= {0};
     static unsigned dumm_array [8]= {0x1, 0x1, 0x1, 0x1};
+    static unsigned key[4] ={0,0,0, 518};
+    static unsigned npub[4] ={0,0,0, 0};
     unsigned plain_len = 30;
     unsigned asso_len = 7; /// CReo que asignaste a memoria
+    unsigned long long int c_len = plain_len;
+    unsigned long long int p_len = plain_len;
+    unsigned long long int a_len = asso_len;
     unsigned plain_len_int = plain_len / 4 ;
     plain_len_int = (plain_len % 4 == 0 )? plain_len_int :plain_len_int+1;
 
@@ -61,11 +70,22 @@ int main(void) {
     end = rdcycle();
     HWcycles = end - start;
     printf("Total time = %d cycles\n",HWcycles);
+
+    crypto_aead_encrypt((unsigned char *)cipher_text_sw,&c_len,(unsigned char*)plain_text,p_len, (unsigned char*)asso_text,a_len,(unsigned char*)npub,(unsigned char*)key);
+    printf("Hardware \n");
     for(int i = 0; i < 8; i ++){
        if(i%2==0 ){
             printf("\n");
         }
         printf("%x ",cipher_text[i]);
+    }
+    printf("\n");
+    printf("Software");
+    for(int i = 0; i < 12; i ++){
+        if(i%2==0 ){
+            printf("\n");
+        }
+        printf("%x ",cipher_text_sw[i]);
     }
     printf("\n");
 
