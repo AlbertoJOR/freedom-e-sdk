@@ -7,7 +7,7 @@
 #include "aead.h"
 #include "printf.h"
 
-void printS(ascon_state_t *s) {
+/*void printS(ascon_state_t *s) {
    for (int i = 0; i < 5; i++) {
         unsigned char*ptr = (unsigned char *)&s->x[i];
         for(int j = 0; j < 8; j++){
@@ -35,7 +35,7 @@ void printstate(const char *text, const ascon_state_t *s) {
 
     printf("\n");
 }
-
+*/
 int crypto_aead_encrypt(unsigned char *c, unsigned long long *clen,
                         const unsigned char *m, unsigned long long mlen,
                         const unsigned char *ad, unsigned long long adlen,
@@ -59,45 +59,45 @@ int crypto_aead_encrypt(unsigned char *c, unsigned long long *clen,
     s.x[2] = K1;
     s.x[3] = N0;
     s.x[4] = N1;
-    printf("init 1st key xor\n");
-    printS(&s);
+    //printf("init 1st key xor\n");
+    //printS(&s);
     P12(&s);
     s.x[3] ^= K0;
     s.x[4] ^= K1;
-    printf("init 2nd key xor \n");
-    printS(&s);
+    //printf("init 2nd key xor \n");
+    //printS(&s);
 
     if (adlen) {
         /* full associated data blocks */
         while (adlen >= ASCON_128_RATE) {
             s.x[0] ^= LOADBYTES(ad, 8);
-            printf("pad ad %lx \n", LOADBYTES(ad, 8));
+           // printf("pad ad %lx \n", LOADBYTES(ad, 8));
             P6(&s);
-            printf("absorb adata \n");
-            printS(&s);
+            //printf("absorb adata \n");
+            //printS(&s);
             ad += ASCON_128_RATE;
             adlen -= ASCON_128_RATE;
         }
         /* final associated data block */
         s.x[0] ^= LOADBYTES(ad, adlen);
         // printf("ad %lx \n",*ad);
-        printf("pad %lld ad %lx \n", adlen, LOADBYTES(ad, adlen));
+        //printf("pad %lld ad %lx \n", adlen, LOADBYTES(ad, adlen));
         s.x[0] ^= PAD(adlen);
         P6(&s);
 
     }
     /* domain separation */
     s.x[4] ^= 1;
-    printf("AD Domain separation \n");
-    printS(&s);
+    // printf("AD Domain separation \n");
+   //  printS(&s);
 
     /* full plaintext blocks */
     while (mlen >= ASCON_128_RATE) {
         s.x[0] ^= LOADBYTES(m, 8);
         STOREBYTES(c, s.x[0], 8);
 
-        printf("absorb plain \n");
-        printS(&s);
+        //printf("absorb plain \n");
+       // printS(&s);
 
         P6(&s);
         m += ASCON_128_RATE;
@@ -110,7 +110,7 @@ int crypto_aead_encrypt(unsigned char *c, unsigned long long *clen,
     // printf("C S_0: %lx\n", s.x[0]);
 
     STOREBYTES(c, s.x[0], mlen);
-    printf("\n");
+   // printf("\n");
 //    for (int ax; ax < 8; ax++) {
 //        printf("%x", *(c + ax));
 //    }
@@ -118,22 +118,22 @@ int crypto_aead_encrypt(unsigned char *c, unsigned long long *clen,
     s.x[0] ^= PAD(mlen);
     c += mlen;
 
-    printf("pad plain \n");
-    printS(&s);
+    //printf("pad plain \n");
+    //printS(&s);
 
     /* finalize */
     s.x[1] ^= K0;
     s.x[2] ^= K1;
 
-    printf("key xor 1 \n");
-    printS(&s);
+    //printf("key xor 1 \n");
+    //printS(&s);
 
     P12(&s);
     s.x[3] ^= K0;
     s.x[4] ^= K1;
 
-    printf("key kor 2 \n");
-    printS(&s);
+    //printf("key kor 2 \n");
+   // printS(&s);
 
     /* set tag */
     STOREBYTES(c, s.x[3], 8);
