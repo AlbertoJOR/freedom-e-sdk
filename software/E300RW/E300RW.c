@@ -10,17 +10,23 @@ int main(void) {
     static unsigned asso_text [8]={0x91929394, 0xa5a6a7a8, 0xb9babbbc, 0xcdcecfc0,
                                    0xd1d2d3d4, 0xe5e6e7e8, 0xf9fafbfc, 0x8d8e8f80};
     static unsigned cipher_text [12]= {0};
-    // static unsigned Nonce [4]= {0x77777777, 0xeeeeeeee, 0xffffffff, 0x33333333};
-    static unsigned Nonce [4]= {0};
+    static unsigned Nonce [4]= {0x77777777, 0xeeeeeeee, 0xffffffff, 0x33333333};
+    // static unsigned Nonce [4]= {0};
     static unsigned Key [4] = {0};
     static unsigned dummy_array [4] = {0};
     unsigned plain_len = 32;
-    unsigned asso_len = 1; /// CReo que asignaste a memoria
+    unsigned asso_len = 64; /// CReo que asignaste a memoria
     unsigned plain_len_int = plain_len / 4 ;
     plain_len_int = (plain_len % 4 == 0 )? plain_len_int :plain_len_int+1;
 
 
     // printf("Init AEAD \n");
+    printf("Init\n");
+    printf("Ad addr = %08x\n", asso_text);
+    printf("Pl addr = %08x\n", plain_text);
+    printf("Ct addr = %08x\n", cipher_text);
+    printf("Ke addr = %08x\n", Key);
+    printf("Np addr = %08x\n", Nonce);
     unsigned start, end, HWcycles;
     int rd = 0;
     // RoCC

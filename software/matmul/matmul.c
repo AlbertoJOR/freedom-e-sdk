@@ -82,9 +82,9 @@ int main() {
     printf("hola");
 #ifdef PFDEBUG
   printf("Cycles %x\n", endc);
-     //print_matrix(a, N, N);
-     //print_matrix(b, N, N);
-     //print_matrix(c, N, N);
+     print_matrix(a, N, N);
+     print_matrix(b, N, N);
+     print_matrix(c, N, N);
 #endif
 #ifdef WITH_MALLOC
   free(a);
