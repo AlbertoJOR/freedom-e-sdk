@@ -5,23 +5,23 @@
 #include <stdio.h>
 
 int main(void) {
-    static unsigned plain_text [8]={0x11121314, 0x25262728, 0x393a3b3c, 0x0d0e0f00,
+    static unsigned plain_text [120]={0x11121314, 0x25262728, 0x393a3b3c, 0x0d0e0f00,
                                         0x41424344, 0x55565758, 0x696a6b6c, 0x7d7e7f70};
-    static unsigned asso_text [8]={0x91929394, 0xa5a6a7a8, 0xb9babbbc, 0xcdcecfc0,
+    static unsigned asso_text [120]={0x91929394, 0xa5a6a7a8, 0xb9babbbc, 0xcdcecfc0,
                                    0xd1d2d3d4, 0xe5e6e7e8, 0xf9fafbfc, 0x8d8e8f80};
-    static unsigned cipher_text [12]= {0};
+    static unsigned cipher_text [120 + 4]= {0};
     static unsigned Nonce [4]= {0x77777777, 0xeeeeeeee, 0xffffffff, 0x33333333};
     // static unsigned Nonce [4]= {0};
     static unsigned Key [4] = {0};
     static unsigned dummy_array [4] = {0};
-    unsigned plain_len = 32;
-    unsigned asso_len = 64; /// CReo que asignaste a memoria
+    unsigned plain_len = 1000;
+    unsigned asso_len = 1000; /// CReo que asignaste a memoria
     unsigned plain_len_int = plain_len / 4 ;
     plain_len_int = (plain_len % 4 == 0 )? plain_len_int :plain_len_int+1;
 
 
     // printf("Init AEAD \n");
-    printf("Init\n");
+    printf("Init hola\n");
     printf("Ad addr = %08x\n", asso_text);
     printf("Pl addr = %08x\n", plain_text);
     printf("Ct addr = %08x\n", cipher_text);
@@ -80,7 +80,7 @@ int main(void) {
     HWcycles = end - start;
    //  printf("Total time = %d cycles\n",HWcycles);
     printf("C");
-    for(int i = 0; i < 8+4; i ++){
+    for(int i = 0; i < plain_len_int +4; i ++){
        if(i%2==0 ){
             printf("\n");
         }
@@ -141,7 +141,7 @@ int main(void) {
     HWcycles = end - start;
     //  printf("Total time = %d cycles\n",HWcycles);
     printf("C");
-    for(int i = 0; i < 8+4; i ++){
+    for(int i = 0; i < plain_len_int +4; i ++){
         if(i%2==0 ){
             printf("\n");
         }
@@ -201,7 +201,7 @@ int main(void) {
     HWcycles = end - start;
     //  printf("Total time = %d cycles\n",HWcycles);
     printf("C");
-    for(int i = 0; i < 8+4; i ++){
+    for(int i = 0; i < plain_len_int +4; i ++){
         if(i%2==0 ){
             printf("\n");
         }
