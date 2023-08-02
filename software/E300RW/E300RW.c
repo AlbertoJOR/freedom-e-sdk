@@ -21,7 +21,7 @@ int main(void) {
 
 
     // printf("Init AEAD \n");
-    printf("Init hola\n");
+    printf("Init Hola2\n");
     printf("Ad addr = %08x\n", asso_text);
     printf("Pl addr = %08x\n", plain_text);
     printf("Ct addr = %08x\n", cipher_text);
@@ -33,178 +33,26 @@ int main(void) {
     start = rdcycle();
     write_csr(mstatus, MSTATUS_XS); // Always initialize the CSR such that the accelerator is recognized
 
-    //rd = AEAD_E_Set_P( plain_text, plain_len);
-    asm volatile("fence");
-    ROCC_INSTRUCTION_DS(0, rd, Nonce, Enc_Set_Nonce);
-    asm volatile("fence":: : "memory");
-    printf("Set Nonce finish : %08x \n", rd);
-
-    asm volatile("fence");
-    ROCC_INSTRUCTION_DS(0, rd, Key, Enc_Set_Key);
-    asm volatile("fence":: : "memory");
-    printf("Set Key  finish : %07x \n", rd);
-    asm volatile("fence");
-    ROCC_INSTRUCTION_DSS(0, rd, plain_text, plain_len, Enc_Set_P);
-    asm volatile("fence":: : "memory");
-    printf("Set Plain text finish length : %08x \n", rd);
-
-
-
-
-    // rd = AEAD_E_Set_AD(plain_text, plain_len );
-    asm volatile("fence");
-    ROCC_INSTRUCTION_DSS(0, rd, asso_text, asso_len, Enc_Set_AD);
-    asm volatile("fence":: : "memory");
-    printf("Set Associated Data finish length: %08x \n", rd);
-
-
-
-    // rd = AEAD_E_Set_C_Tag(cipher_text,dumm_array);
-    asm volatile("fence");
-    ROCC_INSTRUCTION_DSS(0, rd, cipher_text, dummy_array, Enc_Set_C_Tag);
-    asm volatile("fence":: : "memory");
-    // printf("Set Tag and C finish : %d \n", rd);
-    printf("Set Cipher addr: %08x \n", rd);
-
-    // rd = AEAD_E_Set_Nonce(dumm_array );
-// rd = AEAD_E_Set_Key(rd);
-
-
-
-    //rd = AEAD_E_Set_Init();
-    asm volatile("fence");
-    ROCC_INSTRUCTION_DS(0, rd, rd, Enc_Init);
-    asm volatile("fence":: : "memory");
-    printf("Finish AEAD : %08x \n", rd);
+    AEAD_ENC(asso_text,asso_len,plain_text,plain_len,cipher_text,Nonce,Key);
 
     end = rdcycle();
     HWcycles = end - start;
     //  printf("Total time = %d cycles\n",HWcycles);
-    printf("C");
-    for (int i = 0; i < plain_len_int + 4; i++) {
-        if (i % 2 == 0) {
-            printf("\n");
-        }
-        printf("%08x ", cipher_text[i], i);
-        cipher_text[i] = 0;
-    }
-    printf("\n");
-    printf("X\n\n");
-
-        //rd = AEAD_E_Set_P( plain_text, plain_len);
-    asm volatile("fence");
-    ROCC_INSTRUCTION_DS(0, rd, Nonce, Enc_Set_Nonce);
-    asm volatile("fence":: : "memory");
-    printf("Set Nonce finish : %08x \n", rd);
-
-    asm volatile("fence");
-    ROCC_INSTRUCTION_DS(0, rd, Key, Enc_Set_Key);
-    asm volatile("fence":: : "memory");
-    printf("Set Key  finish : %07x \n", rd);
-    asm volatile("fence");
-    ROCC_INSTRUCTION_DSS(0, rd, plain_text, plain_len, Enc_Set_P);
-    asm volatile("fence":: : "memory");
-    printf("Set Plain text finish length : %08x \n", rd);
+    printC(cipher_text,plain_len_int,1);
+    printf("\nX\n");
 
 
-
-
-    // rd = AEAD_E_Set_AD(plain_text, plain_len );
-    asm volatile("fence");
-    ROCC_INSTRUCTION_DSS(0, rd, asso_text, asso_len, Enc_Set_AD);
-    asm volatile("fence":: : "memory");
-    printf("Set Associated Data finish length: %08x \n", rd);
-
-
-
-    // rd = AEAD_E_Set_C_Tag(cipher_text,dumm_array);
-    asm volatile("fence");
-    ROCC_INSTRUCTION_DSS(0, rd, cipher_text, dummy_array, Enc_Set_C_Tag);
-    asm volatile("fence":: : "memory");
-    // printf("Set Tag and C finish : %d \n", rd);
-    printf("Set Cipher addr: %08x \n", rd);
-
-    // rd = AEAD_E_Set_Nonce(dumm_array );
-// rd = AEAD_E_Set_Key(rd);
-
-
-
-    //rd = AEAD_E_Set_Init();
-    asm volatile("fence");
-    ROCC_INSTRUCTION_DS(0, rd, rd, Enc_Init);
-    asm volatile("fence":: : "memory");
-    printf("Finish AEAD : %08x \n", rd);
-
+    AEAD_ENC(asso_text,asso_len,plain_text,plain_len,cipher_text,Nonce,Key);
     end = rdcycle();
     HWcycles = end - start;
-    //  printf("Total time = %d cycles\n",HWcycles);
-    printf("C");
-    for (int i = 0; i < plain_len_int + 4; i++) {
-        if (i % 2 == 0) {
-            printf("\n");
-        }
-        printf("%08x ", cipher_text[i], i);
-        cipher_text[i] = 0;
-    }
-    printf("\n");
-    printf("X\n\n");
+    printC(cipher_text,plain_len_int,1);
+    printf("\nX\n");
    plain_len = 18;
    asso_len = 29;
-        //rd = AEAD_E_Set_P( plain_text, plain_len);
-    asm volatile("fence");
-    ROCC_INSTRUCTION_DS(0, rd, Nonce, Enc_Set_Nonce);
-    asm volatile("fence":: : "memory");
-    printf("Set Nonce finish : %08x \n", rd);
 
-    asm volatile("fence");
-    ROCC_INSTRUCTION_DS(0, rd, Key, Enc_Set_Key);
-    asm volatile("fence":: : "memory");
-    printf("Set Key  finish : %07x \n", rd);
-    asm volatile("fence");
-    ROCC_INSTRUCTION_DSS(0, rd, plain_text, plain_len, Enc_Set_P);
-    asm volatile("fence":: : "memory");
-    printf("Set Plain text finish length : %08x \n", rd);
-
-
-
-
-    // rd = AEAD_E_Set_AD(plain_text, plain_len );
-    asm volatile("fence");
-    ROCC_INSTRUCTION_DSS(0, rd, asso_text, asso_len, Enc_Set_AD);
-    asm volatile("fence":: : "memory");
-    printf("Set Associated Data finish length: %08x \n", rd);
-
-
-
-    // rd = AEAD_E_Set_C_Tag(cipher_text,dumm_array);
-    asm volatile("fence");
-    ROCC_INSTRUCTION_DSS(0, rd, cipher_text, dummy_array, Enc_Set_C_Tag);
-    asm volatile("fence":: : "memory");
-    // printf("Set Tag and C finish : %d \n", rd);
-    printf("Set Cipher addr: %08x \n", rd);
-
-    // rd = AEAD_E_Set_Nonce(dumm_array );
-// rd = AEAD_E_Set_Key(rd);
-
-
-
-    //rd = AEAD_E_Set_Init();
-    asm volatile("fence");
-    ROCC_INSTRUCTION_DS(0, rd, rd, Enc_Init);
-    asm volatile("fence":: : "memory");
-    printf("Finish AEAD : %08x \n", rd);
-
+    AEAD_ENC(asso_text,asso_len,plain_text,plain_len,cipher_text,Nonce,Key);
     end = rdcycle();
     HWcycles = end - start;
-    //  printf("Total time = %d cycles\n",HWcycles);
-    printf("C");
-    for (int i = 0; i < plain_len_int + 4; i++) {
-        if (i % 2 == 0) {
-            printf("\n");
-        }
-        printf("%08x ", cipher_text[i], i);
-        cipher_text[i] = 0;
-    }
-    printf("\n");
-    printf("X\n\n");
+    printC(cipher_text,plain_len_int,1);
+    printf("\nX\n");
 }
