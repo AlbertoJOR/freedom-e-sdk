@@ -15,8 +15,8 @@ int main() {
 
     unsigned char c[2000] = {0};
     unsigned long long clen = 0;
-    unsigned long long mlen = 32;
-    unsigned long long adlen = 32;
+    unsigned long long mlen = 1000;
+    unsigned long long adlen = 1000;
     unsigned char m[2000] = {0x11, 0x12, 0x13, 0x14,
                            0x25, 0x26, 0x27, 0x28,
                            0x39, 0x3a, 0x3b, 0x3c,

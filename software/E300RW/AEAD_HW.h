@@ -32,6 +32,7 @@ unsigned AEAD_DEC(unsigned *ad_addr, unsigned ad_len,
 
 void printC(unsigned *arr, unsigned a_len, int cipher, int del) {
     int len = (cipher) ? a_len + 4 : a_len;
+    len = (len % 8 == 0)? len : len + 1;
     for (int i = 0; i < len; i++) {
         if (i % 2 == 0) {
             printf("\n");
@@ -41,13 +42,14 @@ void printC(unsigned *arr, unsigned a_len, int cipher, int del) {
             arr[i] = 0;
         }
     }
+    printf("\n");
 }
 int AEAD_ENC(unsigned *ad_addr, unsigned ad_len,
              unsigned *p_addr, unsigned p_len,
              unsigned *c_addr, unsigned *nonce_addr,
              unsigned *key_addr) {
     int rd = 0;
-    printf("Init DEC\n");
+    printf("Init Enc\n");
     asm volatile("fence");
     ROCC_INSTRUCTION_DS(0, rd, nonce_addr, Enc_Set_Nonce);
     asm volatile("fence":: : "memory");

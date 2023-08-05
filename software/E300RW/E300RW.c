@@ -8,7 +8,7 @@ int main(void) {
     unsigned plain_len = 32;
     unsigned asso_len = 32; /// CReo que asignaste a memoria
     unsigned plain_len_int = plain_len / 4;
-    plain_len_int = (plain_len % 4 == 0) ? plain_len_int : plain_len_int + 2;
+    plain_len_int = (plain_len % 4 == 0) ? plain_len_int : plain_len_int + 1;
 
     static unsigned plain_text[500] = {0x11121314, 0x25262728, 0x393a3b3c, 0x0d0e0f00,
                                        0x41424344, 0x55565758, 0x696a6b6c, 0x7d7e7f70};
@@ -50,10 +50,8 @@ int main(void) {
     plain_len = 1000;
     asso_len = 1000;
     plain_len_int = plain_len / 4;
-    plain_len_int = (plain_len % 4 == 0) ? plain_len_int : plain_len_int + 2;
-    tag_addr = cipher_text + plain_len_int;
-
-
+    plain_len_int = (plain_len % 4 == 0) ? plain_len_int : plain_len_int + 1;
+    tag_addr = cipher_text + plain_len_int + 1;
 
 
     AEAD_ENC(asso_text, asso_len, plain_text, plain_len, cipher_text, Nonce, Key);
@@ -63,6 +61,13 @@ int main(void) {
     printC(tag_addr, 4, 0, 0);
 
     unsigned rd2 = 0;
+    rd2 = AEAD_DEC(asso_text, asso_len, cipher_text, plain_len, dec_text, Nonce, Key, tag_addr);
+    printC(dec_text, plain_len_int, 0, 0);
+    printf("\n%08x\n", rd2);
+    // tag_addr = cipher_text + plain_len_int + 1;
+    printC(tag_addr, 4, 0, 0);
+
+
     rd2 = AEAD_DEC(asso_text, asso_len, cipher_text, plain_len, dec_text, Nonce, Key, tag_addr);
     printC(dec_text, plain_len_int, 0, 0);
     printf("\n%08x\n", rd2);
