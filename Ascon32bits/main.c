@@ -1,90 +1,55 @@
 //
-// Created by albertojor on 30/07/23.
+// Created by albertojor on 17/05/23.
 //
-#include <stdio.h>
-
-unsigned long long rightRotate64(unsigned long long num, int rotationAmount) {
-    rotationAmount = rotationAmount % 64; // Ensure rotationAmount is in the range [0, 63]
-
-    // Perform the right rotation using bitwise operations
-    return (num >> rotationAmount) | (num << (64 - rotationAmount));
-}
-
-
-typedef struct {
-    unsigned int high;
-    unsigned int low;
-} Uint64Parts;
-
-Uint64Parts rightRotate64Emulated(unsigned int highPart, unsigned int lowPart, int rotationAmount) {
-
- rotationAmount = rotationAmount % 64; // Ensure rotationAmount is in the range [0, 63]
-
-
-     if (rotationAmount == 0) {
-        // No rotation needed, return the original value
-        Uint64Parts result = { highPart, lowPart };
-        return result;
-    } else {
-        // Perform the right rotation using bitwise operations
-        unsigned int combinedValueHigh = (highPart >> (rotationAmount % 32)) | (lowPart << (32 - (rotationAmount % 32)));
-        unsigned int combinedValueLow = (lowPart >> (rotationAmount % 32)) | (highPart << (32 - (rotationAmount % 32)));
-
-        // For rotationAmount >= 32, swap the high and low parts
-        if (rotationAmount >= 32) {
-            unsigned int temp = combinedValueHigh;
-            combinedValueHigh = combinedValueLow;
-            combinedValueLow = temp;
-        }
-
-        Uint64Parts result = { combinedValueHigh, combinedValueLow };
-        return result;
-    }
-
-}
-void ROR32(unsigned int highPart, unsigned int lowPart, int rotationAmount) {
-
- rotationAmount = rotationAmount % 64; // Ensure rotationAmount is in the range [0, 63]
-
-
-     if (rotationAmount == 0) {
-        // No rotation needed, return the original value
-        Uint64Parts result = { highPart, lowPart };
-        return result;
-    } else {
-        // Perform the right rotation using bitwise operations
-        unsigned int combinedValueHigh = (highPart >> (rotationAmount % 32)) | (lowPart << (32 - (rotationAmount % 32)));
-        unsigned int combinedValueLow = (lowPart >> (rotationAmount % 32)) | (highPart << (32 - (rotationAmount % 32)));
-
-        // For rotationAmount >= 32, swap the high and low parts
-        if (rotationAmount >= 32) {
-            unsigned int temp = combinedValueHigh;
-            combinedValueHigh = combinedValueLow;
-            combinedValueLow = temp;
-        }
-
-        Uint64Parts result = { combinedValueHigh, combinedValueLow };
-        return result;
-    }
-
-}
-
-unsigned  long long int concat(unsigned int high, unsigned int low){
-    unsigned long long int highL = high;
-    unsigned long long int lowL  = low;
-    unsigned long long int Res = highL << 32 | lowL;
-    return  Res;
-}
+#include "aead.h"
 
 int main() {
-    unsigned int highPart = 0x0A089F12; // Example high part (32 bits)
-    unsigned int lowPart = 0x307eF08a;  // Example low part (32 bits)
-    int rotationAmount = 14; // Number of positions to rotate right
 
-    Uint64Parts result = rightRotate64Emulated(highPart, lowPart, rotationAmount);
-    unsigned long long int result2 = rightRotate64(concat(highPart, lowPart), rotationAmount);
-    printf("Original number: 0x%08X%08X\n", highPart, lowPart);
-    printf("Right rotated by %d positions: 0x%08X%08X  0x%016llX\n", rotationAmount, result.high, result.low, result2);
+    /* crypto_aead_encrypt(unsigned char* c, unsigned long long* clen,
+                         const unsigned char* m, unsigned long long mlen,
+                         const unsigned char* ad, unsigned long long adlen,
+                         const unsigned char* npub,
+                         const unsigned char* k) */
+
+    u32 c[2000] = {0};
+    u32 clen = 0;
+    u32 mlen = 10;
+    u32 adlen = 3;
+    u32 m[2000] = {0x11121314,
+                   0x25262728,
+                   0x393a3b3c,
+                   0x0d0e0f00,
+                   0x41424344,
+                   0x55565758,
+                   0x696a6b6c,
+                   0x7d7e7f70};
+    u32 ad[2000] = {0x91929394,
+                    0xa5a6a7a8,
+                    0xb9babbbc,
+                    0xcdcecfc0,
+                    0xd1d2d3d4,
+                    0xe5e6e7e8,
+                    0xf9fafbfc,
+                    0x8d8e8f80};
+    u32 npub[16] = {0x76777777,
+                    0xeeeeeeee,
+                    0xffffffff,
+                    0x33333332};
+    u32 k[16] = {0x11111111,
+                 0x22222222,
+                 0x33333333,
+                 0x44444445};
+    crypto_aead_encrypt(c, &clen, m, mlen, ad, adlen, npub, k, 1);
+    // crypto_aead_decrypt(m,&mlen,npub,clen,ad,adlen,npub,k);
+    printf("hola");
+    for (int i = 0; i < mlen/4 + 6 ; i++) {
+        if (i % 2 == 0) {
+            printf("\n");
+        }
+        printf("%08x ", c[i]);
+
+    }
+    printf("\n");
 
     return 0;
 }

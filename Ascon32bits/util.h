@@ -5,7 +5,7 @@
 #ifndef FREEDOM_E_SDK_UTIL_H
 #define FREEDOM_E_SDK_UTIL_H
 #include "state.h"
-u64 rightMask(int shift) {
+/*u64 rightMask(int shift) {
     shift = shift % 64; // Ensure shift is in the range [0, 63]
 
     u64 mask;
@@ -52,14 +52,15 @@ u64 pad(int shift){
         mask.xl = 0x00000000;
     }
     return mask;
-}
+}*/
 
-void printstate(const char *text, const ascon_state_t *s) {
+void printstate(const char *text, const ascon_state_t *s, int debug) {
+    if(debug){
     printf("%s\n", text);
     for (int i = 0; i < 5; i++) {
-        printf("0x%08X %08X \n", s->xh[i], s->xl[i]);
+        printf("%08X %08X \n", s->xh[i], s->xl[i]);
     }
-    printf("\n");
+    printf("\n");}
 }
 
 #endif //FREEDOM_E_SDK_UTIL_H
