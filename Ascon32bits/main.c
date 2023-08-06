@@ -46,17 +46,17 @@ int main() {
     crypto_aead_encrypt(c, &clen, m, mlen, ad, adlen, npub, k, 1);
     // crypto_aead_decrypt(m,&mlen,npub,clen,ad,adlen,npub,k);
     printf("hola");
-    for (int i = 0; i < mlen/4 + 6 ; i++) {
+    for (int i = 0; i < mlen / 4 + 6; i++) {
         if (i % 2 == 0) {
             printf("\n");
         }
         printf("%08x ", c[i]);
     }
     int res = 0;
-    res = crypto_aead_decrypt(d,&dlen,c,clen2,ad,adlen,npub,k,1);
+    res = crypto_aead_decrypt(d, &dlen, c, clen2, ad, adlen, npub, k, 1);
     printf("\n");
     printf("hola");
-    for (int i = 0; i < mlen/4 + 6 ; i++) {
+    for (int i = 0; i < mlen / 4 + 6; i++) {
         if (i % 2 == 0) {
             printf("\n");
         }
@@ -64,16 +64,25 @@ int main() {
     }
     printf("res := %08x \n", res);
 
-    crypto_hash(m,clen2,h,1);
+
+    u32 mh[2000] = {
+            0x11121314, 0x25262728,
+            0x393a3b3c, 0x0d0e0f00,
+            0x41424344, 0x55565758,
+            0x696a6b6c, 0x7d7e7f70};
+    u32 mlenhash = 32;
+    printf("hash \n");
+
+    res = crypto_hash(mh, mlenhash, h, 1);
+
     printf("\n");
     printf("hash");
-    for (int i = 0; i < 8  ; i++) {
+    for (int i = 0; i < 8; i++) {
         if (i % 2 == 0) {
             printf("\n");
         }
         printf("%08x ", h[i]);
     }
     printf("\n");
-
     return 0;
 }
