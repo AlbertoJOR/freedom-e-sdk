@@ -183,6 +183,7 @@ int crypto_aead_decrypt(unsigned char *m, unsigned long long *mlen,
     /* full ciphertext blocks */
     //clen -= CRYPTO_ABYTES;
     while (clen >= ASCON_128_RATE) {
+        printf("clen %ld\n", clen);
         uint64_t c0 = LOADBYTES(c, 8);
         STOREBYTES(m, s.x[0] ^ c0, 8);
         s.x[0] = c0;
@@ -196,6 +197,7 @@ int crypto_aead_decrypt(unsigned char *m, unsigned long long *mlen,
     uint64_t c0 = LOADBYTES(c, clen);
     STOREBYTES(m, s.x[0] ^ c0, clen);
     s.x[0] = CLEARBYTES(s.x[0], clen);
+    printstate("clear bytes", &s);
     s.x[0] |= c0;
     s.x[0] ^= PAD(clen);
     c += clen;

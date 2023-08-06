@@ -14,9 +14,12 @@ int main() {
                          const unsigned char* k) */
 
     unsigned char c[2000] = {0};
+    unsigned char d[2000] = {0};
     unsigned long long clen = 0;
-    unsigned long long mlen = 10;
+    unsigned long long mlen = 16;
     unsigned long long adlen = 3;
+    unsigned long long clen2 = mlen;
+    unsigned long long dlen = 0;
     unsigned char m[2000] = {0x11, 0x12, 0x13, 0x14,
                            0x25, 0x26, 0x27, 0x28,
                            0x39, 0x3a, 0x3b, 0x3c,
@@ -49,6 +52,18 @@ int main() {
             printf("\n");
         }
         printf("%02x", c[i]);
+
+    }
+    printf("\n");
+
+    crypto_aead_decrypt(d, &dlen, c, clen2, ad, adlen, npub, k);
+    // crypto_aead_decrypt(m,&mlen,npub,clen,ad,adlen,npub,k);
+    printf("hola");
+    for (int i = 0; i < mlen + 16; i++) {
+        if (i % 8 == 0) {
+            printf("\n");
+        }
+        printf("%02x", d[i]);
 
     }
     printf("\n");

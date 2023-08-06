@@ -12,9 +12,12 @@ int main() {
                          const unsigned char* k) */
 
     u32 c[2000] = {0};
+    u32 d[2000] = {0};
     u32 clen = 0;
-    u32 mlen = 10;
+    u32 mlen = 13;
     u32 adlen = 3;
+    u32 clen2 = mlen;
+    u32 dlen = 0;
     u32 m[2000] = {0x11121314,
                    0x25262728,
                    0x393a3b3c,
@@ -47,9 +50,18 @@ int main() {
             printf("\n");
         }
         printf("%08x ", c[i]);
-
     }
+    int res = 0;
+    res = crypto_aead_decrypt(d,&dlen,c,clen2,ad,adlen,npub,k,1);
     printf("\n");
+    printf("hola");
+    for (int i = 0; i < mlen/4 + 6 ; i++) {
+        if (i % 2 == 0) {
+            printf("\n");
+        }
+        printf("%08x ", d[i]);
+    }
+    printf("res := %08x \n", res);
 
     return 0;
 }

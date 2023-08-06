@@ -4,6 +4,8 @@
 #define PADL(m_len) ((m_len > 3) ? ((m_len == 8) ? 0 : (0x80000000 >> (((m_len)-4)*8))) : (0))
 #define TRUNH(m_len, hi) ((m_len > 4 ) ? ((hi)) : ((m_len == 0) ? 0: ((hi) &  (0xFFFFFFFF << ((4 - m_len) *8)))) )
 #define TRUNL(m_len, lo) (( m_len > 4 ) ? ( (lo) &  (0xFFFFFFFF << ((8-m_len) * 8))): (0))
+#define CLEARH(m_len, hi) ((m_len > 4 ) ? ((0)) : ((m_len == 0) ? hi: ((hi) & ~ (0xFFFFFFFF << ((4 - m_len) *8)))) )
+#define CLEARL(m_len, lo) (( m_len > 4 ) ? ( (lo) &  ~ (0xFFFFFFFF << ((8-m_len) * 8))): (lo))
 
 #define RORH(n, yh, yl) ((n>31) ? ((yh) << 64 - (n) | (yl) >> (n) - 32) : ((yl) << 32-(n) | (yh) >> (n)))
 #define RORL(n, yh, yl) ((n>31) ? ((yl) << 64 - (n) | (yh) >> (n) - 32) : ((yh) << 32-(n) | (yl) >> (n)))
