@@ -13,6 +13,7 @@ int main() {
 
     u32 c[2000] = {0};
     u32 d[2000] = {0};
+    u32 h[8] = {0};
     u32 clen = 0;
     u32 mlen = 13;
     u32 adlen = 3;
@@ -62,6 +63,17 @@ int main() {
         printf("%08x ", d[i]);
     }
     printf("res := %08x \n", res);
+
+    crypto_hash(m,clen2,h,1);
+    printf("\n");
+    printf("hash");
+    for (int i = 0; i < 8  ; i++) {
+        if (i % 2 == 0) {
+            printf("\n");
+        }
+        printf("%08x ", h[i]);
+    }
+    printf("\n");
 
     return 0;
 }
