@@ -17,6 +17,7 @@ int main(void) {
     static unsigned cipher_text[500 + 4] = {0};
     static unsigned Nonce[4] = {0x76777777, 0xeeeeeeee, 0xffffffff, 0x33333332};
     static unsigned dec_text[500 + 4] = {0};
+    static unsigned hash[10] = {0};
     static unsigned Key[4] = {0x11111111, 0x22222222, 0x33333333, 0x44444445};
 
     static unsigned *tag_addr;
@@ -29,21 +30,37 @@ int main(void) {
     printf("Ct addr = %08x\n", cipher_text);
     printf("Ke addr = %08x\n", Key);
     printf("Np addr = %08x\n", Nonce);
+    printf("hash addr = %08x\n", hash);
     unsigned start, end, HWcycles;
     int rd = 0;
     // RoCC
-    start = rdcycle();
     write_csr(mstatus, MSTATUS_XS); // Always initialize the CSR such that the accelerator is recognized
+    // start = rdcycle();
+    // HASH(plain_text,plain_len,hash);
+    // end = rdcycle();
+    /*printf("Total time = %d cycles\n",HWcycles);
+    printC(hash, 8, 0, 0);*/
+ printf("Init Hash\n");
+     asm volatile("fence");
+    ROCC_INSTRUCTION_DSS(0, rd, plain_text, plain_len, 0x19);
+    asm volatile("fence":: : "memory");
+    printf("Set M : %08x \n", rd);
 
-    AEAD_ENC(asso_text, asso_len, plain_text, plain_len, cipher_text, Nonce, Key);
+    asm volatile("fence");
+    ROCC_INSTRUCTION_DS(0, rd, hash, 0x1a);
+    asm volatile("fence":: : "memory");
+    printf(" Finish Hash: %08x \n", rd);
+    printC(hash,10,0,0);
+
+   /* AEAD_ENC(asso_text, asso_len, plain_text, plain_len, cipher_text, Nonce, Key);
 
     end = rdcycle();
     HWcycles = end - start;
     //  printf("Total time = %d cycles\n",HWcycles);
     printC(cipher_text, plain_len_int, 1, 1);
     printf("\nX\n");
-
-
+*/
+/*
     AEAD_ENC(asso_text, asso_len, plain_text, plain_len, cipher_text, Nonce, Key);
     printC(cipher_text, plain_len_int, 1, 1);
     printf("\nX\n");
@@ -70,6 +87,6 @@ int main(void) {
 
     rd2 = AEAD_DEC(asso_text, asso_len, cipher_text, plain_len, dec_text, Nonce, Key, tag_addr);
     printC(dec_text, plain_len_int, 0, 0);
-    printf("\n%08x\n", rd2);
+    printf("\n%08x\n", rd2);*/
 
 }

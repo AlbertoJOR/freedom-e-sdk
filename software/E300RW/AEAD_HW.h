@@ -16,11 +16,13 @@
 #define Enc_Init 0x16
 #define Dec_Load_Tag 0x17
 #define Dec_Init 0x18
+#define Hash_Set_M 0x31
+#define Hash_Init 0x32
 
 // AEAD Encryption
 
 
-int AEAD_ENC(unsigned *ad_addr, unsigned ad_len,
+unsigned AEAD_ENC(unsigned *ad_addr, unsigned ad_len,
              unsigned *p_addr, unsigned p_len,
              unsigned *c_addr, unsigned *nonce_addr,
              unsigned *key_addr);
@@ -29,6 +31,8 @@ unsigned AEAD_DEC(unsigned *ad_addr, unsigned ad_len,
              unsigned *c_addr, unsigned c_len,
              unsigned *d_addr, unsigned *nonce_addr,
              unsigned *key_addr, unsigned *tag_addr);
+unsigned HASH(unsigned *m_addr, unsigned m_len,
+             unsigned *c_addr );
 
 void printC(unsigned *arr, unsigned a_len, int cipher, int del) {
     int len = (cipher) ? a_len + 4 : a_len;
@@ -44,11 +48,15 @@ void printC(unsigned *arr, unsigned a_len, int cipher, int del) {
     }
     printf("\n");
 }
-int AEAD_ENC(unsigned *ad_addr, unsigned ad_len,
+unsigned tagAddr(unsigned mlenbytes){
+    unsigned mlenU32 = (mlenbytes %8 ==0)? mlenbytes / 4 : mlenbytes/4 +2;
+    return mlenU32;
+}
+unsigned AEAD_ENC(unsigned *ad_addr, unsigned ad_len,
              unsigned *p_addr, unsigned p_len,
              unsigned *c_addr, unsigned *nonce_addr,
              unsigned *key_addr) {
-    int rd = 0;
+    unsigned rd = 0;
     printf("Init Enc\n");
     asm volatile("fence");
     ROCC_INSTRUCTION_DS(0, rd, nonce_addr, Enc_Set_Nonce);
@@ -125,6 +133,20 @@ unsigned AEAD_DEC(unsigned *ad_addr, unsigned ad_len,
     printf("Finish AEAD Dec %08x \n", rd);
     return rd;
 }
+unsigned HASH(unsigned *m_addr, unsigned m_len,
+             unsigned *h_addr ){
+    unsigned rd;
+    printf("Init Hash\n");
+     asm volatile("fence");
+    ROCC_INSTRUCTION_DSS(0, rd, m_addr, m_len, Hash_Set_M);
+    asm volatile("fence":: : "memory");
+    printf("Set M : %08x \n", rd);
 
+    asm volatile("fence");
+    ROCC_INSTRUCTION_DS(0, rd, h_addr, Hash_Init);
+    asm volatile("fence":: : "memory");
+    printf(" Finish Hash: %08x \n", rd);
+    return 0;
+}
 
 #endif //FREEDOM_E_SDK_AEAD_HW_H
