@@ -183,7 +183,7 @@ int crypto_aead_decrypt(u32 *m, u32 *mlen, u32 *c, u32 clen, u32 *ad, u32 adlen,
     printstate("Domain Separation", &s, debug);
     u32 ch, cl;
     while (clen >= 8) {
-        printf("clen %d\n", clen);
+        // printf("clen %d\n", clen);
         ch = *c;
         c++;
         cl = *c;
@@ -241,10 +241,10 @@ int crypto_aead_decrypt(u32 *m, u32 *mlen, u32 *c, u32 clen, u32 *ad, u32 adlen,
     Tag[2] = s.xh[4];
     Tag[3] = s.xl[4];
     int res = 0;
-    for(int i = 0 ; i < 4; i ++){
+    /*for(int i = 0 ; i < 4; i ++){
         res |= c[i] ^ Tag[i];
         printf("%08x  %08x\n", c[i], Tag[i]);
-    }
+    }*/
     return res;
 }
 
