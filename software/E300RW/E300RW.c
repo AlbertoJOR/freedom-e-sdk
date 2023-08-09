@@ -38,34 +38,33 @@ int main(void) {
     // start = rdcycle();
     // HASH(plain_text,plain_len,hash);
     // end = rdcycle();
-    /*printf("Total time = %d cycles\n",HWcycles);
-    printC(hash, 8, 0, 0);*/
- printf("Init Hash\n");
-     asm volatile("fence");
-    ROCC_INSTRUCTION_DSS(0, rd, plain_text, plain_len, 0x19);
-    asm volatile("fence":: : "memory");
-    printf("Set M : %08x \n", rd);
+    /*printf("Totl time = %d cycles\n",HWcycles);*/
+    printf("Init Hash\n");
+    HASH(plain_text,plain_len,hash);
+    printf(" Finish Hash: %07x \n", rd);
+    printC(hash,9,0,1);
 
-    asm volatile("fence");
-    ROCC_INSTRUCTION_DS(0, rd, hash, 0x1a);
-    asm volatile("fence":: : "memory");
-    printf(" Finish Hash: %08x \n", rd);
-    printC(hash,10,0,0);
+    printf("Init Hash\n");
+    HASH(plain_text,plain_len,hash);
+    printf(" Finish Hash: %07x \n", rd);
+    printC(hash,9,0,1);
 
-   /* AEAD_ENC(asso_text, asso_len, plain_text, plain_len, cipher_text, Nonce, Key);
+    printf("First AEAD\n");
+    plain_len = 32;
+    asso_len = 32;
 
-    end = rdcycle();
-    HWcycles = end - start;
-    //  printf("Total time = %d cycles\n",HWcycles);
+    AEAD_ENC(asso_text, asso_len, plain_text, plain_len, cipher_text, Nonce, Key);
+
     printC(cipher_text, plain_len_int, 1, 1);
-    printf("\nX\n");
-*/
-/*
+    printf("Second AEAD\n");
+
     AEAD_ENC(asso_text, asso_len, plain_text, plain_len, cipher_text, Nonce, Key);
     printC(cipher_text, plain_len_int, 1, 1);
     printf("\nX\n");
-    plain_len = 1000;
-    asso_len = 1000;
+
+
+    plain_len = 10;
+    asso_len = 10;
     plain_len_int = plain_len / 4;
     plain_len_int = (plain_len % 4 == 0) ? plain_len_int : plain_len_int + 1;
     tag_addr = cipher_text + plain_len_int + 1;
@@ -77,16 +76,20 @@ int main(void) {
     printf("Tag \n");
     printC(tag_addr, 4, 0, 0);
 
+
+
     unsigned rd2 = 0;
     rd2 = AEAD_DEC(asso_text, asso_len, cipher_text, plain_len, dec_text, Nonce, Key, tag_addr);
-    printC(dec_text, plain_len_int, 0, 0);
+    printC(dec_text, plain_len_int+4, 0, 0);
     printf("\n%08x\n", rd2);
     // tag_addr = cipher_text + plain_len_int + 1;
     printC(tag_addr, 4, 0, 0);
 
 
     rd2 = AEAD_DEC(asso_text, asso_len, cipher_text, plain_len, dec_text, Nonce, Key, tag_addr);
-    printC(dec_text, plain_len_int, 0, 0);
-    printf("\n%08x\n", rd2);*/
+    printC(dec_text, plain_len_int+4, 0, 0);
+    printf("\n%08x\n", rd2);
+
+
 
 }
