@@ -1,13 +1,13 @@
 Archive member included to satisfy reference by file (symbol)
 
 /home/albertojor/riscv64-unknown-elf-gcc-8.3.0-2019.08.0-x86_64-linux-ubuntu14/bin/../lib/gcc/riscv64-unknown-elf/8.3.0/../../../../riscv64-unknown-elf/lib/rv32imac/ilp32/libc_nano.a(lib_a-printf.o)
-                              /tmp/ccPqYhd9.o (printf)
+                              /tmp/ccMsI5eZ.o (printf)
 /home/albertojor/riscv64-unknown-elf-gcc-8.3.0-2019.08.0-x86_64-linux-ubuntu14/bin/../lib/gcc/riscv64-unknown-elf/8.3.0/../../../../riscv64-unknown-elf/lib/rv32imac/ilp32/libc_nano.a(lib_a-putchar.o)
-                              /tmp/ccPqYhd9.o (putchar)
+                              /tmp/ccMsI5eZ.o (putchar)
 /home/albertojor/riscv64-unknown-elf-gcc-8.3.0-2019.08.0-x86_64-linux-ubuntu14/bin/../lib/gcc/riscv64-unknown-elf/8.3.0/../../../../riscv64-unknown-elf/lib/rv32imac/ilp32/libc_nano.a(lib_a-putc.o)
                               /home/albertojor/riscv64-unknown-elf-gcc-8.3.0-2019.08.0-x86_64-linux-ubuntu14/bin/../lib/gcc/riscv64-unknown-elf/8.3.0/../../../../riscv64-unknown-elf/lib/rv32imac/ilp32/libc_nano.a(lib_a-putchar.o) (_putc_r)
 /home/albertojor/riscv64-unknown-elf-gcc-8.3.0-2019.08.0-x86_64-linux-ubuntu14/bin/../lib/gcc/riscv64-unknown-elf/8.3.0/../../../../riscv64-unknown-elf/lib/rv32imac/ilp32/libc_nano.a(lib_a-puts.o)
-                              /tmp/ccPqYhd9.o (puts)
+                              /tmp/ccMsI5eZ.o (puts)
 /home/albertojor/riscv64-unknown-elf-gcc-8.3.0-2019.08.0-x86_64-linux-ubuntu14/bin/../lib/gcc/riscv64-unknown-elf/8.3.0/../../../../riscv64-unknown-elf/lib/rv32imac/ilp32/libc_nano.a(lib_a-wbuf.o)
                               /home/albertojor/riscv64-unknown-elf-gcc-8.3.0-2019.08.0-x86_64-linux-ubuntu14/bin/../lib/gcc/riscv64-unknown-elf/8.3.0/../../../../riscv64-unknown-elf/lib/rv32imac/ilp32/libc_nano.a(lib_a-putc.o) (__swbuf_r)
 /home/albertojor/riscv64-unknown-elf-gcc-8.3.0-2019.08.0-x86_64-linux-ubuntu14/bin/../lib/gcc/riscv64-unknown-elf/8.3.0/../../../../riscv64-unknown-elf/lib/rv32imac/ilp32/libc_nano.a(lib_a-wsetup.o)
@@ -150,19 +150,21 @@ errno               0x4               /home/albertojor/riscv64-unknown-elf-gcc-8
 
 Discarded input sections
 
- .text          0x0000000000000000        0x0 /tmp/ccPqYhd9.o
- .data          0x0000000000000000        0x0 /tmp/ccPqYhd9.o
- .bss           0x0000000000000000        0x0 /tmp/ccPqYhd9.o
- .text.tagAddr  0x0000000000000000       0x32 /tmp/ccPqYhd9.o
+ .text          0x0000000000000000        0x0 /tmp/ccMsI5eZ.o
+ .data          0x0000000000000000        0x0 /tmp/ccMsI5eZ.o
+ .bss           0x0000000000000000        0x0 /tmp/ccMsI5eZ.o
+ .text.tagAddr  0x0000000000000000       0x32 /tmp/ccMsI5eZ.o
  .text.AEAD_ENC
-                0x0000000000000000       0xbc /tmp/ccPqYhd9.o
- .text.HASH     0x0000000000000000       0x4c /tmp/ccPqYhd9.o
+                0x0000000000000000       0xbc /tmp/ccMsI5eZ.o
+ .text.HASH     0x0000000000000000       0x4c /tmp/ccMsI5eZ.o
+ .text.RAND     0x0000000000000000       0x4a /tmp/ccMsI5eZ.o
+ .text.SEED     0x0000000000000000       0x20 /tmp/ccMsI5eZ.o
  .text.crypto_aead_encrypt
-                0x0000000000000000      0x604 /tmp/ccPqYhd9.o
+                0x0000000000000000      0x604 /tmp/ccMsI5eZ.o
  .text.crypto_hash
-                0x0000000000000000      0x276 /tmp/ccPqYhd9.o
- .sbss.tag_addr.2792
-                0x0000000000000000        0x4 /tmp/ccPqYhd9.o
+                0x0000000000000000      0x276 /tmp/ccMsI5eZ.o
+ .sbss.tag_addr.2808
+                0x0000000000000000        0x4 /tmp/ccMsI5eZ.o
  .text          0x0000000000000000        0x0 /home/albertojor/riscv64-unknown-elf-gcc-8.3.0-2019.08.0-x86_64-linux-ubuntu14/bin/../lib/gcc/riscv64-unknown-elf/8.3.0/../../../../riscv64-unknown-elf/lib/rv32imac/ilp32/libc_nano.a(lib_a-printf.o)
  .data          0x0000000000000000        0x0 /home/albertojor/riscv64-unknown-elf-gcc-8.3.0-2019.08.0-x86_64-linux-ubuntu14/bin/../lib/gcc/riscv64-unknown-elf/8.3.0/../../../../riscv64-unknown-elf/lib/rv32imac/ilp32/libc_nano.a(lib_a-printf.o)
  .bss           0x0000000000000000        0x0 /home/albertojor/riscv64-unknown-elf-gcc-8.3.0-2019.08.0-x86_64-linux-ubuntu14/bin/../lib/gcc/riscv64-unknown-elf/8.3.0/../../../../riscv64-unknown-elf/lib/rv32imac/ilp32/libc_nano.a(lib_a-printf.o)
@@ -953,7 +955,7 @@ ram              0x0000000080000000 0x0000000000080000 axw !rl
 
 Linker script and memory map
 
-LOAD /tmp/ccPqYhd9.o
+LOAD /tmp/ccMsI5eZ.o
 START GROUP
 LOAD /home/albertojor/riscv64-unknown-elf-gcc-8.3.0-2019.08.0-x86_64-linux-ubuntu14/bin/../lib/gcc/riscv64-unknown-elf/8.3.0/../../../../riscv64-unknown-elf/lib/rv32imac/ilp32/libc_nano.a
 LOAD /home/albertojor/riscv64-unknown-elf-gcc-8.3.0-2019.08.0-x86_64-linux-ubuntu14/bin/../lib/gcc/riscv64-unknown-elf/8.3.0/rv32imac/ilp32/libgcc.a
@@ -997,23 +999,23 @@ END GROUP
  *(.text.unlikely .text.unlikely.*)
  *(.text.startup .text.startup.*)
  *(.text .text.*)
- .text.printC   0x0000000020400200       0xbe /tmp/ccPqYhd9.o
+ .text.printC   0x0000000020400200       0xbe /tmp/ccMsI5eZ.o
                 0x0000000020400200                printC
  .text.AEAD_DEC
-                0x00000000204002be       0xd6 /tmp/ccPqYhd9.o
+                0x00000000204002be       0xd6 /tmp/ccMsI5eZ.o
                 0x00000000204002be                AEAD_DEC
- .text.ROUND    0x0000000020400394      0x404 /tmp/ccPqYhd9.o
- .text.P12      0x0000000020400798       0x8e /tmp/ccPqYhd9.o
- .text.P6       0x0000000020400826       0x52 /tmp/ccPqYhd9.o
+ .text.ROUND    0x0000000020400394      0x404 /tmp/ccMsI5eZ.o
+ .text.P12      0x0000000020400798       0x8e /tmp/ccMsI5eZ.o
+ .text.P6       0x0000000020400826       0x52 /tmp/ccMsI5eZ.o
  .text.printstate
-                0x0000000020400878       0x7a /tmp/ccPqYhd9.o
+                0x0000000020400878       0x7a /tmp/ccMsI5eZ.o
                 0x0000000020400878                printstate
  .text.crypto_aead_decrypt
-                0x00000000204008f2      0x652 /tmp/ccPqYhd9.o
+                0x00000000204008f2      0x652 /tmp/ccMsI5eZ.o
                 0x00000000204008f2                crypto_aead_decrypt
- .text.rdcycle  0x0000000020400f44       0x1e /tmp/ccPqYhd9.o
+ .text.rdcycle  0x0000000020400f44       0x1e /tmp/ccMsI5eZ.o
                 0x0000000020400f44                rdcycle
- .text.main     0x0000000020400f62      0x1e0 /tmp/ccPqYhd9.o
+ .text.main     0x0000000020400f62      0x1e0 /tmp/ccMsI5eZ.o
                 0x0000000020400f62                main
  .text.printf   0x0000000020401142       0x44 /home/albertojor/riscv64-unknown-elf-gcc-8.3.0-2019.08.0-x86_64-linux-ubuntu14/bin/../lib/gcc/riscv64-unknown-elf/8.3.0/../../../../riscv64-unknown-elf/lib/rv32imac/ilp32/libc_nano.a(lib_a-printf.o)
                 0x0000000020401142                printf
@@ -1592,163 +1594,163 @@ END GROUP
                 [!provide]                        PROVIDE (_etext = .)
                 [!provide]                        PROVIDE (etext = .)
 
-.rodata         0x0000000020405f04      0x554
+.rodata         0x0000000020405f04      0x56c
  *(.rdata)
  *(.rodata .rodata.*)
- .rodata        0x0000000020405f04      0x163 /tmp/ccPqYhd9.o
- *fill*         0x0000000020406067        0x1 
+ .rodata        0x0000000020405f04      0x17b /tmp/ccMsI5eZ.o
+ *fill*         0x000000002040607f        0x1 
  .rodata.__sf_fake_stderr
-                0x0000000020406068       0x20 /home/albertojor/riscv64-unknown-elf-gcc-8.3.0-2019.08.0-x86_64-linux-ubuntu14/bin/../lib/gcc/riscv64-unknown-elf/8.3.0/../../../../riscv64-unknown-elf/lib/rv32imac/ilp32/libc_nano.a(lib_a-findfp.o)
-                0x0000000020406068                __sf_fake_stderr
+                0x0000000020406080       0x20 /home/albertojor/riscv64-unknown-elf-gcc-8.3.0-2019.08.0-x86_64-linux-ubuntu14/bin/../lib/gcc/riscv64-unknown-elf/8.3.0/../../../../riscv64-unknown-elf/lib/rv32imac/ilp32/libc_nano.a(lib_a-findfp.o)
+                0x0000000020406080                __sf_fake_stderr
  .rodata.__sf_fake_stdin
-                0x0000000020406088       0x20 /home/albertojor/riscv64-unknown-elf-gcc-8.3.0-2019.08.0-x86_64-linux-ubuntu14/bin/../lib/gcc/riscv64-unknown-elf/8.3.0/../../../../riscv64-unknown-elf/lib/rv32imac/ilp32/libc_nano.a(lib_a-findfp.o)
-                0x0000000020406088                __sf_fake_stdin
+                0x00000000204060a0       0x20 /home/albertojor/riscv64-unknown-elf-gcc-8.3.0-2019.08.0-x86_64-linux-ubuntu14/bin/../lib/gcc/riscv64-unknown-elf/8.3.0/../../../../riscv64-unknown-elf/lib/rv32imac/ilp32/libc_nano.a(lib_a-findfp.o)
+                0x00000000204060a0                __sf_fake_stdin
  .rodata.__sf_fake_stdout
-                0x00000000204060a8       0x20 /home/albertojor/riscv64-unknown-elf-gcc-8.3.0-2019.08.0-x86_64-linux-ubuntu14/bin/../lib/gcc/riscv64-unknown-elf/8.3.0/../../../../riscv64-unknown-elf/lib/rv32imac/ilp32/libc_nano.a(lib_a-findfp.o)
-                0x00000000204060a8                __sf_fake_stdout
+                0x00000000204060c0       0x20 /home/albertojor/riscv64-unknown-elf-gcc-8.3.0-2019.08.0-x86_64-linux-ubuntu14/bin/../lib/gcc/riscv64-unknown-elf/8.3.0/../../../../riscv64-unknown-elf/lib/rv32imac/ilp32/libc_nano.a(lib_a-findfp.o)
+                0x00000000204060c0                __sf_fake_stdout
  .rodata._vfprintf_r.str1.4
-                0x00000000204060c8       0x13 /home/albertojor/riscv64-unknown-elf-gcc-8.3.0-2019.08.0-x86_64-linux-ubuntu14/bin/../lib/gcc/riscv64-unknown-elf/8.3.0/../../../../riscv64-unknown-elf/lib/rv32imac/ilp32/libc_nano.a(lib_a-nano-vfprintf.o)
- *fill*         0x00000000204060db        0x1 
+                0x00000000204060e0       0x13 /home/albertojor/riscv64-unknown-elf-gcc-8.3.0-2019.08.0-x86_64-linux-ubuntu14/bin/../lib/gcc/riscv64-unknown-elf/8.3.0/../../../../riscv64-unknown-elf/lib/rv32imac/ilp32/libc_nano.a(lib_a-nano-vfprintf.o)
+ *fill*         0x00000000204060f3        0x1 
  .rodata._printf_i.str1.4
-                0x00000000204060dc       0x28 /home/albertojor/riscv64-unknown-elf-gcc-8.3.0-2019.08.0-x86_64-linux-ubuntu14/bin/../lib/gcc/riscv64-unknown-elf/8.3.0/../../../../riscv64-unknown-elf/lib/rv32imac/ilp32/libc_nano.a(lib_a-nano-vfprintf_i.o)
+                0x00000000204060f4       0x28 /home/albertojor/riscv64-unknown-elf-gcc-8.3.0-2019.08.0-x86_64-linux-ubuntu14/bin/../lib/gcc/riscv64-unknown-elf/8.3.0/../../../../riscv64-unknown-elf/lib/rv32imac/ilp32/libc_nano.a(lib_a-nano-vfprintf_i.o)
                                          0x25 (size before relaxing)
  .rodata.libgloss.start
-                0x0000000020406104       0x11 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(crt0.o)
- *fill*         0x0000000020406115        0x3 
+                0x000000002040611c       0x11 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(crt0.o)
+ *fill*         0x000000002040612d        0x3 
  .rodata.__metal_driver_vtable_riscv_clint0
-                0x0000000020406118       0x4c /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-riscv_clint0.o)
-                0x0000000020406118                __metal_driver_vtable_riscv_clint0
+                0x0000000020406130       0x4c /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-riscv_clint0.o)
+                0x0000000020406130                __metal_driver_vtable_riscv_clint0
  .rodata.__metal_controller_interrupt_vector
-                0x0000000020406164       0x14 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-riscv_cpu.o)
+                0x000000002040617c       0x14 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-riscv_cpu.o)
  .rodata.__metal_valid_interrupt_id
-                0x0000000020406178       0x74 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-riscv_cpu.o)
+                0x0000000020406190       0x74 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-riscv_cpu.o)
  .rodata.__metal_local_interrupt_enable
-                0x00000000204061ec       0x80 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-riscv_cpu.o)
+                0x0000000020406204       0x80 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-riscv_cpu.o)
  .rodata.__metal_driver_riscv_cpu_controller_interrupt_register
-                0x000000002040626c       0x74 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-riscv_cpu.o)
+                0x0000000020406284       0x74 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-riscv_cpu.o)
  .rodata.__metal_driver_vtable_riscv_cpu_intc
-                0x00000000204062e0       0x4c /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-riscv_cpu.o)
-                0x00000000204062e0                __metal_driver_vtable_riscv_cpu_intc
+                0x00000000204062f8       0x4c /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-riscv_cpu.o)
+                0x00000000204062f8                __metal_driver_vtable_riscv_cpu_intc
  .rodata.__metal_driver_vtable_cpu
-                0x000000002040632c       0x40 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-riscv_cpu.o)
-                0x000000002040632c                __metal_driver_vtable_cpu
+                0x0000000020406344       0x40 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-riscv_cpu.o)
+                0x0000000020406344                __metal_driver_vtable_cpu
  .rodata.__metal_driver_vtable_riscv_plic0
-                0x000000002040636c       0x4c /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-riscv_plic0.o)
-                0x000000002040636c                __metal_driver_vtable_riscv_plic0
+                0x0000000020406384       0x4c /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-riscv_plic0.o)
+                0x0000000020406384                __metal_driver_vtable_riscv_plic0
  .rodata.__metal_driver_sifive_gpio0_config_int
-                0x00000000204063b8       0x20 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-sifive_gpio0.o)
+                0x00000000204063d0       0x20 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-sifive_gpio0.o)
  .rodata.__metal_driver_sifive_gpio0_clear_int
-                0x00000000204063d8       0x20 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-sifive_gpio0.o)
+                0x00000000204063f0       0x20 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-sifive_gpio0.o)
  .rodata.__metal_driver_vtable_sifive_gpio0
-                0x00000000204063f8       0x3c /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-sifive_gpio0.o)
-                0x00000000204063f8                __metal_driver_vtable_sifive_gpio0
+                0x0000000020406410       0x3c /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-sifive_gpio0.o)
+                0x0000000020406410                __metal_driver_vtable_sifive_gpio0
  .rodata.__metal_driver_vtable_sifive_uart0
-                0x0000000020406434       0x20 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-sifive_uart0.o)
-                0x0000000020406434                __metal_driver_vtable_sifive_uart0
+                0x000000002040644c       0x20 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-sifive_uart0.o)
+                0x000000002040644c                __metal_driver_vtable_sifive_uart0
  *(.gnu.linkonce.r.*)
-                0x0000000020406458                . = ALIGN (0x8)
- *fill*         0x0000000020406454        0x4 
+                0x0000000020406470                . = ALIGN (0x8)
+ *fill*         0x000000002040646c        0x4 
  *(.srodata.cst16)
  *(.srodata.cst8)
  *(.srodata.cst4)
  *(.srodata.cst2)
  *(.srodata .srodata.*)
 
-.rela.dyn       0x0000000020406458        0x0
+.rela.dyn       0x0000000020406470        0x0
  .rela.text._vfprintf_r
-                0x0000000020406458        0x0 /tmp/ccPqYhd9.o
+                0x0000000020406470        0x0 /tmp/ccMsI5eZ.o
  .rela.text._sbrk_r
-                0x0000000020406458        0x0 /tmp/ccPqYhd9.o
+                0x0000000020406470        0x0 /tmp/ccMsI5eZ.o
  .rela.text._write_r
-                0x0000000020406458        0x0 /tmp/ccPqYhd9.o
+                0x0000000020406470        0x0 /tmp/ccMsI5eZ.o
  .rela.text._close_r
-                0x0000000020406458        0x0 /tmp/ccPqYhd9.o
+                0x0000000020406470        0x0 /tmp/ccMsI5eZ.o
  .rela.text._fstat_r
-                0x0000000020406458        0x0 /tmp/ccPqYhd9.o
+                0x0000000020406470        0x0 /tmp/ccMsI5eZ.o
  .rela.text._isatty_r
-                0x0000000020406458        0x0 /tmp/ccPqYhd9.o
+                0x0000000020406470        0x0 /tmp/ccMsI5eZ.o
  .rela.text._lseek_r
-                0x0000000020406458        0x0 /tmp/ccPqYhd9.o
+                0x0000000020406470        0x0 /tmp/ccMsI5eZ.o
  .rela.text._read_r
-                0x0000000020406458        0x0 /tmp/ccPqYhd9.o
+                0x0000000020406470        0x0 /tmp/ccMsI5eZ.o
  .rela.text.metal.init.enter
-                0x0000000020406458        0x0 /tmp/ccPqYhd9.o
+                0x0000000020406470        0x0 /tmp/ccMsI5eZ.o
  .rela.text.libgloss.start
-                0x0000000020406458        0x0 /tmp/ccPqYhd9.o
+                0x0000000020406470        0x0 /tmp/ccMsI5eZ.o
  .rela.sdata.brk
-                0x0000000020406458        0x0 /tmp/ccPqYhd9.o
+                0x0000000020406470        0x0 /tmp/ccMsI5eZ.o
  .rela.text._sbrk
-                0x0000000020406458        0x0 /tmp/ccPqYhd9.o
+                0x0000000020406470        0x0 /tmp/ccMsI5eZ.o
  .rela.text.__libc_fini_array
-                0x0000000020406458        0x0 /tmp/ccPqYhd9.o
+                0x0000000020406470        0x0 /tmp/ccMsI5eZ.o
  .rela.text.__libc_init_array
-                0x0000000020406458        0x0 /tmp/ccPqYhd9.o
+                0x0000000020406470        0x0 /tmp/ccMsI5eZ.o
  .rela.text.__register_exitproc
-                0x0000000020406458        0x0 /tmp/ccPqYhd9.o
+                0x0000000020406470        0x0 /tmp/ccMsI5eZ.o
  .rela.text.__metal_driver_cpu_get
-                0x0000000020406458        0x0 /tmp/ccPqYhd9.o
+                0x0000000020406470        0x0 /tmp/ccMsI5eZ.o
  .rela.text.metal_software_interrupt_vector_handler
-                0x0000000020406458        0x0 /tmp/ccPqYhd9.o
+                0x0000000020406470        0x0 /tmp/ccMsI5eZ.o
  .rela.text.__metal_default_sw_handler
-                0x0000000020406458        0x0 /tmp/ccPqYhd9.o
+                0x0000000020406470        0x0 /tmp/ccMsI5eZ.o
  .rela.text.metal_timer_interrupt_vector_handler
-                0x0000000020406458        0x0 /tmp/ccPqYhd9.o
+                0x0000000020406470        0x0 /tmp/ccMsI5eZ.o
  .rela.text.__metal_exception_handler
-                0x0000000020406458        0x0 /tmp/ccPqYhd9.o
+                0x0000000020406470        0x0 /tmp/ccMsI5eZ.o
  .rela.text.metal_lc0_interrupt_vector_handler
-                0x0000000020406458        0x0 /tmp/ccPqYhd9.o
+                0x0000000020406470        0x0 /tmp/ccMsI5eZ.o
  .rela.text.metal_lc1_interrupt_vector_handler
-                0x0000000020406458        0x0 /tmp/ccPqYhd9.o
+                0x0000000020406470        0x0 /tmp/ccMsI5eZ.o
  .rela.text.metal_lc2_interrupt_vector_handler
-                0x0000000020406458        0x0 /tmp/ccPqYhd9.o
+                0x0000000020406470        0x0 /tmp/ccMsI5eZ.o
  .rela.text.metal_lc3_interrupt_vector_handler
-                0x0000000020406458        0x0 /tmp/ccPqYhd9.o
+                0x0000000020406470        0x0 /tmp/ccMsI5eZ.o
  .rela.text.metal_lc4_interrupt_vector_handler
-                0x0000000020406458        0x0 /tmp/ccPqYhd9.o
+                0x0000000020406470        0x0 /tmp/ccMsI5eZ.o
  .rela.text.metal_lc5_interrupt_vector_handler
-                0x0000000020406458        0x0 /tmp/ccPqYhd9.o
+                0x0000000020406470        0x0 /tmp/ccMsI5eZ.o
  .rela.text.metal_lc6_interrupt_vector_handler
-                0x0000000020406458        0x0 /tmp/ccPqYhd9.o
+                0x0000000020406470        0x0 /tmp/ccMsI5eZ.o
  .rela.text.metal_lc7_interrupt_vector_handler
-                0x0000000020406458        0x0 /tmp/ccPqYhd9.o
+                0x0000000020406470        0x0 /tmp/ccMsI5eZ.o
  .rela.text.metal_lc8_interrupt_vector_handler
-                0x0000000020406458        0x0 /tmp/ccPqYhd9.o
+                0x0000000020406470        0x0 /tmp/ccMsI5eZ.o
  .rela.text.metal_lc9_interrupt_vector_handler
-                0x0000000020406458        0x0 /tmp/ccPqYhd9.o
+                0x0000000020406470        0x0 /tmp/ccMsI5eZ.o
  .rela.text.metal_lc10_interrupt_vector_handler
-                0x0000000020406458        0x0 /tmp/ccPqYhd9.o
+                0x0000000020406470        0x0 /tmp/ccMsI5eZ.o
  .rela.text.metal_lc11_interrupt_vector_handler
-                0x0000000020406458        0x0 /tmp/ccPqYhd9.o
+                0x0000000020406470        0x0 /tmp/ccMsI5eZ.o
  .rela.text.metal_lc12_interrupt_vector_handler
-                0x0000000020406458        0x0 /tmp/ccPqYhd9.o
+                0x0000000020406470        0x0 /tmp/ccMsI5eZ.o
  .rela.text.metal_lc13_interrupt_vector_handler
-                0x0000000020406458        0x0 /tmp/ccPqYhd9.o
+                0x0000000020406470        0x0 /tmp/ccMsI5eZ.o
  .rela.text.metal_lc14_interrupt_vector_handler
-                0x0000000020406458        0x0 /tmp/ccPqYhd9.o
+                0x0000000020406470        0x0 /tmp/ccMsI5eZ.o
  .rela.text.metal_lc15_interrupt_vector_handler
-                0x0000000020406458        0x0 /tmp/ccPqYhd9.o
+                0x0000000020406470        0x0 /tmp/ccMsI5eZ.o
  .rela.text.metal_cpu_get
-                0x0000000020406458        0x0 /tmp/ccPqYhd9.o
- .rela.text     0x0000000020406458        0x0 /tmp/ccPqYhd9.o
-                0x0000000020406458                . = ALIGN (0x8)
+                0x0000000020406470        0x0 /tmp/ccMsI5eZ.o
+ .rela.text     0x0000000020406470        0x0 /tmp/ccMsI5eZ.o
+                0x0000000020406470                . = ALIGN (0x8)
 
-.preinit_array  0x0000000020406458        0x0
-                0x0000000020406458                PROVIDE (__preinit_array_start = .)
+.preinit_array  0x0000000020406470        0x0
+                0x0000000020406470                PROVIDE (__preinit_array_start = .)
  *(.preinit_array)
-                0x0000000020406458                PROVIDE (__preinit_array_end = .)
+                0x0000000020406470                PROVIDE (__preinit_array_end = .)
 
-.init_array     0x0000000020406458        0x4
-                0x0000000020406458                PROVIDE (__init_array_start = .)
+.init_array     0x0000000020406470        0x4
+                0x0000000020406470                PROVIDE (__init_array_start = .)
  *(SORT_BY_INIT_PRIORITY(.init_array.*) SORT_BY_INIT_PRIORITY(.ctors.*))
  *(.init_array EXCLUDE_FILE(*crtend?.o *crtend.o *crtbegin?.o *crtbegin.o) .ctors)
- .init_array    0x0000000020406458        0x4 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-tty.o)
-                0x000000002040645c                PROVIDE (__init_array_end = .)
+ .init_array    0x0000000020406470        0x4 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-tty.o)
+                0x0000000020406474                PROVIDE (__init_array_end = .)
 
-.fini_array     0x000000002040645c        0x0
-                0x000000002040645c                PROVIDE (__fini_array_start = .)
+.fini_array     0x0000000020406474        0x0
+                0x0000000020406474                PROVIDE (__fini_array_start = .)
  *(SORT_BY_INIT_PRIORITY(.fini_array.*) SORT_BY_INIT_PRIORITY(.dtors.*))
  *(.fini_array EXCLUDE_FILE(*crtend?.o *crtend.o *crtbegin?.o *crtbegin.o) .dtors)
-                0x000000002040645c                PROVIDE (__fini_array_end = .)
+                0x0000000020406474                PROVIDE (__fini_array_end = .)
 
 .ctors
  *crtbegin.o(.ctors)
@@ -1764,22 +1766,22 @@ END GROUP
  *(SORT_BY_NAME(.dtors.*))
  *(.dtors)
 
-.itim           0x0000000008000000        0x0 load address 0x0000000020406460
+.itim           0x0000000008000000        0x0 load address 0x0000000020406478
  *(.itim .itim.*)
-                0x0000000020406460                PROVIDE (metal_segment_itim_source_start = LOADADDR (.itim))
+                0x0000000020406478                PROVIDE (metal_segment_itim_source_start = LOADADDR (.itim))
                 0x0000000008000000                PROVIDE (metal_segment_itim_target_start = ADDR (.itim))
                 0x0000000008000000                PROVIDE (metal_segment_itim_target_end = (ADDR (.itim) + SIZEOF (.itim)))
 
-.data           0x0000000080000000     0x1730 load address 0x0000000020406460
+.data           0x0000000080000000     0x1730 load address 0x0000000020406478
  *(.data .data.*)
- .data.asso_text.2786
-                0x0000000080000000      0x7d0 /tmp/ccPqYhd9.o
- .data.plain_text.2785
-                0x00000000800007d0      0x7d0 /tmp/ccPqYhd9.o
- .data.Key.2791
-                0x0000000080000fa0       0x10 /tmp/ccPqYhd9.o
- .data.Nonce.2788
-                0x0000000080000fb0       0x10 /tmp/ccPqYhd9.o
+ .data.asso_text.2802
+                0x0000000080000000      0x7d0 /tmp/ccMsI5eZ.o
+ .data.plain_text.2801
+                0x00000000800007d0      0x7d0 /tmp/ccMsI5eZ.o
+ .data.Key.2807
+                0x0000000080000fa0       0x10 /tmp/ccMsI5eZ.o
+ .data.Nonce.2804
+                0x0000000080000fb0       0x10 /tmp/ccMsI5eZ.o
  .data.impure_data
                 0x0000000080000fc0       0x60 /home/albertojor/riscv64-unknown-elf-gcc-8.3.0-2019.08.0-x86_64-linux-ubuntu14/bin/../lib/gcc/riscv64-unknown-elf/8.3.0/../../../../riscv64-unknown-elf/lib/rv32imac/ilp32/libc_nano.a(lib_a-impure.o)
  .data.__metal_dt_clock_0
@@ -1832,7 +1834,7 @@ END GROUP
  *(.rdata)
  *(.rodata .rodata.*)
  *(.gnu.linkonce.r.*)
-                0x0000000020406460                PROVIDE (metal_segment_data_source_start = LOADADDR (.data))
+                0x0000000020406478                PROVIDE (metal_segment_data_source_start = LOADADDR (.data))
                 0x0000000080000000                PROVIDE (metal_segment_data_target_start = ADDR (.data))
                 0x0000000080001730                PROVIDE (metal_segment_data_target_end = (ADDR (.data) + SIZEOF (.data)))
 
@@ -1849,12 +1851,12 @@ END GROUP
                 0x0000000080001738                _global_atexit
  *(.gnu.linkonce.sb.*)
  *(.bss .bss.*)
- .bss.cipher_text.2787
-                0x000000008000173c      0x7e0 /tmp/ccPqYhd9.o
- .bss.hash.2790
-                0x0000000080001f1c       0x28 /tmp/ccPqYhd9.o
- .bss.dec_text.2789
-                0x0000000080001f44      0x7e0 /tmp/ccPqYhd9.o
+ .bss.cipher_text.2803
+                0x000000008000173c      0x7e0 /tmp/ccMsI5eZ.o
+ .bss.hash.2806
+                0x0000000080001f1c       0x28 /tmp/ccMsI5eZ.o
+ .bss.dec_text.2805
+                0x0000000080001f44      0x7e0 /tmp/ccMsI5eZ.o
  .bss._global_atexit0
                 0x0000000080002724       0x8c /home/albertojor/riscv64-unknown-elf-gcc-8.3.0-2019.08.0-x86_64-linux-ubuntu14/bin/../lib/gcc/riscv64-unknown-elf/8.3.0/../../../../riscv64-unknown-elf/lib/rv32imac/ilp32/libc_nano.a(lib_a-__atexit.o)
  *(.gnu.linkonce.b.*)
@@ -1879,35 +1881,35 @@ END GROUP
                 [!provide]                        PROVIDE (_heap_end = .)
 OUTPUT(AsconDec elf32-littleriscv)
 
-.debug_info     0x0000000000000000    0x14ac1
- .debug_info    0x0000000000000000     0x13b7 /tmp/ccPqYhd9.o
- .debug_info    0x00000000000013b7       0x22 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-entry.o)
- .debug_info    0x00000000000013d9       0x26 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(crt0.o)
- .debug_info    0x00000000000013ff      0x969 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_close.o)
- .debug_info    0x0000000000001d68      0xbac /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_fstat.o)
- .debug_info    0x0000000000002914       0xf4 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_isatty.o)
- .debug_info    0x0000000000002a08      0x99f /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_lseek.o)
- .debug_info    0x00000000000033a7      0x99f /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_read.o)
- .debug_info    0x0000000000003d46      0x117 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_sbrk.o)
- .debug_info    0x0000000000003e5d      0xa1e /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_write.o)
- .debug_info    0x000000000000487b     0x1257 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-synchronize_harts.o)
- .debug_info    0x0000000000005ad2     0x12cb /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-tty.o)
- .debug_info    0x0000000000006d9d      0x5de /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-uart.o)
- .debug_info    0x000000000000737b     0x123d /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-inline.o)
- .debug_info    0x00000000000085b8     0x18e6 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-riscv_clint0.o)
- .debug_info    0x0000000000009e9e     0x271f /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-riscv_cpu.o)
- .debug_info    0x000000000000c5bd     0x1788 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-riscv_plic0.o)
- .debug_info    0x000000000000dd45     0x1717 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-sifive_gpio0.o)
- .debug_info    0x000000000000f45c     0x1786 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-sifive_uart0.o)
- .debug_info    0x0000000000010be2      0x2c7 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-clock.o)
- .debug_info    0x0000000000010ea9     0x15c6 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-cpu.o)
- .debug_info    0x000000000001246f     0x1302 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-shutdown.o)
- .debug_info    0x0000000000013771       0x26 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-vector.o)
- .debug_info    0x0000000000013797     0x12db /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-fixed-clock.o)
- .debug_info    0x0000000000014a72       0x4f /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_exit.o)
+.debug_info     0x0000000000000000    0x14b7d
+ .debug_info    0x0000000000000000     0x1473 /tmp/ccMsI5eZ.o
+ .debug_info    0x0000000000001473       0x22 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-entry.o)
+ .debug_info    0x0000000000001495       0x26 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(crt0.o)
+ .debug_info    0x00000000000014bb      0x969 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_close.o)
+ .debug_info    0x0000000000001e24      0xbac /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_fstat.o)
+ .debug_info    0x00000000000029d0       0xf4 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_isatty.o)
+ .debug_info    0x0000000000002ac4      0x99f /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_lseek.o)
+ .debug_info    0x0000000000003463      0x99f /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_read.o)
+ .debug_info    0x0000000000003e02      0x117 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_sbrk.o)
+ .debug_info    0x0000000000003f19      0xa1e /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_write.o)
+ .debug_info    0x0000000000004937     0x1257 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-synchronize_harts.o)
+ .debug_info    0x0000000000005b8e     0x12cb /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-tty.o)
+ .debug_info    0x0000000000006e59      0x5de /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-uart.o)
+ .debug_info    0x0000000000007437     0x123d /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-inline.o)
+ .debug_info    0x0000000000008674     0x18e6 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-riscv_clint0.o)
+ .debug_info    0x0000000000009f5a     0x271f /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-riscv_cpu.o)
+ .debug_info    0x000000000000c679     0x1788 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-riscv_plic0.o)
+ .debug_info    0x000000000000de01     0x1717 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-sifive_gpio0.o)
+ .debug_info    0x000000000000f518     0x1786 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-sifive_uart0.o)
+ .debug_info    0x0000000000010c9e      0x2c7 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-clock.o)
+ .debug_info    0x0000000000010f65     0x15c6 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-cpu.o)
+ .debug_info    0x000000000001252b     0x1302 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-shutdown.o)
+ .debug_info    0x000000000001382d       0x26 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-vector.o)
+ .debug_info    0x0000000000013853     0x12db /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-fixed-clock.o)
+ .debug_info    0x0000000000014b2e       0x4f /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_exit.o)
 
 .debug_abbrev   0x0000000000000000     0x278a
- .debug_abbrev  0x0000000000000000      0x2b6 /tmp/ccPqYhd9.o
+ .debug_abbrev  0x0000000000000000      0x2b6 /tmp/ccMsI5eZ.o
  .debug_abbrev  0x00000000000002b6       0x12 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-entry.o)
  .debug_abbrev  0x00000000000002c8       0x14 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(crt0.o)
  .debug_abbrev  0x00000000000002dc      0x1a9 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_close.o)
@@ -1933,162 +1935,162 @@ OUTPUT(AsconDec elf32-littleriscv)
  .debug_abbrev  0x000000000000256d      0x1d0 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-fixed-clock.o)
  .debug_abbrev  0x000000000000273d       0x4d /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_exit.o)
 
-.debug_aranges  0x0000000000000000      0x8f8
+.debug_aranges  0x0000000000000000      0x908
  .debug_aranges
-                0x0000000000000000       0x88 /tmp/ccPqYhd9.o
+                0x0000000000000000       0x98 /tmp/ccMsI5eZ.o
  .debug_aranges
-                0x0000000000000088       0x30 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-entry.o)
+                0x0000000000000098       0x30 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-entry.o)
  .debug_aranges
-                0x00000000000000b8       0x20 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(crt0.o)
+                0x00000000000000c8       0x20 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(crt0.o)
  .debug_aranges
-                0x00000000000000d8       0x20 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_close.o)
+                0x00000000000000e8       0x20 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_close.o)
  .debug_aranges
-                0x00000000000000f8       0x20 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_fstat.o)
+                0x0000000000000108       0x20 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_fstat.o)
  .debug_aranges
-                0x0000000000000118       0x20 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_isatty.o)
+                0x0000000000000128       0x20 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_isatty.o)
  .debug_aranges
-                0x0000000000000138       0x20 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_lseek.o)
+                0x0000000000000148       0x20 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_lseek.o)
  .debug_aranges
-                0x0000000000000158       0x20 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_read.o)
+                0x0000000000000168       0x20 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_read.o)
  .debug_aranges
-                0x0000000000000178       0x28 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_sbrk.o)
+                0x0000000000000188       0x28 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_sbrk.o)
  .debug_aranges
-                0x00000000000001a0       0x20 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_write.o)
+                0x00000000000001b0       0x20 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_write.o)
  .debug_aranges
-                0x00000000000001c0       0x20 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-synchronize_harts.o)
+                0x00000000000001d0       0x20 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-synchronize_harts.o)
  .debug_aranges
-                0x00000000000001e0       0x38 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-tty.o)
+                0x00000000000001f0       0x38 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-tty.o)
  .debug_aranges
-                0x0000000000000218       0x48 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-uart.o)
+                0x0000000000000228       0x48 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-uart.o)
  .debug_aranges
-                0x0000000000000260       0x18 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-inline.o)
+                0x0000000000000270       0x18 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-inline.o)
  .debug_aranges
-                0x0000000000000278       0xa0 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-riscv_clint0.o)
+                0x0000000000000288       0xa0 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-riscv_clint0.o)
  .debug_aranges
-                0x0000000000000318      0x260 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-riscv_cpu.o)
+                0x0000000000000328      0x260 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-riscv_cpu.o)
  .debug_aranges
-                0x0000000000000578       0xa8 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-riscv_plic0.o)
+                0x0000000000000588       0xa8 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-riscv_plic0.o)
  .debug_aranges
-                0x0000000000000620       0xa8 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-sifive_gpio0.o)
+                0x0000000000000630       0xa8 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-sifive_gpio0.o)
  .debug_aranges
-                0x00000000000006c8       0xa0 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-sifive_uart0.o)
+                0x00000000000006d8       0xa0 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-sifive_uart0.o)
  .debug_aranges
-                0x0000000000000768       0x48 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-clock.o)
+                0x0000000000000778       0x48 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-clock.o)
  .debug_aranges
-                0x00000000000007b0       0xb0 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-cpu.o)
+                0x00000000000007c0       0xb0 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-cpu.o)
  .debug_aranges
-                0x0000000000000860       0x28 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-shutdown.o)
+                0x0000000000000870       0x28 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-shutdown.o)
  .debug_aranges
-                0x0000000000000888       0x20 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-vector.o)
+                0x0000000000000898       0x20 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-vector.o)
  .debug_aranges
-                0x00000000000008a8       0x30 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-fixed-clock.o)
+                0x00000000000008b8       0x30 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-fixed-clock.o)
  .debug_aranges
-                0x00000000000008d8       0x20 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_exit.o)
+                0x00000000000008e8       0x20 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_exit.o)
 
-.debug_ranges   0x0000000000000000      0x790
- .debug_ranges  0x0000000000000000       0x78 /tmp/ccPqYhd9.o
- .debug_ranges  0x0000000000000078       0x28 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-entry.o)
- .debug_ranges  0x00000000000000a0       0x10 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_close.o)
- .debug_ranges  0x00000000000000b0       0x10 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_fstat.o)
- .debug_ranges  0x00000000000000c0       0x10 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_isatty.o)
- .debug_ranges  0x00000000000000d0       0x10 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_lseek.o)
- .debug_ranges  0x00000000000000e0       0x10 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_read.o)
- .debug_ranges  0x00000000000000f0       0x18 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_sbrk.o)
- .debug_ranges  0x0000000000000108       0x10 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_write.o)
- .debug_ranges  0x0000000000000118       0x10 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-synchronize_harts.o)
- .debug_ranges  0x0000000000000128       0x28 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-tty.o)
- .debug_ranges  0x0000000000000150       0x38 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-uart.o)
- .debug_ranges  0x0000000000000188       0xd8 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-riscv_clint0.o)
- .debug_ranges  0x0000000000000260      0x250 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-riscv_cpu.o)
- .debug_ranges  0x00000000000004b0       0x98 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-riscv_plic0.o)
- .debug_ranges  0x0000000000000548       0x98 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-sifive_gpio0.o)
- .debug_ranges  0x00000000000005e0       0x90 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-sifive_uart0.o)
- .debug_ranges  0x0000000000000670       0x38 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-clock.o)
- .debug_ranges  0x00000000000006a8       0xa0 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-cpu.o)
- .debug_ranges  0x0000000000000748       0x18 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-shutdown.o)
- .debug_ranges  0x0000000000000760       0x20 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-fixed-clock.o)
- .debug_ranges  0x0000000000000780       0x10 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_exit.o)
+.debug_ranges   0x0000000000000000      0x7a0
+ .debug_ranges  0x0000000000000000       0x88 /tmp/ccMsI5eZ.o
+ .debug_ranges  0x0000000000000088       0x28 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-entry.o)
+ .debug_ranges  0x00000000000000b0       0x10 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_close.o)
+ .debug_ranges  0x00000000000000c0       0x10 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_fstat.o)
+ .debug_ranges  0x00000000000000d0       0x10 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_isatty.o)
+ .debug_ranges  0x00000000000000e0       0x10 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_lseek.o)
+ .debug_ranges  0x00000000000000f0       0x10 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_read.o)
+ .debug_ranges  0x0000000000000100       0x18 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_sbrk.o)
+ .debug_ranges  0x0000000000000118       0x10 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_write.o)
+ .debug_ranges  0x0000000000000128       0x10 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-synchronize_harts.o)
+ .debug_ranges  0x0000000000000138       0x28 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-tty.o)
+ .debug_ranges  0x0000000000000160       0x38 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-uart.o)
+ .debug_ranges  0x0000000000000198       0xd8 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-riscv_clint0.o)
+ .debug_ranges  0x0000000000000270      0x250 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-riscv_cpu.o)
+ .debug_ranges  0x00000000000004c0       0x98 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-riscv_plic0.o)
+ .debug_ranges  0x0000000000000558       0x98 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-sifive_gpio0.o)
+ .debug_ranges  0x00000000000005f0       0x90 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-sifive_uart0.o)
+ .debug_ranges  0x0000000000000680       0x38 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-clock.o)
+ .debug_ranges  0x00000000000006b8       0xa0 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-cpu.o)
+ .debug_ranges  0x0000000000000758       0x18 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-shutdown.o)
+ .debug_ranges  0x0000000000000770       0x20 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-fixed-clock.o)
+ .debug_ranges  0x0000000000000790       0x10 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_exit.o)
 
-.debug_line     0x0000000000000000     0x922f
- .debug_line    0x0000000000000000     0x1ed2 /tmp/ccPqYhd9.o
- .debug_line    0x0000000000001ed2      0x11c /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-entry.o)
- .debug_line    0x0000000000001fee      0x221 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(crt0.o)
- .debug_line    0x000000000000220f      0x1b6 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_close.o)
- .debug_line    0x00000000000023c5      0x2d5 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_fstat.o)
- .debug_line    0x000000000000269a      0x102 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_isatty.o)
- .debug_line    0x000000000000279c      0x1c1 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_lseek.o)
- .debug_line    0x000000000000295d      0x1c0 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_read.o)
- .debug_line    0x0000000000002b1d      0x174 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_sbrk.o)
- .debug_line    0x0000000000002c91      0x223 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_write.o)
- .debug_line    0x0000000000002eb4      0x38a /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-synchronize_harts.o)
- .debug_line    0x000000000000323e      0x41e /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-tty.o)
- .debug_line    0x000000000000365c      0x19f /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-uart.o)
- .debug_line    0x00000000000037fb      0x321 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-inline.o)
- .debug_line    0x0000000000003b1c      0xb47 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-riscv_clint0.o)
- .debug_line    0x0000000000004663     0x19d8 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-riscv_cpu.o)
- .debug_line    0x000000000000603b      0x9b0 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-riscv_plic0.o)
- .debug_line    0x00000000000069eb      0xc30 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-sifive_gpio0.o)
- .debug_line    0x000000000000761b      0x9a3 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-sifive_uart0.o)
- .debug_line    0x0000000000007fbe      0x1fa /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-clock.o)
- .debug_line    0x00000000000081b8      0x714 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-cpu.o)
- .debug_line    0x00000000000088cc      0x3bf /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-shutdown.o)
- .debug_line    0x0000000000008c8b      0x12c /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-vector.o)
- .debug_line    0x0000000000008db7      0x3fb /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-fixed-clock.o)
- .debug_line    0x00000000000091b2       0x7d /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_exit.o)
+.debug_line     0x0000000000000000     0x92a2
+ .debug_line    0x0000000000000000     0x1f45 /tmp/ccMsI5eZ.o
+ .debug_line    0x0000000000001f45      0x11c /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-entry.o)
+ .debug_line    0x0000000000002061      0x221 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(crt0.o)
+ .debug_line    0x0000000000002282      0x1b6 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_close.o)
+ .debug_line    0x0000000000002438      0x2d5 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_fstat.o)
+ .debug_line    0x000000000000270d      0x102 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_isatty.o)
+ .debug_line    0x000000000000280f      0x1c1 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_lseek.o)
+ .debug_line    0x00000000000029d0      0x1c0 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_read.o)
+ .debug_line    0x0000000000002b90      0x174 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_sbrk.o)
+ .debug_line    0x0000000000002d04      0x223 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_write.o)
+ .debug_line    0x0000000000002f27      0x38a /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-synchronize_harts.o)
+ .debug_line    0x00000000000032b1      0x41e /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-tty.o)
+ .debug_line    0x00000000000036cf      0x19f /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-uart.o)
+ .debug_line    0x000000000000386e      0x321 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-inline.o)
+ .debug_line    0x0000000000003b8f      0xb47 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-riscv_clint0.o)
+ .debug_line    0x00000000000046d6     0x19d8 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-riscv_cpu.o)
+ .debug_line    0x00000000000060ae      0x9b0 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-riscv_plic0.o)
+ .debug_line    0x0000000000006a5e      0xc30 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-sifive_gpio0.o)
+ .debug_line    0x000000000000768e      0x9a3 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-sifive_uart0.o)
+ .debug_line    0x0000000000008031      0x1fa /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-clock.o)
+ .debug_line    0x000000000000822b      0x714 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-cpu.o)
+ .debug_line    0x000000000000893f      0x3bf /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-shutdown.o)
+ .debug_line    0x0000000000008cfe      0x12c /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-vector.o)
+ .debug_line    0x0000000000008e2a      0x3fb /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-fixed-clock.o)
+ .debug_line    0x0000000000009225       0x7d /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_exit.o)
 
-.debug_str      0x0000000000000000     0x37f7
- .debug_str     0x0000000000000000      0x65c /tmp/ccPqYhd9.o
-                                        0x715 (size before relaxing)
- .debug_str     0x000000000000065c       0x99 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-entry.o)
- .debug_str     0x00000000000006f5       0x41 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(crt0.o)
+.debug_str      0x0000000000000000     0x3817
+ .debug_str     0x0000000000000000      0x67c /tmp/ccMsI5eZ.o
+                                        0x735 (size before relaxing)
+ .debug_str     0x000000000000067c       0x99 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-entry.o)
+ .debug_str     0x0000000000000715       0x41 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(crt0.o)
                                          0x9a (size before relaxing)
- .debug_str     0x0000000000000736       0x5d /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_close.o)
+ .debug_str     0x0000000000000756       0x5d /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_close.o)
                                         0x5ce (size before relaxing)
- .debug_str     0x0000000000000793      0x167 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_fstat.o)
+ .debug_str     0x00000000000007b3      0x167 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_fstat.o)
                                         0x73f (size before relaxing)
- .debug_str     0x00000000000008fa       0x7c /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_isatty.o)
+ .debug_str     0x000000000000091a       0x7c /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_isatty.o)
                                         0x1c8 (size before relaxing)
- .debug_str     0x0000000000000976       0x4d /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_lseek.o)
+ .debug_str     0x0000000000000996       0x4d /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_lseek.o)
                                         0x5e3 (size before relaxing)
- .debug_str     0x00000000000009c3       0x45 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_read.o)
+ .debug_str     0x00000000000009e3       0x45 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_read.o)
                                         0x5dc (size before relaxing)
- .debug_str     0x0000000000000a08       0x9d /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_sbrk.o)
+ .debug_str     0x0000000000000a28       0x9d /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_sbrk.o)
                                         0x1e9 (size before relaxing)
- .debug_str     0x0000000000000aa5       0x4b /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_write.o)
+ .debug_str     0x0000000000000ac5       0x4b /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_write.o)
                                         0x60f (size before relaxing)
- .debug_str     0x0000000000000af0      0xb26 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-synchronize_harts.o)
+ .debug_str     0x0000000000000b10      0xb26 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-synchronize_harts.o)
                                         0xf39 (size before relaxing)
- .debug_str     0x0000000000001616       0x7e /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-tty.o)
+ .debug_str     0x0000000000001636       0x7e /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-tty.o)
                                         0xf51 (size before relaxing)
- .debug_str     0x0000000000001694       0xb4 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-uart.o)
+ .debug_str     0x00000000000016b4       0xb4 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-uart.o)
                                         0x531 (size before relaxing)
- .debug_str     0x0000000000001748       0x49 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-inline.o)
+ .debug_str     0x0000000000001768       0x49 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-inline.o)
                                         0xf1c (size before relaxing)
- .debug_str     0x0000000000001791      0x391 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-riscv_clint0.o)
+ .debug_str     0x00000000000017b1      0x391 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-riscv_clint0.o)
                                        0x12a9 (size before relaxing)
- .debug_str     0x0000000000001b22      0xe95 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-riscv_cpu.o)
+ .debug_str     0x0000000000001b42      0xe95 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-riscv_cpu.o)
                                        0x1e37 (size before relaxing)
- .debug_str     0x00000000000029b7      0x2b1 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-riscv_plic0.o)
+ .debug_str     0x00000000000029d7      0x2b1 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-riscv_plic0.o)
                                        0x11e7 (size before relaxing)
- .debug_str     0x0000000000002c68      0x334 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-sifive_gpio0.o)
+ .debug_str     0x0000000000002c88      0x334 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-sifive_gpio0.o)
                                        0x1221 (size before relaxing)
- .debug_str     0x0000000000002f9c      0x31f /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-sifive_uart0.o)
+ .debug_str     0x0000000000002fbc      0x31f /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-sifive_uart0.o)
                                        0x1492 (size before relaxing)
- .debug_str     0x00000000000032bb      0x10e /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-clock.o)
+ .debug_str     0x00000000000032db      0x10e /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-clock.o)
                                         0x2d4 (size before relaxing)
- .debug_str     0x00000000000033c9      0x24f /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-cpu.o)
+ .debug_str     0x00000000000033e9      0x24f /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-cpu.o)
                                        0x1134 (size before relaxing)
- .debug_str     0x0000000000003618       0x82 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-shutdown.o)
+ .debug_str     0x0000000000003638       0x82 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-shutdown.o)
                                         0xf6e (size before relaxing)
- .debug_str     0x000000000000369a       0x41 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-vector.o)
+ .debug_str     0x00000000000036ba       0x41 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-vector.o)
                                          0x9a (size before relaxing)
- .debug_str     0x00000000000036db       0xcb /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-fixed-clock.o)
+ .debug_str     0x00000000000036fb       0xcb /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-fixed-clock.o)
                                         0xf9e (size before relaxing)
- .debug_str     0x00000000000037a6       0x51 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_exit.o)
+ .debug_str     0x00000000000037c6       0x51 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_exit.o)
                                         0x109 (size before relaxing)
 
 .comment        0x0000000000000000       0x28
- .comment       0x0000000000000000       0x28 /tmp/ccPqYhd9.o
+ .comment       0x0000000000000000       0x28 /tmp/ccMsI5eZ.o
                                          0x29 (size before relaxing)
  .comment       0x0000000000000028       0x29 /home/albertojor/riscv64-unknown-elf-gcc-8.3.0-2019.08.0-x86_64-linux-ubuntu14/bin/../lib/gcc/riscv64-unknown-elf/8.3.0/../../../../riscv64-unknown-elf/lib/rv32imac/ilp32/libc_nano.a(lib_a-printf.o)
  .comment       0x0000000000000028       0x29 /home/albertojor/riscv64-unknown-elf-gcc-8.3.0-2019.08.0-x86_64-linux-ubuntu14/bin/../lib/gcc/riscv64-unknown-elf/8.3.0/../../../../riscv64-unknown-elf/lib/rv32imac/ilp32/libc_nano.a(lib_a-putchar.o)
@@ -2148,7 +2150,7 @@ OUTPUT(AsconDec elf32-littleriscv)
 .riscv.attributes
                 0x0000000000000000       0x2b
  .riscv.attributes
-                0x0000000000000000       0x2b /tmp/ccPqYhd9.o
+                0x0000000000000000       0x2b /tmp/ccMsI5eZ.o
  .riscv.attributes
                 0x000000000000002b       0x2b /home/albertojor/riscv64-unknown-elf-gcc-8.3.0-2019.08.0-x86_64-linux-ubuntu14/bin/../lib/gcc/riscv64-unknown-elf/8.3.0/../../../../riscv64-unknown-elf/lib/rv32imac/ilp32/libc_nano.a(lib_a-printf.o)
  .riscv.attributes
@@ -2266,25 +2268,25 @@ OUTPUT(AsconDec elf32-littleriscv)
  .riscv.attributes
                 0x00000000000009b6       0x2b /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_exit.o)
 
-.debug_frame    0x0000000000000000     0x2560
- .debug_frame   0x0000000000000000      0x230 /tmp/ccPqYhd9.o
- .debug_frame   0x0000000000000230       0x38 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_close.o)
- .debug_frame   0x0000000000000268       0x38 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_fstat.o)
- .debug_frame   0x00000000000002a0       0x34 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_isatty.o)
- .debug_frame   0x00000000000002d4       0x38 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_lseek.o)
- .debug_frame   0x000000000000030c       0x38 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_read.o)
- .debug_frame   0x0000000000000344       0x58 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_sbrk.o)
- .debug_frame   0x000000000000039c       0x38 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_write.o)
- .debug_frame   0x00000000000003d4       0x34 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-synchronize_harts.o)
- .debug_frame   0x0000000000000408       0xb0 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-tty.o)
- .debug_frame   0x00000000000004b8      0x100 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-uart.o)
- .debug_frame   0x00000000000005b8      0x2cc /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-riscv_clint0.o)
- .debug_frame   0x0000000000000884      0xfc0 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-riscv_cpu.o)
- .debug_frame   0x0000000000001844      0x2c0 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-riscv_plic0.o)
- .debug_frame   0x0000000000001b04      0x2d4 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-sifive_gpio0.o)
- .debug_frame   0x0000000000001dd8      0x298 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-sifive_uart0.o)
- .debug_frame   0x0000000000002070       0xfc /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-clock.o)
- .debug_frame   0x000000000000216c      0x2fc /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-cpu.o)
- .debug_frame   0x0000000000002468       0x48 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-shutdown.o)
- .debug_frame   0x00000000000024b0       0x84 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-fixed-clock.o)
- .debug_frame   0x0000000000002534       0x2c /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_exit.o)
+.debug_frame    0x0000000000000000     0x25ac
+ .debug_frame   0x0000000000000000      0x27c /tmp/ccMsI5eZ.o
+ .debug_frame   0x000000000000027c       0x38 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_close.o)
+ .debug_frame   0x00000000000002b4       0x38 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_fstat.o)
+ .debug_frame   0x00000000000002ec       0x34 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_isatty.o)
+ .debug_frame   0x0000000000000320       0x38 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_lseek.o)
+ .debug_frame   0x0000000000000358       0x38 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_read.o)
+ .debug_frame   0x0000000000000390       0x58 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_sbrk.o)
+ .debug_frame   0x00000000000003e8       0x38 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_write.o)
+ .debug_frame   0x0000000000000420       0x34 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-synchronize_harts.o)
+ .debug_frame   0x0000000000000454       0xb0 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-tty.o)
+ .debug_frame   0x0000000000000504      0x100 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-uart.o)
+ .debug_frame   0x0000000000000604      0x2cc /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-riscv_clint0.o)
+ .debug_frame   0x00000000000008d0      0xfc0 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-riscv_cpu.o)
+ .debug_frame   0x0000000000001890      0x2c0 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-riscv_plic0.o)
+ .debug_frame   0x0000000000001b50      0x2d4 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-sifive_gpio0.o)
+ .debug_frame   0x0000000000001e24      0x298 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-sifive_uart0.o)
+ .debug_frame   0x00000000000020bc       0xfc /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-clock.o)
+ .debug_frame   0x00000000000021b8      0x2fc /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-cpu.o)
+ .debug_frame   0x00000000000024b4       0x48 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-shutdown.o)
+ .debug_frame   0x00000000000024fc       0x84 /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal.a(libriscv__mmachine__freedom-e310-arty-xmem_a-fixed-clock.o)
+ .debug_frame   0x0000000000002580       0x2c /home/albertojor/GitHub/freedom-e-sdk/bsp/freedom-e310-arty-xmem/install/lib/debug//libmetal-gloss.a(sys_exit.o)

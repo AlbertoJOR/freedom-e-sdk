@@ -7,10 +7,10 @@ start address 0x20400000
 
 Program Header:
     LOAD off    0x00001000 vaddr 0x20400000 paddr 0x20400000 align 2**12
-         filesz 0x0000645c memsz 0x0000645c flags rwx
+         filesz 0x00006474 memsz 0x00006474 flags rwx
     LOAD off    0x00007730 vaddr 0x80001730 paddr 0x80001730 align 2**12
          filesz 0x00000000 memsz 0x00001c84 flags rw-
-    LOAD off    0x00008000 vaddr 0x80000000 paddr 0x20406460 align 2**12
+    LOAD off    0x00008000 vaddr 0x80000000 paddr 0x20406478 align 2**12
          filesz 0x00001730 memsz 0x00001730 flags rw-
     LOAD off    0x00009730 vaddr 0x00000000 paddr 0x00000000 align 2**12
          filesz 0x00000000 memsz 0x00000000 flags ---
@@ -21,26 +21,26 @@ Sections:
 Idx Name              Size      VMA       LMA       File off  Algn  Flags
   0 .init             0000019e  20400000  20400000  00001000  2**2  CONTENTS, ALLOC, LOAD, READONLY, CODE
   1 .text             00005d02  20400200  20400200  00001200  2**7  CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .rodata           00000554  20405f04  20405f04  00006f04  2**2  CONTENTS, ALLOC, LOAD, READONLY, DATA
-  3 .init_array       00000004  20406458  20406458  00007458  2**2  CONTENTS, ALLOC, LOAD, DATA
-  4 .data             00001730  80000000  20406460  00008000  2**3  CONTENTS, ALLOC, LOAD, DATA
+  2 .rodata           0000056c  20405f04  20405f04  00006f04  2**2  CONTENTS, ALLOC, LOAD, READONLY, DATA
+  3 .init_array       00000004  20406470  20406470  00007470  2**2  CONTENTS, ALLOC, LOAD, DATA
+  4 .data             00001730  80000000  20406478  00008000  2**3  CONTENTS, ALLOC, LOAD, DATA
   5 .bss              00001084  80001730  80001730  00007730  2**3  ALLOC
   6 .stack            00000400  800027b4  800027b4  00007730  2**0  ALLOC
   7 .heap             00000800  80002bb4  80002bb4  00007730  2**0  ALLOC
-  8 .debug_info       00014ac1  00000000  00000000  00009730  2**0  CONTENTS, READONLY, DEBUGGING
-  9 .debug_abbrev     0000278a  00000000  00000000  0001e1f1  2**0  CONTENTS, READONLY, DEBUGGING
- 10 .debug_aranges    000008f8  00000000  00000000  00020980  2**3  CONTENTS, READONLY, DEBUGGING
- 11 .debug_ranges     00000790  00000000  00000000  00021278  2**3  CONTENTS, READONLY, DEBUGGING
- 12 .debug_line       0000922f  00000000  00000000  00021a08  2**0  CONTENTS, READONLY, DEBUGGING
- 13 .debug_str        000037f7  00000000  00000000  0002ac37  2**0  CONTENTS, READONLY, DEBUGGING
- 14 .comment          00000028  00000000  00000000  0002e42e  2**0  CONTENTS, READONLY
- 15 .riscv.attributes 0000002b  00000000  00000000  0002e456  2**0  CONTENTS, READONLY
- 16 .debug_frame      00002560  00000000  00000000  0002e484  2**2  CONTENTS, READONLY, DEBUGGING
+  8 .debug_info       00014b7d  00000000  00000000  00009730  2**0  CONTENTS, READONLY, DEBUGGING
+  9 .debug_abbrev     0000278a  00000000  00000000  0001e2ad  2**0  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_aranges    00000908  00000000  00000000  00020a38  2**3  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges     000007a0  00000000  00000000  00021340  2**3  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_line       000092a2  00000000  00000000  00021ae0  2**0  CONTENTS, READONLY, DEBUGGING
+ 13 .debug_str        00003817  00000000  00000000  0002ad82  2**0  CONTENTS, READONLY, DEBUGGING
+ 14 .comment          00000028  00000000  00000000  0002e599  2**0  CONTENTS, READONLY
+ 15 .riscv.attributes 0000002b  00000000  00000000  0002e5c1  2**0  CONTENTS, READONLY
+ 16 .debug_frame      000025ac  00000000  00000000  0002e5ec  2**2  CONTENTS, READONLY, DEBUGGING
 SYMBOL TABLE:
 20400000 l    d  .init	00000000 .init
 20400200 l    d  .text	00000000 .text
 20405f04 l    d  .rodata	00000000 .rodata
-20406458 l    d  .init_array	00000000 .init_array
+20406470 l    d  .init_array	00000000 .init_array
 80000000 l    d  .data	00000000 .data
 80001730 l    d  .bss	00000000 .bss
 800027b4 l    d  .stack	00000000 .stack
@@ -59,20 +59,20 @@ SYMBOL TABLE:
 00000000 l    df *ABS*	00000000 synchronize_harts.c
 00000000 l    df *ABS*	00000000 crt0.o
 2040013e l       .init	00000000 _skip_init
-20406104 l       .rodata	00000000 argv
-20406108 l       .rodata	00000000 envp
-2040610c l       .rodata	00000000 name
+2040611c l       .rodata	00000000 argv
+20406120 l       .rodata	00000000 envp
+20406124 l       .rodata	00000000 name
 00000000 l    df *ABS*	00000000 AsconDec.c
 20400394 l     F .text	00000404 ROUND
 20400798 l     F .text	0000008e P12
 20400826 l     F .text	00000052 P6
-80000000 l     O .data	000007d0 asso_text.2786
-800007d0 l     O .data	000007d0 plain_text.2785
-8000173c l     O .bss	000007e0 cipher_text.2787
-80000fa0 l     O .data	00000010 Key.2791
-80000fb0 l     O .data	00000010 Nonce.2788
-80001f1c l     O .bss	00000028 hash.2790
-80001f44 l     O .bss	000007e0 dec_text.2789
+80000000 l     O .data	000007d0 asso_text.2802
+800007d0 l     O .data	000007d0 plain_text.2801
+8000173c l     O .bss	000007e0 cipher_text.2803
+80000fa0 l     O .data	00000010 Key.2807
+80000fb0 l     O .data	00000010 Nonce.2804
+80001f1c l     O .bss	00000028 hash.2806
+80001f44 l     O .bss	000007e0 dec_text.2805
 00000000 l    df *ABS*	00000000 printf.c
 00000000 l    df *ABS*	00000000 putchar.c
 00000000 l    df *ABS*	00000000 putc.c
@@ -191,14 +191,14 @@ SYMBOL TABLE:
 80000fc0 l     O .data	00000060 impure_data
 00000000 l    df *ABS*	00000000 inline.c
 00000000 l    df *ABS*	00000000 
-2040645c l       .init_array	00000000 __fini_array_end
-2040645c l       .init_array	00000000 __fini_array_start
-2040645c l       .init_array	00000000 __init_array_end
-20406458 l       .init_array	00000000 __preinit_array_end
-20406458 l       .init_array	00000000 __init_array_start
-20406458 l       .init_array	00000000 __preinit_array_start
+20406474 l       .init_array	00000000 __fini_array_end
+20406474 l       .init_array	00000000 __fini_array_start
+20406474 l       .init_array	00000000 __init_array_end
+20406470 l       .init_array	00000000 __preinit_array_end
+20406470 l       .init_array	00000000 __init_array_start
+20406470 l       .init_array	00000000 __preinit_array_start
 20401186 g     F .text	0000002c putchar
-20406434 g     O .rodata	00000020 __metal_driver_vtable_sifive_uart0
+2040644c g     O .rodata	00000020 __metal_driver_vtable_sifive_uart0
 2040206e g     F .text	00000030 _isatty_r
 204038be  w    F .text	00000092 metal_lc4_interrupt_vector_handler
 20401234 g     F .text	000000da _puts_r
@@ -223,7 +223,7 @@ SYMBOL TABLE:
 20405d74 g     F .text	0000002a metal_cpu_get
 800016e8 g     O .data	00000020 __metal_dt_serial_10013000
 204053a4 g     F .text	0000004a __metal_driver_sifive_gpio0_disable_io
-20406118 g     O .rodata	0000004c __metal_driver_vtable_riscv_clint0
+20406130 g     O .rodata	0000004c __metal_driver_vtable_riscv_clint0
 800027b4 g       .bss	00000000 metal_segment_bss_target_end
 20402a64 g     F .text	0000009a __metal_clint0_mtime_get
 204048ae g     F .text	0000002e __metal_driver_cpu_get_instruction_length
@@ -241,8 +241,8 @@ SYMBOL TABLE:
 00000400 g       *ABS*	00000000 __stack_size
 20405cee g     F .text	00000030 metal_clock_register_pre_rate_change_callback
 20403b98  w    F .text	00000092 metal_lc9_interrupt_vector_handler
-2040636c g     O .rodata	0000004c __metal_driver_vtable_riscv_plic0
-2040632c g     O .rodata	00000040 __metal_driver_vtable_cpu
+20406384 g     O .rodata	0000004c __metal_driver_vtable_riscv_plic0
+20406344 g     O .rodata	00000040 __metal_driver_vtable_cpu
 20402980 g     F .text	0000002e metal_uart_set_baud_rate
 20405bc8 g     F .text	000000d2 __metal_driver_sifive_uart0_init
 2040453c g     F .text	00000072 __metal_driver_cpu_mcycle_get
@@ -259,7 +259,7 @@ SYMBOL TABLE:
 20404aa8 g     F .text	00000062 __metal_plic0_set_priority
 204044c4 g     F .text	0000005c __metal_driver_riscv_cpu_controller_set_vector_mode
 20403144 g     F .text	0000002c __metal_driver_cpu_get
-204062e0 g     O .rodata	0000004c __metal_driver_vtable_riscv_cpu_intc
+204062f8 g     O .rodata	0000004c __metal_driver_vtable_riscv_cpu_intc
 204031a2 g     F .text	00000018 __metal_interrupt_global_disable
 20403a74  w    F .text	00000092 metal_lc7_interrupt_vector_handler
 20403c2a  w    F .text	00000092 metal_lc10_interrupt_vector_handler
@@ -287,7 +287,7 @@ SYMBOL TABLE:
 20403204 g     F .text	0000001a __metal_interrupt_timer_disable
 204053ee g     F .text	00000206 __metal_driver_sifive_gpio0_config_int
 20404786 g     F .text	00000062 __metal_driver_cpu_clear_sw_ipi
-204063f8 g     O .rodata	0000003c __metal_driver_vtable_sifive_gpio0
+20406410 g     O .rodata	0000003c __metal_driver_vtable_sifive_gpio0
 2040533c g     F .text	00000068 __metal_driver_sifive_gpio0_enable_io
 204026bc g     F .text	00000038 __libc_fini_array
 2040577c g     F .text	00000020 __metal_driver_gpio_interrupt_controller
@@ -300,7 +300,7 @@ SYMBOL TABLE:
 204011b2 g     F .text	00000082 _putc_r
 80001020 g     O .data	0000000c __metal_dt_clock_0
 00000800 g       *ABS*	00000000 __heap_size
-20406068 g     O .rodata	00000020 __sf_fake_stderr
+20406080 g     O .rodata	00000020 __sf_fake_stderr
 2040323a g     F .text	0000001c __metal_interrupt_external_disable
 20405914 g     F .text	00000022 __metal_driver_sifive_uart0_get_interrupt_id
 20404520 g     F .text	0000001c __metal_driver_riscv_cpu_controller_command_request
@@ -344,7 +344,7 @@ SYMBOL TABLE:
 204020ec g     F .text	00000002 __malloc_lock
 20401636 g     F .text	00000064 _fflush_r
 20404a7c g     F .text	0000002c __metal_plic0_get_threshold
-20406088 g     O .rodata	00000020 __sf_fake_stdin
+204060a0 g     O .rodata	00000020 __sf_fake_stdin
 204040b6 g     F .text	000000bc __metal_local_interrupt_enable
 20402f2e g     F .text	00000136 __metal_driver_riscv_clint0_command_request
 204019b8 g     F .text	000000a8 memset
@@ -366,7 +366,7 @@ SYMBOL TABLE:
 20405d9e g     F .text	0000001a metal_cpu_get_current_hartid
 204002be g     F .text	000000d6 AEAD_DEC
 20405e00 g       .text	00000000 __metal_vector_table
-20406460 g       *ABS*	00000000 metal_segment_itim_source_start
+20406478 g       *ABS*	00000000 metal_segment_itim_source_start
 80001714  w    O .data	00000004 __metal_cpu_table
 80001030 g     O .data	000003b8 __metal_dt_cpu_0_interrupt_controller
 2040017c g     F .init	00000002 _fini
@@ -384,7 +384,7 @@ SYMBOL TABLE:
 204014ec g     F .text	0000014a __sflush_r
 20405eae g     F .text	0000001e __metal_driver_fixed_clock_get_rate_hz
 20402dc4 g     F .text	000000b2 __metal_driver_riscv_clint0_enable
-20406460 g       *ABS*	00000000 metal_segment_data_source_start
+20406478 g       *ABS*	00000000 metal_segment_data_source_start
 800033b4 g       .heap	00000000 metal_segment_heap_target_end
 20403fe6 g     F .text	00000098 __metal_controller_interrupt_vector
 800013e8 g     O .data	00000300 __metal_dt_interrupt_controller_c000000
@@ -401,7 +401,7 @@ SYMBOL TABLE:
 20401c56 g     F .text	00000298 _vfiprintf_r
 20401858 g     F .text	0000006c _fwalk_reent
 20405ecc g     F .text	00000022 __metal_driver_fixed_clock_set_rate_hz
-204060a8 g     O .rodata	00000020 __sf_fake_stdout
+204060c0 g     O .rodata	00000020 __sf_fake_stdout
 80001724 g     O .data	00000004 __metal_dt_gpio_10012000
 204032c6 g     F .text	00000018 __metal_default_interrupt_handler
 20402952 g     F .text	0000002e metal_uart_putc
@@ -666,7 +666,7 @@ _start():
    * be equal to metal_segment_data_target_start. */
   la t0, metal_segment_data_source_start
 204000ac:	00006297          	auipc	t0,0x6
-204000b0:	3b428293          	addi	t0,t0,948 # 20406460 <metal_segment_data_source_start>
+204000b0:	3cc28293          	addi	t0,t0,972 # 20406478 <metal_segment_data_source_start>
 /home/albertojor/GitHub/freedom-e-sdk/freedom-metal/gloss/crt0.S:76
   la t1, metal_segment_data_target_start
 204000b4:	5fc00317          	auipc	t1,0x5fc00
@@ -707,7 +707,7 @@ _start():
   /* Copy the ITIM section */
   la t0, metal_segment_itim_source_start
 204000d8:	00006297          	auipc	t0,0x6
-204000dc:	38828293          	addi	t0,t0,904 # 20406460 <metal_segment_data_source_start>
+204000dc:	3a028293          	addi	t0,t0,928 # 20406478 <metal_segment_data_source_start>
 /home/albertojor/GitHub/freedom-e-sdk/freedom-metal/gloss/crt0.S:100
   la t1, metal_segment_itim_target_start
 204000e0:	e7c00317          	auipc	t1,0xe7c00
@@ -851,11 +851,11 @@ _skip_init:
 /home/albertojor/GitHub/freedom-e-sdk/freedom-metal/gloss/crt0.S:178
   la a1, argv  /* argv = {"libgloss", NULL} */
 20400162:	00006597          	auipc	a1,0x6
-20400166:	fa258593          	addi	a1,a1,-94 # 20406104 <argv>
+20400166:	fba58593          	addi	a1,a1,-70 # 2040611c <argv>
 /home/albertojor/GitHub/freedom-e-sdk/freedom-metal/gloss/crt0.S:179
   la a2, envp  /* envp = {NULL} */
 2040016a:	00006617          	auipc	a2,0x6
-2040016e:	f9e60613          	addi	a2,a2,-98 # 20406108 <envp>
+2040016e:	fb660613          	addi	a2,a2,-74 # 20406120 <envp>
 /home/albertojor/GitHub/freedom-e-sdk/freedom-metal/gloss/crt0.S:180
   call secondary_main
 20400172:	2031                	jal	2040017e <secondary_main>
@@ -944,11 +944,11 @@ Disassembly of section .text:
 
 20400200 <printC>:
 printC():
-/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:38
-             u32 *d_addr, u32 *nonce_addr,
-             u32 *key_addr, u32 *tag_addr);
-u32 HASH(u32 *m_addr, u32 m_len,
-             u32 *c_addr );
+/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:45
+
+u32 RAND(u32 *return_addr, u32 num_rands);
+
+u32 SEED();
 
 void printC(u32 *arr, u32 a_len, int cipher, int del) {
 20400200:	7179                	addi	sp,sp,-48
@@ -959,49 +959,49 @@ void printC(u32 *arr, u32 a_len, int cipher, int del) {
 2040020c:	fcb42c23          	sw	a1,-40(s0)
 20400210:	fcc42a23          	sw	a2,-44(s0)
 20400214:	fcd42823          	sw	a3,-48(s0)
-/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:39
-    int len = (a_len % 8 == 0)? (a_len /4)*2 : (a_len/4)*2 +2 ;
+/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:46
+    int len = (a_len % 8 == 0) ? (a_len / 4) * 2 : (a_len / 4) * 2 + 2;
 20400218:	fd842783          	lw	a5,-40(s0)
 2040021c:	8b9d                	andi	a5,a5,7
 2040021e:	e791                	bnez	a5,2040022a <printC+0x2a>
-/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:39 (discriminator 1)
+/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:46 (discriminator 1)
 20400220:	fd842783          	lw	a5,-40(s0)
 20400224:	8389                	srli	a5,a5,0x2
 20400226:	0786                	slli	a5,a5,0x1
 20400228:	a031                	j	20400234 <printC+0x34>
-/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:39 (discriminator 2)
+/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:46 (discriminator 2)
 2040022a:	fd842783          	lw	a5,-40(s0)
 2040022e:	8389                	srli	a5,a5,0x2
 20400230:	0785                	addi	a5,a5,1
 20400232:	0786                	slli	a5,a5,0x1
-/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:39 (discriminator 4)
+/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:46 (discriminator 4)
 20400234:	fef42423          	sw	a5,-24(s0)
-/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:40 (discriminator 4)
-    len =  (cipher) ? len + 4 : len;
+/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:47 (discriminator 4)
+    len = (cipher) ? len + 4 : len;
 20400238:	fd442783          	lw	a5,-44(s0)
 2040023c:	c789                	beqz	a5,20400246 <printC+0x46>
-/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:40 (discriminator 1)
+/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:47 (discriminator 1)
 2040023e:	fe842783          	lw	a5,-24(s0)
 20400242:	0791                	addi	a5,a5,4
 20400244:	a019                	j	2040024a <printC+0x4a>
-/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:40 (discriminator 2)
+/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:47 (discriminator 2)
 20400246:	fe842783          	lw	a5,-24(s0)
-/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:40 (discriminator 4)
+/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:47 (discriminator 4)
 2040024a:	fef42423          	sw	a5,-24(s0)
-/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:41 (discriminator 4)
+/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:48 (discriminator 4)
     for (int i = 0; i < len; i++) {
 2040024e:	fe042623          	sw	zero,-20(s0)
 20400252:	a881                	j	204002a2 <printC+0xa2>
-/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:42
+/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:49
         if (i % 2 == 0) {
 20400254:	fec42783          	lw	a5,-20(s0)
 20400258:	8b85                	andi	a5,a5,1
 2040025a:	e781                	bnez	a5,20400262 <printC+0x62>
-/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:43
+/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:50
             printf("\n");
 2040025c:	4529                	li	a0,10
 2040025e:	729000ef          	jal	ra,20401186 <putchar>
-/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:45
+/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:52
         }
         printf("%08x ", arr[i], i);
 20400262:	fec42783          	lw	a5,-20(s0)
@@ -1014,33 +1014,33 @@ void printC(u32 *arr, u32 a_len, int cipher, int del) {
 20400276:	204067b7          	lui	a5,0x20406
 2040027a:	f0478513          	addi	a0,a5,-252 # 20405f04 <_exit+0x16>
 2040027e:	6c5000ef          	jal	ra,20401142 <iprintf>
-/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:46
+/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:53
         if (del) {
 20400282:	fd042783          	lw	a5,-48(s0)
 20400286:	cb89                	beqz	a5,20400298 <printC+0x98>
-/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:47
+/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:54
             arr[i] = 0;
 20400288:	fec42783          	lw	a5,-20(s0)
 2040028c:	078a                	slli	a5,a5,0x2
 2040028e:	fdc42703          	lw	a4,-36(s0)
 20400292:	97ba                	add	a5,a5,a4
 20400294:	0007a023          	sw	zero,0(a5)
-/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:41 (discriminator 2)
+/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:48 (discriminator 2)
     for (int i = 0; i < len; i++) {
 20400298:	fec42783          	lw	a5,-20(s0)
 2040029c:	0785                	addi	a5,a5,1
 2040029e:	fef42623          	sw	a5,-20(s0)
-/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:41 (discriminator 1)
+/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:48 (discriminator 1)
 204002a2:	fec42703          	lw	a4,-20(s0)
 204002a6:	fe842783          	lw	a5,-24(s0)
 204002aa:	faf745e3          	blt	a4,a5,20400254 <printC+0x54>
-/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:50
+/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:57
         }
     }
     printf("\n");
 204002ae:	4529                	li	a0,10
 204002b0:	6d7000ef          	jal	ra,20401186 <putchar>
-/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:51
+/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:58
 }
 204002b4:	0001                	nop
 204002b6:	50b2                	lw	ra,44(sp)
@@ -1050,13 +1050,13 @@ void printC(u32 *arr, u32 a_len, int cipher, int del) {
 
 204002be <AEAD_DEC>:
 AEAD_DEC():
-/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:98
+/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:107
 }
 
 u32 AEAD_DEC(u32 *ad_addr, u32 ad_len,
              u32 *c_addr, u32 c_len,
              u32 *d_addr, u32 *nonce_addr,
-             u32 *key_addr, u32 *tag_addr){
+             u32 *key_addr, u32 *tag_addr) {
 204002be:	7139                	addi	sp,sp,-64
 204002c0:	de22                	sw	s0,60(sp)
 204002c2:	0080                	addi	s0,sp,64
@@ -1068,112 +1068,112 @@ u32 AEAD_DEC(u32 *ad_addr, u32 ad_len,
 204002d8:	fcf42423          	sw	a5,-56(s0)
 204002dc:	fd042223          	sw	a6,-60(s0)
 204002e0:	fd142023          	sw	a7,-64(s0)
-/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:99
+/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:108
     u32 rd = 0;
 204002e4:	fe042623          	sw	zero,-20(s0)
-/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:101
-   // printf("Init DEC\n");
+/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:110
+    // printf("Init DEC\n");
     asm volatile("fence");
 204002e8:	0ff0000f          	fence
-/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:102
+/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:111
     ROCC_INSTRUCTION_DS(0, rd, nonce_addr, Enc_Set_Nonce);
 204002ec:	fc842783          	lw	a5,-56(s0)
 204002f0:	85be                	mv	a1,a5
 204002f2:	2805e50b          	0x2805e50b
 204002f6:	fea42623          	sw	a0,-20(s0)
-/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:103
+/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:112
     asm volatile("fence":: : "memory");
 204002fa:	0ff0000f          	fence
-/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:106
+/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:115
     //printf("Set Nonce finish : %08x \n", rd);
 
     asm volatile("fence");
 204002fe:	0ff0000f          	fence
-/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:107
+/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:116
     ROCC_INSTRUCTION_DS(0, rd, tag_addr, Dec_Load_Tag);
 20400302:	fc042783          	lw	a5,-64(s0)
 20400306:	85be                	mv	a1,a5
 20400308:	2e05e50b          	0x2e05e50b
 2040030c:	fea42623          	sw	a0,-20(s0)
-/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:108
+/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:117
     asm volatile("fence":: : "memory");
 20400310:	0ff0000f          	fence
-/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:111
+/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:120
     //printf("Load Tag finish : %08x \n", rd);
 
     asm volatile("fence");
 20400314:	0ff0000f          	fence
-/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:112
+/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:121
     ROCC_INSTRUCTION_DS(0, rd, key_addr, Enc_Set_Key);
 20400318:	fc442783          	lw	a5,-60(s0)
 2040031c:	85be                	mv	a1,a5
 2040031e:	2a05e50b          	0x2a05e50b
 20400322:	fea42623          	sw	a0,-20(s0)
-/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:113
+/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:122
     asm volatile("fence":: : "memory");
 20400326:	0ff0000f          	fence
-/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:116
+/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:125
     //printf("Set Key  finish : %07x \n", rd);
 
     asm volatile("fence");
 2040032a:	0ff0000f          	fence
-/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:117
+/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:126
     ROCC_INSTRUCTION_DSS(0, rd, c_addr, c_len, Enc_Set_P);
 2040032e:	fd442783          	lw	a5,-44(s0)
 20400332:	85be                	mv	a1,a5
 20400334:	fd042603          	lw	a2,-48(s0)
 20400338:	22c5f50b          	0x22c5f50b
 2040033c:	fea42623          	sw	a0,-20(s0)
-/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:118
+/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:127
     asm volatile("fence":: : "memory");
 20400340:	0ff0000f          	fence
-/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:121
+/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:130
     //printf("Set Plain text finish length : %08x \n", rd);
 
     asm volatile("fence");
 20400344:	0ff0000f          	fence
-/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:122
+/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:131
     ROCC_INSTRUCTION_DSS(0, rd, ad_addr, ad_len, Enc_Set_AD);
 20400348:	fdc42783          	lw	a5,-36(s0)
 2040034c:	85be                	mv	a1,a5
 2040034e:	fd842603          	lw	a2,-40(s0)
 20400352:	24c5f50b          	0x24c5f50b
 20400356:	fea42623          	sw	a0,-20(s0)
-/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:123
+/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:132
     asm volatile("fence":: : "memory");
 2040035a:	0ff0000f          	fence
-/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:126
+/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:135
     //printf("Set Associated Data finish length: %08x \n", rd);
 
     asm volatile("fence");
 2040035e:	0ff0000f          	fence
-/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:127
+/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:136
     ROCC_INSTRUCTION_DS(0, rd, d_addr, Enc_Set_C_Tag);
 20400362:	fcc42783          	lw	a5,-52(s0)
 20400366:	85be                	mv	a1,a5
 20400368:	2605e50b          	0x2605e50b
 2040036c:	fea42623          	sw	a0,-20(s0)
-/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:128
+/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:137
     asm volatile("fence":: : "memory");
 20400370:	0ff0000f          	fence
-/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:131
+/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:140
     //printf("Set Dec addr: %08x \n", rd);
 
     asm volatile("fence");
 20400374:	0ff0000f          	fence
-/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:132
+/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:141
     ROCC_INSTRUCTION_DS(0, rd, rd, Dec_Init);
 20400378:	fec42583          	lw	a1,-20(s0)
 2040037c:	3005e50b          	0x3005e50b
 20400380:	fea42623          	sw	a0,-20(s0)
-/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:133
+/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:142
     asm volatile("fence":: : "memory");
 20400384:	0ff0000f          	fence
-/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:135
+/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:144
     //printf("Finish AEAD Dec %08x \n", rd);
     return rd;
 20400388:	fec42783          	lw	a5,-20(s0)
-/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:136
+/home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../AsconHW/AEAD_HW.h:145
 }
 2040038c:	853e                	mv	a0,a5
 2040038e:	5472                	lw	s0,60(sp)
@@ -1798,7 +1798,7 @@ void printstate(const char *text, const ascon_state_t *s, int debug) {
 204008be:	863e                	mv	a2,a5
 204008c0:	85b6                	mv	a1,a3
 204008c2:	204067b7          	lui	a5,0x20406
-204008c6:	f0c78513          	addi	a0,a5,-244 # 20405f0c <_exit+0x1e>
+204008c6:	f2478513          	addi	a0,a5,-220 # 20405f24 <_exit+0x36>
 204008ca:	079000ef          	jal	ra,20401142 <iprintf>
 /home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../Asconref/util.h:60 (discriminator 3)
     for (int i = 0; i < 5; i++) {
@@ -1940,7 +1940,7 @@ int crypto_aead_decrypt(u32 *m, u32 *mlen, u32 *c, u32 clen, u32 *ad, u32 adlen,
 204009c8:	4010                	lw	a2,0(s0)
 204009ca:	85be                	mv	a1,a5
 204009cc:	204067b7          	lui	a5,0x20406
-204009d0:	f1878513          	addi	a0,a5,-232 # 20405f18 <_exit+0x2a>
+204009d0:	f3078513          	addi	a0,a5,-208 # 20405f30 <_exit+0x42>
 204009d4:	3555                	jal	20400878 <printstate>
 /home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../Asconref/aead.h:153
     P12(&s);
@@ -1978,7 +1978,7 @@ int crypto_aead_decrypt(u32 *m, u32 *mlen, u32 *c, u32 clen, u32 *ad, u32 adlen,
 20400a1a:	4010                	lw	a2,0(s0)
 20400a1c:	85be                	mv	a1,a5
 20400a1e:	204067b7          	lui	a5,0x20406
-20400a22:	f2478513          	addi	a0,a5,-220 # 20405f24 <_exit+0x36>
+20400a22:	f3c78513          	addi	a0,a5,-196 # 20405f3c <_exit+0x4e>
 20400a26:	3d89                	jal	20400878 <printstate>
 /home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../Asconref/aead.h:161
 
@@ -2023,7 +2023,7 @@ int crypto_aead_decrypt(u32 *m, u32 *mlen, u32 *c, u32 clen, u32 *ad, u32 adlen,
 20400a72:	4010                	lw	a2,0(s0)
 20400a74:	85be                	mv	a1,a5
 20400a76:	204067b7          	lui	a5,0x20406
-20400a7a:	f3078513          	addi	a0,a5,-208 # 20405f30 <_exit+0x42>
+20400a7a:	f4878513          	addi	a0,a5,-184 # 20405f48 <_exit+0x5a>
 20400a7e:	3bed                	jal	20400878 <printstate>
 /home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../Asconref/aead.h:169
             adlen -= 8;
@@ -2145,7 +2145,7 @@ int crypto_aead_decrypt(u32 *m, u32 *mlen, u32 *c, u32 clen, u32 *ad, u32 adlen,
 20400b7a:	4010                	lw	a2,0(s0)
 20400b7c:	85be                	mv	a1,a5
 20400b7e:	204067b7          	lui	a5,0x20406
-20400b82:	f3c78513          	addi	a0,a5,-196 # 20405f3c <_exit+0x4e>
+20400b82:	f5478513          	addi	a0,a5,-172 # 20405f54 <_exit+0x66>
 20400b86:	39cd                	jal	20400878 <printstate>
 /home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../Asconref/aead.h:178 (discriminator 8)
         P6(&s);
@@ -2165,7 +2165,7 @@ int crypto_aead_decrypt(u32 *m, u32 *mlen, u32 *c, u32 clen, u32 *ad, u32 adlen,
 20400ba0:	4010                	lw	a2,0(s0)
 20400ba2:	85be                	mv	a1,a5
 20400ba4:	204067b7          	lui	a5,0x20406
-20400ba8:	f4878513          	addi	a0,a5,-184 # 20405f48 <_exit+0x5a>
+20400ba8:	f6078513          	addi	a0,a5,-160 # 20405f60 <_exit+0x72>
 20400bac:	31f1                	jal	20400878 <printstate>
 /home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../Asconref/aead.h:184
     u32 ch, cl;
@@ -2236,7 +2236,7 @@ int crypto_aead_decrypt(u32 *m, u32 *mlen, u32 *c, u32 clen, u32 *ad, u32 adlen,
 20400c2a:	4010                	lw	a2,0(s0)
 20400c2c:	85be                	mv	a1,a5
 20400c2e:	204067b7          	lui	a5,0x20406
-20400c32:	f5c78513          	addi	a0,a5,-164 # 20405f5c <_exit+0x6e>
+20400c32:	f7478513          	addi	a0,a5,-140 # 20405f74 <_exit+0x86>
 20400c36:	3189                	jal	20400878 <printstate>
 /home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../Asconref/aead.h:199
         P6(&s);
@@ -2438,7 +2438,7 @@ int crypto_aead_decrypt(u32 *m, u32 *mlen, u32 *c, u32 clen, u32 *ad, u32 adlen,
 20400dd8:	4010                	lw	a2,0(s0)
 20400dda:	85be                	mv	a1,a5
 20400ddc:	204067b7          	lui	a5,0x20406
-20400de0:	f8878513          	addi	a0,a5,-120 # 20405f88 <_exit+0x9a>
+20400de0:	fa078513          	addi	a0,a5,-96 # 20405fa0 <_exit+0xb2>
 20400de4:	3c51                	jal	20400878 <printstate>
 /home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../Asconref/aead.h:217 (discriminator 4)
     s.xh[0] |= ch;
@@ -2502,7 +2502,7 @@ int crypto_aead_decrypt(u32 *m, u32 *mlen, u32 *c, u32 clen, u32 *ad, u32 adlen,
 20400e68:	4010                	lw	a2,0(s0)
 20400e6a:	85be                	mv	a1,a5
 20400e6c:	204067b7          	lui	a5,0x20406
-20400e70:	f6878513          	addi	a0,a5,-152 # 20405f68 <_exit+0x7a>
+20400e70:	f8078513          	addi	a0,a5,-128 # 20405f80 <_exit+0x92>
 20400e74:	3411                	jal	20400878 <printstate>
 /home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../Asconref/aead.h:223 (discriminator 8)
     /* Ending */
@@ -2535,7 +2535,7 @@ int crypto_aead_decrypt(u32 *m, u32 *mlen, u32 *c, u32 clen, u32 *ad, u32 adlen,
 20400eb2:	4010                	lw	a2,0(s0)
 20400eb4:	85be                	mv	a1,a5
 20400eb6:	204067b7          	lui	a5,0x20406
-20400eba:	f7078513          	addi	a0,a5,-144 # 20405f70 <_exit+0x82>
+20400eba:	f8878513          	addi	a0,a5,-120 # 20405f88 <_exit+0x9a>
 20400ebe:	3a6d                	jal	20400878 <printstate>
 /home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../Asconref/aead.h:229 (discriminator 8)
 
@@ -2573,7 +2573,7 @@ int crypto_aead_decrypt(u32 *m, u32 *mlen, u32 *c, u32 clen, u32 *ad, u32 adlen,
 20400f04:	4010                	lw	a2,0(s0)
 20400f06:	85be                	mv	a1,a5
 20400f08:	204067b7          	lui	a5,0x20406
-20400f0c:	f7c78513          	addi	a0,a5,-132 # 20405f7c <_exit+0x8e>
+20400f0c:	f9478513          	addi	a0,a5,-108 # 20405f94 <_exit+0xa6>
 20400f10:	32a5                	jal	20400878 <printstate>
 /home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/../Asconref/aead.h:238 (discriminator 8)
 
@@ -2693,48 +2693,48 @@ int main(void) {
 
     printf("Init Ascon Dec \n");
 20400fa4:	204067b7          	lui	a5,0x20406
-20400fa8:	fa078513          	addi	a0,a5,-96 # 20405fa0 <_exit+0xb2>
+20400fa8:	fb878513          	addi	a0,a5,-72 # 20405fb8 <_exit+0xca>
 20400fac:	268d                	jal	2040130e <puts>
 /home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/AsconDec.c:27 (discriminator 4)
     printf("Ad addr = %08x\n", asso_text);
 20400fae:	800007b7          	lui	a5,0x80000
 20400fb2:	00078593          	mv	a1,a5
 20400fb6:	204067b7          	lui	a5,0x20406
-20400fba:	fb078513          	addi	a0,a5,-80 # 20405fb0 <_exit+0xc2>
+20400fba:	fc878513          	addi	a0,a5,-56 # 20405fc8 <_exit+0xda>
 20400fbe:	2251                	jal	20401142 <iprintf>
 /home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/AsconDec.c:28 (discriminator 4)
     printf("Pl addr = %08x\n", plain_text);
 20400fc0:	800007b7          	lui	a5,0x80000
 20400fc4:	7d078593          	addi	a1,a5,2000 # 800007d0 <metal_segment_heap_target_end+0xffffd41c>
 20400fc8:	204067b7          	lui	a5,0x20406
-20400fcc:	fc078513          	addi	a0,a5,-64 # 20405fc0 <_exit+0xd2>
+20400fcc:	fd878513          	addi	a0,a5,-40 # 20405fd8 <_exit+0xea>
 20400fd0:	2a8d                	jal	20401142 <iprintf>
 /home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/AsconDec.c:29 (discriminator 4)
     printf("Ct addr = %08x\n", cipher_text);
 20400fd2:	800017b7          	lui	a5,0x80001
 20400fd6:	73c78593          	addi	a1,a5,1852 # 8000173c <metal_segment_heap_target_end+0xffffe388>
 20400fda:	204067b7          	lui	a5,0x20406
-20400fde:	fd078513          	addi	a0,a5,-48 # 20405fd0 <_exit+0xe2>
+20400fde:	fe878513          	addi	a0,a5,-24 # 20405fe8 <_exit+0xfa>
 20400fe2:	2285                	jal	20401142 <iprintf>
 /home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/AsconDec.c:30 (discriminator 4)
     printf("Ke addr = %08x\n", Key);
 20400fe4:	800017b7          	lui	a5,0x80001
 20400fe8:	fa078593          	addi	a1,a5,-96 # 80000fa0 <metal_segment_heap_target_end+0xffffdbec>
 20400fec:	204067b7          	lui	a5,0x20406
-20400ff0:	fe078513          	addi	a0,a5,-32 # 20405fe0 <_exit+0xf2>
+20400ff0:	ff878513          	addi	a0,a5,-8 # 20405ff8 <_exit+0x10a>
 20400ff4:	22b9                	jal	20401142 <iprintf>
 /home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/AsconDec.c:31 (discriminator 4)
     printf("Np addr = %08x\n", Nonce);
 20400ff6:	800017b7          	lui	a5,0x80001
 20400ffa:	fb078593          	addi	a1,a5,-80 # 80000fb0 <metal_segment_heap_target_end+0xffffdbfc>
 20400ffe:	204067b7          	lui	a5,0x20406
-20401002:	ff078513          	addi	a0,a5,-16 # 20405ff0 <_exit+0x102>
+20401002:	00878513          	addi	a0,a5,8 # 20406008 <_exit+0x11a>
 20401006:	2a35                	jal	20401142 <iprintf>
 /home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/AsconDec.c:32 (discriminator 4)
     printf("hash addr = %08x\n", hash);
-20401008:	01418593          	addi	a1,gp,20 # 80001f1c <hash.2790>
+20401008:	01418593          	addi	a1,gp,20 # 80001f1c <hash.2806>
 2040100c:	204067b7          	lui	a5,0x20406
-20401010:	00078513          	mv	a0,a5
+20401010:	01878513          	addi	a0,a5,24 # 20406018 <_exit+0x12a>
 20401014:	223d                	jal	20401142 <iprintf>
 /home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/AsconDec.c:34 (discriminator 4)
     unsigned start, end, HWcycles;
@@ -2753,7 +2753,7 @@ int main(void) {
 
     printf("Dec HW: \n");
 20401020:	204067b7          	lui	a5,0x20406
-20401024:	01478513          	addi	a0,a5,20 # 20406014 <_exit+0x126>
+20401024:	02c78513          	addi	a0,a5,44 # 2040602c <_exit+0x13e>
 20401028:	24dd                	jal	2040130e <puts>
 /home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/AsconDec.c:45 (discriminator 4)
     start = rdcycle();
@@ -2789,7 +2789,7 @@ int main(void) {
 2040107e:	40f707b3          	sub	a5,a4,a5
 20401082:	85be                	mv	a1,a5
 20401084:	204067b7          	lui	a5,0x20406
-20401088:	02078513          	addi	a0,a5,32 # 20406020 <_exit+0x132>
+20401088:	03878513          	addi	a0,a5,56 # 20406038 <_exit+0x14a>
 2040108c:	285d                	jal	20401142 <iprintf>
 /home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/AsconDec.c:49 (discriminator 4)
     printC(cipher_text, plain_len_int, 1, 1);
@@ -2802,12 +2802,12 @@ int main(void) {
 /home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/AsconDec.c:50 (discriminator 4)
     printf("\nX\n");
 204010a2:	204067b7          	lui	a5,0x20406
-204010a6:	03c78513          	addi	a0,a5,60 # 2040603c <_exit+0x14e>
+204010a6:	05478513          	addi	a0,a5,84 # 20406054 <_exit+0x166>
 204010aa:	2495                	jal	2040130e <puts>
 /home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/AsconDec.c:51 (discriminator 4)
     printf("Dec SW: \n");
 204010ac:	204067b7          	lui	a5,0x20406
-204010b0:	04078513          	addi	a0,a5,64 # 20406040 <_exit+0x152>
+204010b0:	05878513          	addi	a0,a5,88 # 20406058 <_exit+0x16a>
 204010b4:	2ca9                	jal	2040130e <puts>
 /home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/AsconDec.c:52 (discriminator 4)
     start = rdcycle();
@@ -2843,7 +2843,7 @@ int main(void) {
 20401108:	40f707b3          	sub	a5,a4,a5
 2040110c:	85be                	mv	a1,a5
 2040110e:	204067b7          	lui	a5,0x20406
-20401112:	04c78513          	addi	a0,a5,76 # 2040604c <_exit+0x15e>
+20401112:	06478513          	addi	a0,a5,100 # 20406064 <_exit+0x176>
 20401116:	2035                	jal	20401142 <iprintf>
 /home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/AsconDec.c:56 (discriminator 4)
     printC(cipher_text, plain_len_int, 1, 1);
@@ -2856,7 +2856,7 @@ int main(void) {
 /home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/AsconDec.c:57 (discriminator 4)
     printf("\nX\n");
 2040112c:	204067b7          	lui	a5,0x20406
-20401130:	03c78513          	addi	a0,a5,60 # 2040603c <_exit+0x14e>
+20401130:	05478513          	addi	a0,a5,84 # 20406054 <_exit+0x166>
 20401134:	2ae9                	jal	2040130e <puts>
 /home/albertojor/GitHub/freedom-e-sdk/software/AsconDec/AsconDec.c:60 (discriminator 4)
 
@@ -2944,7 +2944,7 @@ _putc_r():
 204011c6:	4632                	lw	a2,12(sp)
 204011c8:	45a2                	lw	a1,8(sp)
 204011ca:	00005797          	auipc	a5,0x5
-204011ce:	ebe78793          	addi	a5,a5,-322 # 20406088 <__sf_fake_stdin>
+204011ce:	ed678793          	addi	a5,a5,-298 # 204060a0 <__sf_fake_stdin>
 204011d2:	02f61563          	bne	a2,a5,204011fc <_putc_r+0x4a>
 204011d6:	4050                	lw	a2,4(s0)
 204011d8:	461c                	lw	a5,8(a2)
@@ -2962,12 +2962,12 @@ _putc_r():
 204011f8:	6105                	addi	sp,sp,32
 204011fa:	a20d                	j	2040131c <__swbuf_r>
 204011fc:	00005797          	auipc	a5,0x5
-20401200:	eac78793          	addi	a5,a5,-340 # 204060a8 <__sf_fake_stdout>
+20401200:	ec478793          	addi	a5,a5,-316 # 204060c0 <__sf_fake_stdout>
 20401204:	00f61463          	bne	a2,a5,2040120c <_putc_r+0x5a>
 20401208:	4410                	lw	a2,8(s0)
 2040120a:	b7f9                	j	204011d8 <_putc_r+0x26>
 2040120c:	00005797          	auipc	a5,0x5
-20401210:	e5c78793          	addi	a5,a5,-420 # 20406068 <__sf_fake_stderr>
+20401210:	e7478793          	addi	a5,a5,-396 # 20406080 <__sf_fake_stderr>
 20401214:	fcf612e3          	bne	a2,a5,204011d8 <_putc_r+0x26>
 20401218:	4450                	lw	a2,12(s0)
 2040121a:	bf7d                	j	204011d8 <_putc_r+0x26>
@@ -3002,7 +3002,7 @@ _puts_r():
 20401254:	8526                	mv	a0,s1
 20401256:	29ed                	jal	20401750 <__sinit>
 20401258:	00005797          	auipc	a5,0x5
-2040125c:	e3078793          	addi	a5,a5,-464 # 20406088 <__sf_fake_stdin>
+2040125c:	e4878793          	addi	a5,a5,-440 # 204060a0 <__sf_fake_stdin>
 20401260:	02f41c63          	bne	s0,a5,20401298 <_puts_r+0x64>
 20401264:	40c0                	lw	s0,4(s1)
 20401266:	00c45783          	lhu	a5,12(s0)
@@ -3027,12 +3027,12 @@ _puts_r():
 20401294:	4529                	li	a0,10
 20401296:	a035                	j	204012c2 <_puts_r+0x8e>
 20401298:	00005797          	auipc	a5,0x5
-2040129c:	e1078793          	addi	a5,a5,-496 # 204060a8 <__sf_fake_stdout>
+2040129c:	e2878793          	addi	a5,a5,-472 # 204060c0 <__sf_fake_stdout>
 204012a0:	00f41463          	bne	s0,a5,204012a8 <_puts_r+0x74>
 204012a4:	4480                	lw	s0,8(s1)
 204012a6:	b7c1                	j	20401266 <_puts_r+0x32>
 204012a8:	00005797          	auipc	a5,0x5
-204012ac:	dc078793          	addi	a5,a5,-576 # 20406068 <__sf_fake_stderr>
+204012ac:	dd878793          	addi	a5,a5,-552 # 20406080 <__sf_fake_stderr>
 204012b0:	faf41be3          	bne	s0,a5,20401266 <_puts_r+0x32>
 204012b4:	44c0                	lw	s0,12(s1)
 204012b6:	bf45                	j	20401266 <_puts_r+0x32>
@@ -3096,7 +3096,7 @@ __swbuf_r():
 20401332:	e391                	bnez	a5,20401336 <__swbuf_r+0x1a>
 20401334:	2931                	jal	20401750 <__sinit>
 20401336:	00005797          	auipc	a5,0x5
-2040133a:	d5278793          	addi	a5,a5,-686 # 20406088 <__sf_fake_stdin>
+2040133a:	d6a78793          	addi	a5,a5,-662 # 204060a0 <__sf_fake_stdin>
 2040133e:	06f41963          	bne	s0,a5,204013b0 <__swbuf_r+0x94>
 20401342:	40c0                	lw	s0,4(s1)
 20401344:	4c1c                	lw	a5,24(s0)
@@ -3145,12 +3145,12 @@ __swbuf_r():
 204013ac:	6105                	addi	sp,sp,32
 204013ae:	8082                	ret
 204013b0:	00005797          	auipc	a5,0x5
-204013b4:	cf878793          	addi	a5,a5,-776 # 204060a8 <__sf_fake_stdout>
+204013b4:	d1078793          	addi	a5,a5,-752 # 204060c0 <__sf_fake_stdout>
 204013b8:	00f41463          	bne	s0,a5,204013c0 <__swbuf_r+0xa4>
 204013bc:	4480                	lw	s0,8(s1)
 204013be:	b759                	j	20401344 <__swbuf_r+0x28>
 204013c0:	00005797          	auipc	a5,0x5
-204013c4:	ca878793          	addi	a5,a5,-856 # 20406068 <__sf_fake_stderr>
+204013c4:	cc078793          	addi	a5,a5,-832 # 20406080 <__sf_fake_stderr>
 204013c8:	f6f41ee3          	bne	s0,a5,20401344 <__swbuf_r+0x28>
 204013cc:	44c0                	lw	s0,12(s1)
 204013ce:	bf9d                	j	20401344 <__swbuf_r+0x28>
@@ -3179,7 +3179,7 @@ __swsetup_r():
 204013fa:	8526                	mv	a0,s1
 204013fc:	2e91                	jal	20401750 <__sinit>
 204013fe:	00005797          	auipc	a5,0x5
-20401402:	c8a78793          	addi	a5,a5,-886 # 20406088 <__sf_fake_stdin>
+20401402:	ca278793          	addi	a5,a5,-862 # 204060a0 <__sf_fake_stdin>
 20401406:	02f41c63          	bne	s0,a5,2040143e <__swsetup_r+0x62>
 2040140a:	40c0                	lw	s0,4(s1)
 2040140c:	00c41703          	lh	a4,12(s0)
@@ -3201,12 +3201,12 @@ __swsetup_r():
 2040143a:	0141                	addi	sp,sp,16
 2040143c:	8082                	ret
 2040143e:	00005797          	auipc	a5,0x5
-20401442:	c6a78793          	addi	a5,a5,-918 # 204060a8 <__sf_fake_stdout>
+20401442:	c8278793          	addi	a5,a5,-894 # 204060c0 <__sf_fake_stdout>
 20401446:	00f41463          	bne	s0,a5,2040144e <__swsetup_r+0x72>
 2040144a:	4480                	lw	s0,8(s1)
 2040144c:	b7c1                	j	2040140c <__swsetup_r+0x30>
 2040144e:	00005797          	auipc	a5,0x5
-20401452:	c1a78793          	addi	a5,a5,-998 # 20406068 <__sf_fake_stderr>
+20401452:	c3278793          	addi	a5,a5,-974 # 20406080 <__sf_fake_stderr>
 20401456:	faf41be3          	bne	s0,a5,2040140c <__swsetup_r+0x30>
 2040145a:	44c0                	lw	s0,12(s1)
 2040145c:	bf45                	j	2040140c <__swsetup_r+0x30>
@@ -3401,7 +3401,7 @@ _fflush_r():
 2040164a:	2219                	jal	20401750 <__sinit>
 2040164c:	45b2                	lw	a1,12(sp)
 2040164e:	00005797          	auipc	a5,0x5
-20401652:	a3a78793          	addi	a5,a5,-1478 # 20406088 <__sf_fake_stdin>
+20401652:	a5278793          	addi	a5,a5,-1454 # 204060a0 <__sf_fake_stdin>
 20401656:	00f59b63          	bne	a1,a5,2040166c <_fflush_r+0x36>
 2040165a:	404c                	lw	a1,4(s0)
 2040165c:	00c59783          	lh	a5,12(a1)
@@ -3412,12 +3412,12 @@ _fflush_r():
 20401668:	6105                	addi	sp,sp,32
 2040166a:	b549                	j	204014ec <__sflush_r>
 2040166c:	00005797          	auipc	a5,0x5
-20401670:	a3c78793          	addi	a5,a5,-1476 # 204060a8 <__sf_fake_stdout>
+20401670:	a5478793          	addi	a5,a5,-1452 # 204060c0 <__sf_fake_stdout>
 20401674:	00f59463          	bne	a1,a5,2040167c <_fflush_r+0x46>
 20401678:	440c                	lw	a1,8(s0)
 2040167a:	b7cd                	j	2040165c <_fflush_r+0x26>
 2040167c:	00005797          	auipc	a5,0x5
-20401680:	9ec78793          	addi	a5,a5,-1556 # 20406068 <__sf_fake_stderr>
+20401680:	a0478793          	addi	a5,a5,-1532 # 20406080 <__sf_fake_stderr>
 20401684:	fcf59ce3          	bne	a1,a5,2040165c <_fflush_r+0x26>
 20401688:	444c                	lw	a1,12(s0)
 2040168a:	bfc9                	j	2040165c <_fflush_r+0x26>
@@ -4053,7 +4053,7 @@ _vfiprintf_r():
 20401c7a:	e391                	bnez	a5,20401c7e <_vfiprintf_r+0x28>
 20401c7c:	3cd1                	jal	20401750 <__sinit>
 20401c7e:	00004797          	auipc	a5,0x4
-20401c82:	40a78793          	addi	a5,a5,1034 # 20406088 <__sf_fake_stdin>
+20401c82:	42278793          	addi	a5,a5,1058 # 204060a0 <__sf_fake_stdin>
 20401c86:	0cf49b63          	bne	s1,a5,20401d5c <_vfiprintf_r+0x106>
 20401c8a:	0049a483          	lw	s1,4(s3)
 20401c8e:	00c4d783          	lhu	a5,12(s1)
@@ -4069,7 +4069,7 @@ _vfiprintf_r():
 20401cac:	c622                	sw	s0,12(sp)
 20401cae:	02500b93          	li	s7,37
 20401cb2:	00004a97          	auipc	s5,0x4
-20401cb6:	416a8a93          	addi	s5,s5,1046 # 204060c8 <__sf_fake_stdout+0x20>
+20401cb6:	42ea8a93          	addi	s5,s5,1070 # 204060e0 <__sf_fake_stdout+0x20>
 20401cba:	4c05                	li	s8,1
 20401cbc:	4b29                	li	s6,10
 20401cbe:	844a                	mv	s0,s2
@@ -4128,12 +4128,12 @@ _vfiprintf_r():
 20401d58:	ce3e                	sw	a5,28(sp)
 20401d5a:	a885                	j	20401dca <_vfiprintf_r+0x174>
 20401d5c:	00004797          	auipc	a5,0x4
-20401d60:	34c78793          	addi	a5,a5,844 # 204060a8 <__sf_fake_stdout>
+20401d60:	36478793          	addi	a5,a5,868 # 204060c0 <__sf_fake_stdout>
 20401d64:	00f49563          	bne	s1,a5,20401d6e <_vfiprintf_r+0x118>
 20401d68:	0089a483          	lw	s1,8(s3)
 20401d6c:	b70d                	j	20401c8e <_vfiprintf_r+0x38>
 20401d6e:	00004797          	auipc	a5,0x4
-20401d72:	2fa78793          	addi	a5,a5,762 # 20406068 <__sf_fake_stderr>
+20401d72:	31278793          	addi	a5,a5,786 # 20406080 <__sf_fake_stderr>
 20401d76:	f0f49ce3          	bne	s1,a5,20401c8e <_vfiprintf_r+0x38>
 20401d7a:	00c9a483          	lw	s1,12(s3)
 20401d7e:	bf01                	j	20401c8e <_vfiprintf_r+0x38>
@@ -4208,11 +4208,11 @@ _vfiprintf_r():
 20401e30:	00044583          	lbu	a1,0(s0)
 20401e34:	460d                	li	a2,3
 20401e36:	00004517          	auipc	a0,0x4
-20401e3a:	29a50513          	addi	a0,a0,666 # 204060d0 <__sf_fake_stdout+0x28>
+20401e3a:	2b250513          	addi	a0,a0,690 # 204060e8 <__sf_fake_stdout+0x28>
 20401e3e:	2c51                	jal	204020d2 <memchr>
 20401e40:	cd11                	beqz	a0,20401e5c <_vfiprintf_r+0x206>
 20401e42:	00004797          	auipc	a5,0x4
-20401e46:	28e78793          	addi	a5,a5,654 # 204060d0 <__sf_fake_stdout+0x28>
+20401e46:	2a678793          	addi	a5,a5,678 # 204060e8 <__sf_fake_stdout+0x28>
 20401e4a:	8d1d                	sub	a0,a0,a5
 20401e4c:	04000793          	li	a5,64
 20401e50:	00a797b3          	sll	a5,a5,a0
@@ -4223,7 +4223,7 @@ _vfiprintf_r():
 20401e5c:	00044583          	lbu	a1,0(s0)
 20401e60:	4619                	li	a2,6
 20401e62:	00004517          	auipc	a0,0x4
-20401e66:	27250513          	addi	a0,a0,626 # 204060d4 <__sf_fake_stdout+0x2c>
+20401e66:	28a50513          	addi	a0,a0,650 # 204060ec <__sf_fake_stdout+0x2c>
 20401e6a:	00140913          	addi	s2,s0,1
 20401e6e:	02b10423          	sb	a1,40(sp)
 20401e72:	2485                	jal	204020d2 <memchr>
@@ -4677,7 +4677,7 @@ _printf_i():
 20402276:	40f007b3          	neg	a5,a5
 2040227a:	04e401a3          	sb	a4,67(s0)
 2040227e:	00004697          	auipc	a3,0x4
-20402282:	e5e68693          	addi	a3,a3,-418 # 204060dc <__sf_fake_stdout+0x34>
+20402282:	e7668693          	addi	a3,a3,-394 # 204060f4 <__sf_fake_stdout+0x34>
 20402286:	4729                	li	a4,10
 20402288:	a065                	j	20402330 <_printf_i+0x134>
 2040228a:	07300793          	li	a5,115
@@ -4698,7 +4698,7 @@ _printf_i():
 204022c0:	07800793          	li	a5,120
 204022c4:	04f402a3          	sb	a5,69(s0)
 204022c8:	00004697          	auipc	a3,0x4
-204022cc:	e2868693          	addi	a3,a3,-472 # 204060f0 <__sf_fake_stdout+0x48>
+204022cc:	e4068693          	addi	a3,a3,-448 # 20406108 <__sf_fake_stdout+0x48>
 204022d0:	a0dd                	j	204023b6 <_printf_i+0x1ba>
 204022d2:	431c                	lw	a5,0(a4)
 204022d4:	04258a93          	addi	s5,a1,66
@@ -4730,7 +4730,7 @@ _printf_i():
 2040231a:	06f00713          	li	a4,111
 2040231e:	0ce68a63          	beq	a3,a4,204023f2 <_printf_i+0x1f6>
 20402322:	00004697          	auipc	a3,0x4
-20402326:	dba68693          	addi	a3,a3,-582 # 204060dc <__sf_fake_stdout+0x34>
+20402326:	dd268693          	addi	a3,a3,-558 # 204060f4 <__sf_fake_stdout+0x34>
 2040232a:	4729                	li	a4,10
 2040232c:	040401a3          	sb	zero,67(s0)
 20402330:	404c                	lw	a1,4(s0)
@@ -4784,7 +4784,7 @@ _printf_i():
 204023a8:	8082                	ret
 204023aa:	04d582a3          	sb	a3,69(a1)
 204023ae:	00004697          	auipc	a3,0x4
-204023b2:	d2e68693          	addi	a3,a3,-722 # 204060dc <__sf_fake_stdout+0x34>
+204023b2:	d4668693          	addi	a3,a3,-698 # 204060f4 <__sf_fake_stdout+0x34>
 204023b6:	400c                	lw	a1,0(s0)
 204023b8:	4308                	lw	a0,0(a4)
 204023ba:	0805f813          	andi	a6,a1,128
@@ -4809,7 +4809,7 @@ _printf_i():
 204023ee:	83c1                	srli	a5,a5,0x10
 204023f0:	bfe1                	j	204023c8 <_printf_i+0x1cc>
 204023f2:	00004697          	auipc	a3,0x4
-204023f6:	cea68693          	addi	a3,a3,-790 # 204060dc <__sf_fake_stdout+0x34>
+204023f6:	d0268693          	addi	a3,a3,-766 # 204060f4 <__sf_fake_stdout+0x34>
 204023fa:	4721                	li	a4,8
 204023fc:	bf05                	j	2040232c <_printf_i+0x130>
 204023fe:	87ae                	mv	a5,a1
@@ -5239,10 +5239,10 @@ exit():
 __libc_fini_array():
 204026bc:	1141                	addi	sp,sp,-16
 204026be:	00004797          	auipc	a5,0x4
-204026c2:	d9e78793          	addi	a5,a5,-610 # 2040645c <__fini_array_end>
+204026c2:	db678793          	addi	a5,a5,-586 # 20406474 <__fini_array_end>
 204026c6:	c422                	sw	s0,8(sp)
 204026c8:	00004417          	auipc	s0,0x4
-204026cc:	d9440413          	addi	s0,s0,-620 # 2040645c <__fini_array_end>
+204026cc:	dac40413          	addi	s0,s0,-596 # 20406474 <__fini_array_end>
 204026d0:	8c1d                	sub	s0,s0,a5
 204026d2:	c226                	sw	s1,4(sp)
 204026d4:	c606                	sw	ra,12(sp)
@@ -5265,10 +5265,10 @@ __libc_fini_array():
 __libc_init_array():
 204026f4:	1141                	addi	sp,sp,-16
 204026f6:	00004797          	auipc	a5,0x4
-204026fa:	d6278793          	addi	a5,a5,-670 # 20406458 <__init_array_start>
+204026fa:	d7a78793          	addi	a5,a5,-646 # 20406470 <__init_array_start>
 204026fe:	c422                	sw	s0,8(sp)
 20402700:	00004417          	auipc	s0,0x4
-20402704:	d5840413          	addi	s0,s0,-680 # 20406458 <__init_array_start>
+20402704:	d7040413          	addi	s0,s0,-656 # 20406470 <__init_array_start>
 20402708:	8c1d                	sub	s0,s0,a5
 2040270a:	c226                	sw	s1,4(sp)
 2040270c:	c04a                	sw	s2,0(sp)
@@ -5278,9 +5278,9 @@ __libc_init_array():
 20402714:	893e                	mv	s2,a5
 20402716:	02849663          	bne	s1,s0,20402742 <__libc_init_array+0x4e>
 2040271a:	00004797          	auipc	a5,0x4
-2040271e:	d3e78793          	addi	a5,a5,-706 # 20406458 <__init_array_start>
+2040271e:	d5678793          	addi	a5,a5,-682 # 20406470 <__init_array_start>
 20402722:	00004417          	auipc	s0,0x4
-20402726:	d3a40413          	addi	s0,s0,-710 # 2040645c <__fini_array_end>
+20402726:	d5240413          	addi	s0,s0,-686 # 20406474 <__fini_array_end>
 2040272a:	8c1d                	sub	s0,s0,a5
 2040272c:	8409                	srai	s0,s0,0x2
 2040272e:	4481                	li	s1,0
@@ -9113,7 +9113,7 @@ void __metal_controller_interrupt_vector (metal_vector_mode mode, void *vec_tabl
 2040401a:	fdc42783          	lw	a5,-36(s0)
 2040401e:	00279713          	slli	a4,a5,0x2
 20404022:	204067b7          	lui	a5,0x20406
-20404026:	16478793          	addi	a5,a5,356 # 20406164 <__metal_driver_vtable_riscv_clint0+0x4c>
+20404026:	17c78793          	addi	a5,a5,380 # 2040617c <__metal_driver_vtable_riscv_clint0+0x4c>
 2040402a:	97ba                	add	a5,a5,a4
 2040402c:	439c                	lw	a5,0(a5)
 2040402e:	8782                	jr	a5
@@ -9188,7 +9188,7 @@ int __metal_valid_interrupt_id (int id)
 20404090:	00f76d63          	bltu	a4,a5,204040aa <__metal_valid_interrupt_id+0x2c>
 20404094:	00279713          	slli	a4,a5,0x2
 20404098:	204067b7          	lui	a5,0x20406
-2040409c:	17878793          	addi	a5,a5,376 # 20406178 <__metal_driver_vtable_riscv_clint0+0x60>
+2040409c:	19078793          	addi	a5,a5,400 # 20406190 <__metal_driver_vtable_riscv_clint0+0x60>
 204040a0:	97ba                	add	a5,a5,a4
 204040a2:	439c                	lw	a5,0(a5)
 204040a4:	8782                	jr	a5
@@ -9254,7 +9254,7 @@ int __metal_local_interrupt_enable (struct metal_interrupt *controller,
 204040e2:	fd842783          	lw	a5,-40(s0)
 204040e6:	00279713          	slli	a4,a5,0x2
 204040ea:	204067b7          	lui	a5,0x20406
-204040ee:	1ec78793          	addi	a5,a5,492 # 204061ec <__metal_driver_vtable_riscv_clint0+0xd4>
+204040ee:	20478793          	addi	a5,a5,516 # 20406204 <__metal_driver_vtable_riscv_clint0+0xd4>
 204040f2:	97ba                	add	a5,a5,a4
 204040f4:	439c                	lw	a5,0(a5)
 204040f6:	8782                	jr	a5
@@ -9694,7 +9694,7 @@ int __metal_driver_riscv_cpu_controller_interrupt_register(struct metal_interrup
 20404378:	0cf76263          	bltu	a4,a5,2040443c <__metal_driver_riscv_cpu_controller_interrupt_register+0x13c>
 2040437c:	00279713          	slli	a4,a5,0x2
 20404380:	204067b7          	lui	a5,0x20406
-20404384:	26c78793          	addi	a5,a5,620 # 2040626c <__metal_driver_vtable_riscv_clint0+0x154>
+20404384:	28478793          	addi	a5,a5,644 # 20406284 <__metal_driver_vtable_riscv_clint0+0x154>
 20404388:	97ba                	add	a5,a5,a4
 2040438a:	439c                	lw	a5,0(a5)
 2040438c:	8782                	jr	a5
@@ -12417,7 +12417,7 @@ int __metal_driver_sifive_gpio0_config_int(struct metal_gpio *ggpio, long source
 2040541a:	fd442783          	lw	a5,-44(s0)
 2040541e:	00279713          	slli	a4,a5,0x2
 20405422:	204067b7          	lui	a5,0x20406
-20405426:	3b878793          	addi	a5,a5,952 # 204063b8 <__metal_driver_vtable_riscv_plic0+0x4c>
+20405426:	3d078793          	addi	a5,a5,976 # 204063d0 <__metal_driver_vtable_riscv_plic0+0x4c>
 2040542a:	97ba                	add	a5,a5,a4
 2040542c:	439c                	lw	a5,0(a5)
 2040542e:	8782                	jr	a5
@@ -12662,7 +12662,7 @@ int __metal_driver_sifive_gpio0_clear_int(struct metal_gpio *ggpio, long source,
 20405620:	fd442783          	lw	a5,-44(s0)
 20405624:	00279713          	slli	a4,a5,0x2
 20405628:	204067b7          	lui	a5,0x20406
-2040562c:	3d878793          	addi	a5,a5,984 # 204063d8 <__metal_driver_vtable_riscv_plic0+0x6c>
+2040562c:	3f078793          	addi	a5,a5,1008 # 204063f0 <__metal_driver_vtable_riscv_plic0+0x6c>
 20405630:	97ba                	add	a5,a5,a4
 20405632:	439c                	lw	a5,0(a5)
 20405634:	8782                	jr	a5

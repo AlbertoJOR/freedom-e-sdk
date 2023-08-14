@@ -19,6 +19,8 @@
 #define Dec_Init 0x18
 #define Hash_Set_M 0x31
 #define Hash_Init 0x32
+#define R_Seed  0x41
+#define R_Rand  0x42
 
 // AEAD Encryption
 
@@ -32,12 +34,17 @@ u32 AEAD_DEC(u32 *ad_addr, u32 ad_len,
              u32 *c_addr, u32 c_len,
              u32 *d_addr, u32 *nonce_addr,
              u32 *key_addr, u32 *tag_addr);
+
 u32 HASH(u32 *m_addr, u32 m_len,
-             u32 *c_addr );
+         u32 *c_addr);
+
+u32 RAND(u32 *return_addr, u32 num_rands);
+
+u32 SEED();
 
 void printC(u32 *arr, u32 a_len, int cipher, int del) {
-    int len = (a_len % 8 == 0)? (a_len /4)*2 : (a_len/4)*2 +2 ;
-    len =  (cipher) ? len + 4 : len;
+    int len = (a_len % 8 == 0) ? (a_len / 4) * 2 : (a_len / 4) * 2 + 2;
+    len = (cipher) ? len + 4 : len;
     for (int i = 0; i < len; i++) {
         if (i % 2 == 0) {
             printf("\n");
@@ -49,10 +56,12 @@ void printC(u32 *arr, u32 a_len, int cipher, int del) {
     }
     printf("\n");
 }
-u32 tagAddr(u32 mlenbytes){
-    u32 mlenU32 = (mlenbytes %8 ==0)? mlenbytes / 4 : mlenbytes/4 +2;
+
+u32 tagAddr(u32 mlenbytes) {
+    u32 mlenU32 = (mlenbytes % 8 == 0) ? mlenbytes / 4 : mlenbytes / 4 + 2;
     return mlenU32;
 }
+
 u32 AEAD_ENC(u32 *ad_addr, u32 ad_len,
              u32 *p_addr, u32 p_len,
              u32 *c_addr, u32 *nonce_addr,
@@ -95,9 +104,9 @@ u32 AEAD_ENC(u32 *ad_addr, u32 ad_len,
 u32 AEAD_DEC(u32 *ad_addr, u32 ad_len,
              u32 *c_addr, u32 c_len,
              u32 *d_addr, u32 *nonce_addr,
-             u32 *key_addr, u32 *tag_addr){
+             u32 *key_addr, u32 *tag_addr) {
     u32 rd = 0;
-   // printf("Init DEC\n");
+    // printf("Init DEC\n");
     asm volatile("fence");
     ROCC_INSTRUCTION_DS(0, rd, nonce_addr, Enc_Set_Nonce);
     asm volatile("fence":: : "memory");
@@ -134,11 +143,12 @@ u32 AEAD_DEC(u32 *ad_addr, u32 ad_len,
     //printf("Finish AEAD Dec %08x \n", rd);
     return rd;
 }
+
 u32 HASH(u32 *m_addr, u32 m_len,
-             u32 *h_addr ){
+         u32 *h_addr) {
     u32 rd;
     //printf("Init Hash\n");
-     asm volatile("fence");
+    asm volatile("fence");
     ROCC_INSTRUCTION_DSS(0, rd, m_addr, m_len, Hash_Set_M);
     asm volatile("fence":: : "memory");
     //printf("Set M : %08x \n", rd);
@@ -147,6 +157,23 @@ u32 HASH(u32 *m_addr, u32 m_len,
     ROCC_INSTRUCTION_DS(0, rd, h_addr, Hash_Init);
     asm volatile("fence":: : "memory");
     //printf(" Finish Hash: %08x \n", rd);
+    return 0;
+}
+
+u32 RAND(u32 *return_addr, u32 num_rands) {
+    u32 rd;
+    asm volatile("fence");
+    ROCC_INSTRUCTION_DSS(0, rd, return_addr, num_rands, R_Rand);
+    asm volatile("fence":: : "memory");
+    printf(" Finish Rand: %08x \n", rd);
+    return 0;
+}
+
+u32 SEED() {
+    u32 rd;
+    asm volatile("fence");
+    ROCC_INSTRUCTION_D(0, rd, R_Seed);
+    asm volatile("fence":: : "memory");
     return 0;
 }
 

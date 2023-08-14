@@ -42,14 +42,14 @@ int main(void) {
     printC(hash,9,0,1);*/
 
 
-    printf("Dec HW: \n");
+    printf("Hash HW: \n");
     start = rdcycle();
     HASH( plain_text, plain_len, hash);
     end = rdcycle();
     printf("Total time HW = %d cycles\n",end-start);
     printC(hash, 8 , 1, 1);
     printf("\nX\n");
-    printf("Dec SW: \n");
+    printf("Hash SW: \n");
     start = rdcycle();
     crypto_hash(plain_text,plain_len,hash,0);
     end = rdcycle();
