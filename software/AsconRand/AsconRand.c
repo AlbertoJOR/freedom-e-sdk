@@ -13,16 +13,24 @@ int main(void) {
     write_csr(mstatus, MSTATUS_XS);
 printf("Rand Seed: \n");
     start = rdcycle();
-    SEED();
+    // SEED();
     end = rdcycle();
-    printf("Total time HW = %08x cycles\n",end-start);
+    u32 st, en ;
+    st = RDCycle();
+    en = RDCycle();
+    printf("Total time no Instruction HW = %d cycles\n",end-start);
+    printf("Total time no Instruction HW = %d cycles, my count\n",en-st);
 
 
     printf("Rand HW: \n");
     start = rdcycle();
     RAND( rand_arr, num_rand);
     end = rdcycle();
-    printf("Total time HW = %08x cycles\n",end-start);
+    st = RDCycle();
+    RAND( rand_arr, num_rand);
+    en = RDCycle();
+    printf("Total time HW = %d cycles\n",end-start);
+    printf("Total time HW = %d cycles my count\n",en-st);
     printC(rand_arr, num_rand *4 , 0, 1);
     printf("\nX\n");
 

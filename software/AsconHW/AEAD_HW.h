@@ -21,6 +21,7 @@
 #define Hash_Init 0x32
 #define R_Seed  0x41
 #define R_Rand  0x42
+#define C_Count  0x61
 
 // AEAD Encryption
 
@@ -165,7 +166,7 @@ u32 RAND(u32 *return_addr, u32 num_rands) {
     asm volatile("fence");
     ROCC_INSTRUCTION_DSS(0, rd, return_addr, num_rands, R_Rand);
     asm volatile("fence":: : "memory");
-    printf(" Finish Rand: %08x \n", rd);
+    //printf(" Finish Rand: %08x \n", rd);
     return 0;
 }
 
@@ -175,6 +176,13 @@ u32 SEED() {
     ROCC_INSTRUCTION_D(0, rd, R_Seed);
     asm volatile("fence":: : "memory");
     return 0;
+}
+u32 RDCycle() {
+    asm volatile("fence");
+    u32 rd ;
+    ROCC_INSTRUCTION_D(0, rd, C_Count);
+    asm volatile("fence":: : "memory");
+    return rd;
 }
 
 #endif //FREEDOM_E_SDK_AEAD_HW_H

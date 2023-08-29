@@ -40,7 +40,7 @@ int main(void) {
     printf(" Finish Hash: %07x \n", rd);
     printC(hash,9,0,1);*/
 
-
+    for(int i = 0 ; i < 32; i++){
     printf("Dec HW: \n");
     start = rdcycle();
     AEAD_DEC(asso_text, asso_len, plain_text, plain_len, cipher_text, Nonce, Key, dec_text);
@@ -50,11 +50,11 @@ int main(void) {
     printf("\nX\n");
     printf("Dec SW: \n");
     start = rdcycle();
-    crypto_aead_decrypt(cipher_text, &clen,plain_text,plain_len,asso_text,asso_len,Nonce,   Key,0);
+    crypto_aead_decrypt(cipher_text, &clen,plain_text,plain_len,asso_text,asso_len,Nonce,   Key);
     end = rdcycle();
     printf("Total time SW = %d cycles\n",end-start);
     printC(cipher_text, plain_len_int, 1, 1);
-    printf("\nX\n");
+    printf("\nX\n");}
 
 
     return 0;

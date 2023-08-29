@@ -12,7 +12,8 @@
 #define A_128_IV_H 0x80400c06
 #define A_128_IV_L 0x00000000
 
-int crypto_aead_encrypt(u32 *c, u32 *clen, u32 *m, u32 mlen, u32 *ad, u32 adlen, u32 *npub, u32 *k, int debug) {
+
+int crypto_aead_encrypt(u32 *c, u32 *clen, u32 *m, u32 mlen, u32 *ad, u32 adlen, u32 *npub, u32 *k) {
     /* set plaintext size */
     *clen = mlen + 16;
 
@@ -39,14 +40,14 @@ int crypto_aead_encrypt(u32 *c, u32 *clen, u32 *m, u32 mlen, u32 *ad, u32 adlen,
     s.xl[3] = N0.xl;
     s.xh[4] = N1.xh;
     s.xl[4] = N1.xl;
-    printstate("After init", &s, debug);
+    //printstate("After init", &s, debug);
     P12(&s);
 
     s.xh[3] ^= K0.xh;
     s.xl[3] ^= K0.xl;
     s.xh[4] ^= K1.xh;
     s.xl[4] ^= K1.xl;
-    printstate("Xor 2 key", &s, debug);
+    //printstate("Xor 2 key", &s, debug);
 
     if (adlen) {
         while (adlen >= 8) {
@@ -55,7 +56,7 @@ int crypto_aead_encrypt(u32 *c, u32 *clen, u32 *m, u32 mlen, u32 *ad, u32 adlen,
             s.xl[0] ^= *ad;
             ad++;
             P6(&s);
-            printstate("Absorb AD", &s, debug);
+            //printstate("Absorb AD", &s, debug);
             adlen -= 8;
         }
         s.xh[0] ^= TRUNH(adlen, *ad);
@@ -64,12 +65,12 @@ int crypto_aead_encrypt(u32 *c, u32 *clen, u32 *m, u32 mlen, u32 *ad, u32 adlen,
 
         s.xh[0] ^= PADH(adlen);
         s.xl[0] ^= PADL(adlen);
-        printstate("Padded AD", &s, debug);
+        //printstate("Padded AD", &s, debug);
         P6(&s);
     }
     /* domain separation */
     s.xl[4] ^= 1;
-    printstate("Domain Separation", &s, debug);
+    //printstate("Domain Separation", &s, debug);
 
     while (mlen >= 8) {
         s.xh[0] ^= *m;
@@ -81,7 +82,7 @@ int crypto_aead_encrypt(u32 *c, u32 *clen, u32 *m, u32 mlen, u32 *ad, u32 adlen,
         *c = s.xl[0];
         c++;
         mlen -= 8;
-        printstate("Absorb M", &s, debug);
+        //printstate("Absorb M", &s, debug);
         P6(&s);
     }
     /* final block*/
@@ -97,20 +98,20 @@ int crypto_aead_encrypt(u32 *c, u32 *clen, u32 *m, u32 mlen, u32 *ad, u32 adlen,
     }
     s.xh[0] ^= PADH(mlen);
     s.xl[0] ^= PADL(mlen);
-    printstate("Pad M", &s, debug);
+    //printstate("Pad M", &s, debug);
     /* Ending */
     s.xh[1] ^= K0.xh;
     s.xl[1] ^= K0.xl;
     s.xh[2] ^= K1.xh;
     s.xl[2] ^= K1.xl;
-    printstate("Xor key 1", &s, debug);
+    //printstate("Xor key 1", &s, debug);
 
     P12(&s);
     s.xh[3] ^= K0.xh;
     s.xl[3] ^= K0.xl;
     s.xh[4] ^= K1.xh;
     s.xl[4] ^= K1.xl;
-    printstate("Xor key 2", &s, debug);
+    //printstate("Xor key 2", &s, debug);
 
     /* TAG*/
     *c = s.xh[3];
@@ -123,7 +124,7 @@ int crypto_aead_encrypt(u32 *c, u32 *clen, u32 *m, u32 mlen, u32 *ad, u32 adlen,
     return 0;
 }
 
-int crypto_aead_decrypt(u32 *m, u32 *mlen, u32 *c, u32 clen, u32 *ad, u32 adlen, u32 *npub, u32 *k, int debug) {
+int crypto_aead_decrypt(u32 *m, u32 *mlen, u32 *c, u32 clen, u32 *ad, u32 adlen, u32 *npub, u32 *k) {
     /* set plaintext size */
     *mlen = clen;
     /* load key and nonce */
@@ -149,14 +150,14 @@ int crypto_aead_decrypt(u32 *m, u32 *mlen, u32 *c, u32 clen, u32 *ad, u32 adlen,
     s.xl[3] = N0.xl;
     s.xh[4] = N1.xh;
     s.xl[4] = N1.xl;
-    printstate("After init", &s, debug);
+    //printstate("After init", &s, debug);
     P12(&s);
 
     s.xh[3] ^= K0.xh;
     s.xl[3] ^= K0.xl;
     s.xh[4] ^= K1.xh;
     s.xl[4] ^= K1.xl;
-    printstate("Xor 2 key", &s, debug);
+    //printstate("Xor 2 key", &s, debug);
 
     if (adlen) {
         while (adlen >= 8) {
@@ -165,7 +166,7 @@ int crypto_aead_decrypt(u32 *m, u32 *mlen, u32 *c, u32 clen, u32 *ad, u32 adlen,
             s.xl[0] ^= *ad;
             ad++;
             P6(&s);
-            printstate("Absorb AD", &s, debug);
+            //printstate("Absorb AD", &s, debug);
             adlen -= 8;
         }
         s.xh[0] ^= TRUNH(adlen, *ad);
@@ -174,12 +175,12 @@ int crypto_aead_decrypt(u32 *m, u32 *mlen, u32 *c, u32 clen, u32 *ad, u32 adlen,
 
         s.xh[0] ^= PADH(adlen);
         s.xl[0] ^= PADL(adlen);
-        printstate("Padded AD", &s, debug);
+        //printstate("Padded AD", &s, debug);
         P6(&s);
     }
     /* domain separation */
     s.xl[4] ^= 1;
-    printstate("Domain Separation", &s, debug);
+    //printstate("Domain Separation", &s, debug);
     u32 ch, cl;
     while (clen >= 8) {
         // printf("clen %d\n", clen);
@@ -195,7 +196,7 @@ int crypto_aead_decrypt(u32 *m, u32 *mlen, u32 *c, u32 clen, u32 *ad, u32 adlen,
         s.xh[0] = ch;
         s.xl[0] = cl;
         clen -= 8;
-        printstate("Absorb M", &s, debug);
+        //printstate("Absorb M", &s, debug);
         P6(&s);
     }
     /* final block*/
@@ -213,25 +214,25 @@ int crypto_aead_decrypt(u32 *m, u32 *mlen, u32 *c, u32 clen, u32 *ad, u32 adlen,
     }
     s.xh[0] = CLEARH(clen, s.xh[0]);
     s.xl[0] = CLEARL(clen, s.xl[0]);
-    printstate("clear bytes", &s, debug);
+    //printstate("clear bytes", &s, debug);
     s.xh[0] |= ch;
     s.xl[0] |= cl;
     s.xh[0] ^= PADH(clen);
     s.xl[0] ^= PADL(clen);
-    printstate("Pad M", &s, debug);
+    //printstate("Pad M", &s, debug);
     /* Ending */
     s.xh[1] ^= K0.xh;
     s.xl[1] ^= K0.xl;
     s.xh[2] ^= K1.xh;
     s.xl[2] ^= K1.xl;
-    printstate("Xor key 1", &s, debug);
+    //printstate("Xor key 1", &s, debug);
 
     P12(&s);
     s.xh[3] ^= K0.xh;
     s.xl[3] ^= K0.xl;
     s.xh[4] ^= K1.xh;
     s.xl[4] ^= K1.xl;
-    printstate("Xor key 2", &s, debug);
+    //printstate("Xor key 2", &s, debug);
 
     /* TAG*/
     u32 Tag[4];
@@ -247,7 +248,7 @@ int crypto_aead_decrypt(u32 *m, u32 *mlen, u32 *c, u32 clen, u32 *ad, u32 adlen,
     return res;
 }
 
-int crypto_hash(u32 *m, u32 mlen, u32 *h, int debug) {
+int crypto_hash(u32 *m, u32 mlen, u32 *h) {
 
     /* initialize */
     ascon_state_t s;
@@ -261,7 +262,7 @@ int crypto_hash(u32 *m, u32 mlen, u32 *h, int debug) {
     s.xl[3] = 0;
     s.xh[4] = 0;
     s.xl[4] = 0;
-    printstate("After init", &s, debug);
+    //printstate("After init", &s, debug);
     P12(&s);
 
 
@@ -272,7 +273,7 @@ int crypto_hash(u32 *m, u32 mlen, u32 *h, int debug) {
             s.xl[0] ^= *m;
             m++;
             P12(&s);
-            printstate("Absorb AD", &s, debug);
+            //printstate("Absorb AD", &s, debug);
             mlen -= 8;
         }
         s.xh[0] ^= TRUNH(mlen, *m);
@@ -281,18 +282,56 @@ int crypto_hash(u32 *m, u32 mlen, u32 *h, int debug) {
 
         s.xh[0] ^= PADH(mlen);
         s.xl[0] ^= PADL(mlen);
-        printstate("Padded AD", &s, debug);
+        //printstate("Padded AD", &s, debug);
         P12(&s);
     }
-    for(int i = 0 ; i < 4 ; i++){
-        h[i*2] = s.xh[0] ;
-        h[i*2+1] = s.xl[0] ;
-        if(i < 3){
+    for (int i = 0; i < 4; i++) {
+        h[i * 2] = s.xh[0];
+        h[i * 2 + 1] = s.xl[0];
+        if (i < 3) {
             P12(&s);
         }
-        printstate("Hash Round",&s,debug);
+        //printstate("Hash Round", &s, debug);
     }
     return 0;
 }
+
+int init_seed(ascon_state_t *s, u64 seed) {
+    /* initialize */
+    s->xh[0] = 0;
+    s->xl[0] = 0;
+    s->xh[1] = 0;
+    s->xl[1] = 0;
+    s->xh[2] = 0;
+    s->xl[2] = 0;
+    s->xh[3] = 0;
+    s->xl[3] = 0;
+    s->xh[4] = 0;
+    s->xl[4] = 0;
+    P12(s);
+    s->xh[0] = seed.xh;
+    s->xl[0] = seed.xl;
+    P12(s);
+    return 0;
+}
+
+int reseed(ascon_state_t *s, u64 seed) {
+    /* initialize */
+    s->xh[0] = seed.xh;
+    s->xl[0] = seed.xl;
+    P12(s);
+}
+
+int rand_ascon(ascon_state_t *s, u32 *arr, u32 len){
+   for( int i = 0 ; i < len ; i ++){
+       *arr = s->xh[0];
+       arr ++;
+       *arr = s->xl[0];
+       arr ++;
+       P12(s);
+   }
+    return  0;
+}
+
 
 #endif //FREEDOM_E_SDK_AEAD_H

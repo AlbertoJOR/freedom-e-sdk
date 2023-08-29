@@ -4,7 +4,7 @@
 #include "../RoCCcommon/csr.h"
 
 int main(void) {
-    u32 plain_len = 32;
+    u32 plain_len =  1000;
     u32 asso_len = 32; /// CReo que asignaste a memoria
     u32 clen = 0;
 
@@ -51,11 +51,63 @@ int main(void) {
     printf("\nX\n");
     printf("Hash SW: \n");
     start = rdcycle();
-    crypto_hash(plain_text,plain_len,hash,0);
+    crypto_hash(plain_text,plain_len,hash);
     end = rdcycle();
     printf("Total time SW = %d cycles\n",end-start);
     printC(hash, 8, 1, 1);
     printf("\nX\n");
+ printf("Hash HW: \n");
+    start = rdcycle();
+    HASH( plain_text, plain_len, hash);
+    end = rdcycle();
+    printf("Total time HW = %d cycles\n",end-start);
+    printC(hash, 8 , 1, 1);
+    printf("\nX\n");
+    printf("Hash SW: \n");
+    start = rdcycle();
+    crypto_hash(plain_text,plain_len,hash);
+    end = rdcycle();
+    printf("Total time SW = %d cycles\n",end-start);
+    printC(hash, 8, 1, 1);
+    printf("\nX\n");
+     printf("Hash HW: \n");
+    start = rdcycle();
+    HASH( plain_text, plain_len, hash);
+    end = rdcycle();
+    printf("Total time HW = %d cycles\n",end-start);
+    printC(hash, 8 , 1, 1);
+    printf("\nX\n");
+    printf("Hash SW: \n");
+    start = rdcycle();
+    crypto_hash(plain_text,plain_len,hash);
+    end = rdcycle();
+    printf("Total time SW = %d cycles\n",end-start);
+    printC(hash, 8, 1, 1);
+    printf("\nX\n");
+    start = rdcycle();
+    crypto_hash(plain_text,plain_len,hash);
+    end = rdcycle();
+    printf("Total time SW = %d cycles\n",end-start);
+    start = rdcycle();
+    crypto_hash(plain_text,plain_len,hash);
+    end = rdcycle();
+    printf("Total time SW = %d cycles\n",end-start);
+
+    start = rdcycle();
+    crypto_hash(plain_text,plain_len,hash);
+    end = rdcycle();
+    printf("Total time SW = %d cycles\n",end-start);
+
+
+    start = rdcycle();
+    crypto_hash(plain_text,plain_len,hash);
+    end = rdcycle();
+    printf("Total time SW = %d cycles\n",end-start);
+
+    start = rdcycle();
+    crypto_hash(plain_text,plain_len,hash);
+    end = rdcycle();
+    printf("Total time SW = %d cycles\n",end-start);
 
 
     return 0;

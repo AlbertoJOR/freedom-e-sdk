@@ -4,6 +4,7 @@
 
 #ifndef FREEDOM_E_SDK_CSR_H
 #define FREEDOM_E_SDK_CSR_H
+#define insret 0xC02
 
 #define RVTEST_ENABLE_SUPERVISOR                                        \
   li a0, MSTATUS_MPP & (MSTATUS_MPP >> 1);                              \
@@ -23,7 +24,7 @@
 #define MSTATUS_FS          0x00006000
 #define MSTATUS_XS          0x00018000
 
-#define read_csr(reg) ({ unsigned long __tmp; \
+#define read_csr(reg) ({ unsigned __tmp; \
   asm volatile ("csrr %0, " #reg : "=r"(__tmp)); \
   __tmp; })
 
@@ -43,12 +44,28 @@
   __tmp; })
 
 #define rdtime() read_csr(time)
-//#define rdcycle() read_csr(cycle)
+// #define rdcycle() read_csr(cycle)
 #define rdinstret() read_csr(instret)
 
-int rdcycle() {
+unsigned rdcycle() {
+  unsigned mcycle = 0;
+
+  asm volatile ("csrr %0,mcycle"   : "=r" (mcycle)  );
+
+  return mcycle;
+}
+
+unsigned instret() {
+  unsigned ret= 0;
+
+  asm volatile ("csrr %0,minstret"   : "=r" (ret)  );
+
+  return ret;
+}
+
+/*int rdcycle() {
     int tmp = 0;
     asm __volatile__ ("csrr %[dst01], mcycle\n" : [dst01]"=r"(tmp) : : );
     return tmp;
-}
+}*/
 #endif //FREEDOM_E_SDK_CSR_H
