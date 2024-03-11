@@ -1,2 +1,1 @@
-gloss/crt0.o: \
- /home/albertojor/GitHub/freedom-e-sdk/freedom-metal/gloss/crt0.S
+# dummy

@@ -17,9 +17,12 @@
 # Copyright 2018-2019 SiFive, Inc
 # SPDX-License-Identifier: Apache-2.0
 
+########################################################
+# Sources passed in by configure
+########################################################
 
 
-VPATH = /home/albertojor/GitHub/freedom-e-sdk/freedom-metal
+VPATH = /home/ajor/github/freedom-e-sdk/freedom-metal
 am__is_gnu_make = { \
   if test -z '$(MAKELEVEL)'; then \
     false; \
@@ -91,16 +94,27 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
+build_triplet = x86_64-pc-linux-gnu
+host_triplet = riscv64-unknown-elf
 
-# Freedom METAL has its own libgloss implementation that is only built in
+########################################################
+# libsegger
+########################################################
+
+# Provide segger hook with Freedom Metal that is built when
+# --with-builtin-libmetal-segger is passed to configure
+#am__append_1 = libmetal-segger.a
+
+########################################################
+# libgloss
+########################################################
+
+# Freedom Metal has its own libgloss implementation that is only built when
 # --with-builtin-libgloss is passed to configure.
-am__append_1 = libriscv__menv__metal.a
-check_PROGRAMS = return_pass$(EXEEXT) return_fail$(EXEEXT) \
-	hello$(EXEEXT)
+am__append_2 = libmetal-gloss.a
 subdir = .
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
-am__aclocal_m4_deps = $(top_srcdir)/m4/ax_check_compile_flag.m4 \
-	$(top_srcdir)/configure.ac
+am__aclocal_m4_deps = $(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 DIST_COMMON = $(srcdir)/Makefile.am $(top_srcdir)/configure \
@@ -138,19 +152,18 @@ am__uninstall_files_from_dir = { \
     || { echo " ( cd '$$dir' && rm -f" $$files ")"; \
          $(am__cd) "$$dir" && rm -f $$files; }; \
   }
-am__installdirs = "$(DESTDIR)$(libdir)" "$(DESTDIR)$(ldsdir)" \
-	"$(DESTDIR)$(specdir)" "$(DESTDIR)$(includedir)"
+am__installdirs = "$(DESTDIR)$(libdir)" "$(DESTDIR)$(includedir)"
 LIBRARIES = $(lib_LIBRARIES)
 ARFLAGS = cru
 AM_V_AR = $(am__v_AR_$(V))
 am__v_AR_ = $(am__v_AR_$(AM_DEFAULT_VERBOSITY))
 am__v_AR_0 = @echo "  AR      " $@;
 am__v_AR_1 = 
-libriscv__menv__metal_a_AR = $(AR) $(ARFLAGS)
-libriscv__menv__metal_a_LIBADD =
-am__libriscv__menv__metal_a_SOURCES_DIST = gloss/crt0.S \
-	gloss/nanosleep.c gloss/sys_access.c gloss/sys_chdir.c \
-	gloss/sys_chmod.c gloss/sys_chown.c gloss/sys_close.c \
+libmetal_gloss_a_AR = $(AR) $(ARFLAGS)
+libmetal_gloss_a_LIBADD =
+am__libmetal_gloss_a_SOURCES_DIST = gloss/crt0.S gloss/nanosleep.c \
+	gloss/sys_access.c gloss/sys_chdir.c gloss/sys_chmod.c \
+	gloss/sys_chown.c gloss/sys_clock_gettime.c gloss/sys_close.c \
 	gloss/sys_execve.c gloss/sys_exit.c gloss/sys_faccessat.c \
 	gloss/sys_fork.c gloss/sys_fstat.c gloss/sys_fstatat.c \
 	gloss/sys_ftime.c gloss/sys_getcwd.c gloss/sys_getpid.c \
@@ -161,13 +174,14 @@ am__libriscv__menv__metal_a_SOURCES_DIST = gloss/crt0.S \
 	gloss/sys_times.c gloss/sys_unlink.c gloss/sys_utime.c \
 	gloss/sys_wait.c gloss/sys_write.c
 am__dirstamp = $(am__leading_dot)dirstamp
-am_libriscv__menv__metal_a_OBJECTS =  \
+am_libmetal_gloss_a_OBJECTS =  \
 	gloss/crt0.$(OBJEXT) \
 	gloss/nanosleep.$(OBJEXT) \
 	gloss/sys_access.$(OBJEXT) \
 	gloss/sys_chdir.$(OBJEXT) \
 	gloss/sys_chmod.$(OBJEXT) \
 	gloss/sys_chown.$(OBJEXT) \
+	gloss/sys_clock_gettime.$(OBJEXT) \
 	gloss/sys_close.$(OBJEXT) \
 	gloss/sys_execve.$(OBJEXT) \
 	gloss/sys_exit.$(OBJEXT) \
@@ -195,77 +209,65 @@ am_libriscv__menv__metal_a_OBJECTS =  \
 	gloss/sys_utime.$(OBJEXT) \
 	gloss/sys_wait.$(OBJEXT) \
 	gloss/sys_write.$(OBJEXT)
-libriscv__menv__metal_a_OBJECTS =  \
-	$(am_libriscv__menv__metal_a_OBJECTS)
-libriscv__mmachine__sifive-hifive1-revb_a_AR = $(AR) $(ARFLAGS)
-libriscv__mmachine__sifive-hifive1-revb_a_LIBADD =
-am_libriscv__mmachine__sifive-hifive1-revb_a_OBJECTS = src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-fixed-clock.$(OBJEXT) \
-	src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-fixed-factor-clock.$(OBJEXT) \
-	src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-inline.$(OBJEXT) \
-	src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-riscv_clint0.$(OBJEXT) \
-	src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-riscv_cpu.$(OBJEXT) \
-	src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-riscv_plic0.$(OBJEXT) \
-	src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_ccache0.$(OBJEXT) \
-	src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_clic0.$(OBJEXT) \
-	src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_hfrosc.$(OBJEXT) \
-	src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_hfxosc.$(OBJEXT) \
-	src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_lfrosc.$(OBJEXT) \
-	src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_pll.$(OBJEXT) \
-	src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_prci.$(OBJEXT) \
-	src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fu540-c000_l2.$(OBJEXT) \
-	src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_global-external-interrupts0.$(OBJEXT) \
-	src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_gpio-buttons.$(OBJEXT) \
-	src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_gpio-leds.$(OBJEXT) \
-	src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_gpio-switches.$(OBJEXT) \
-	src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_gpio0.$(OBJEXT) \
-	src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_local-external-interrupts0.$(OBJEXT) \
-	src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_rtc0.$(OBJEXT) \
-	src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_spi0.$(OBJEXT) \
-	src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_test0.$(OBJEXT) \
-	src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_trace.$(OBJEXT) \
-	src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_uart0.$(OBJEXT) \
-	src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_wdog0.$(OBJEXT) \
-	src/libriscv__mmachine__sifive-hifive1-revb_a-button.$(OBJEXT) \
-	src/libriscv__mmachine__sifive-hifive1-revb_a-cache.$(OBJEXT) \
-	src/libriscv__mmachine__sifive-hifive1-revb_a-clock.$(OBJEXT) \
-	src/libriscv__mmachine__sifive-hifive1-revb_a-cpu.$(OBJEXT) \
-	src/libriscv__mmachine__sifive-hifive1-revb_a-entry.$(OBJEXT) \
-	src/libriscv__mmachine__sifive-hifive1-revb_a-gpio.$(OBJEXT) \
-	src/libriscv__mmachine__sifive-hifive1-revb_a-interrupt.$(OBJEXT) \
-	src/libriscv__mmachine__sifive-hifive1-revb_a-led.$(OBJEXT) \
-	src/libriscv__mmachine__sifive-hifive1-revb_a-lock.$(OBJEXT) \
-	src/libriscv__mmachine__sifive-hifive1-revb_a-memory.$(OBJEXT) \
-	src/libriscv__mmachine__sifive-hifive1-revb_a-pmp.$(OBJEXT) \
-	src/libriscv__mmachine__sifive-hifive1-revb_a-privilege.$(OBJEXT) \
-	src/libriscv__mmachine__sifive-hifive1-revb_a-rtc.$(OBJEXT) \
-	src/libriscv__mmachine__sifive-hifive1-revb_a-shutdown.$(OBJEXT) \
-	src/libriscv__mmachine__sifive-hifive1-revb_a-spi.$(OBJEXT) \
-	src/libriscv__mmachine__sifive-hifive1-revb_a-switch.$(OBJEXT) \
-	src/libriscv__mmachine__sifive-hifive1-revb_a-synchronize_harts.$(OBJEXT) \
-	src/libriscv__mmachine__sifive-hifive1-revb_a-timer.$(OBJEXT) \
-	src/libriscv__mmachine__sifive-hifive1-revb_a-time.$(OBJEXT) \
-	src/libriscv__mmachine__sifive-hifive1-revb_a-trap.$(OBJEXT) \
-	src/libriscv__mmachine__sifive-hifive1-revb_a-tty.$(OBJEXT) \
-	src/libriscv__mmachine__sifive-hifive1-revb_a-uart.$(OBJEXT) \
-	src/libriscv__mmachine__sifive-hifive1-revb_a-vector.$(OBJEXT) \
-	src/libriscv__mmachine__sifive-hifive1-revb_a-watchdog.$(OBJEXT)
-libriscv__mmachine__sifive-hifive1-revb_a_OBJECTS =  \
-	$(am_libriscv__mmachine__sifive-hifive1-revb_a_OBJECTS)
-am_hello_OBJECTS = test/hello-hello.$(OBJEXT)
-hello_OBJECTS = $(am_hello_OBJECTS)
-hello_LDADD = $(LDADD)
-hello_LINK = $(CCLD) $(hello_CFLAGS) $(CFLAGS) $(hello_LDFLAGS) \
-	$(LDFLAGS) -o $@
-am_return_fail_OBJECTS = test/return_fail-return_fail.$(OBJEXT)
-return_fail_OBJECTS = $(am_return_fail_OBJECTS)
-return_fail_LDADD = $(LDADD)
-return_fail_LINK = $(CCLD) $(return_fail_CFLAGS) $(CFLAGS) \
-	$(return_fail_LDFLAGS) $(LDFLAGS) -o $@
-am_return_pass_OBJECTS = test/return_pass-return_pass.$(OBJEXT)
-return_pass_OBJECTS = $(am_return_pass_OBJECTS)
-return_pass_LDADD = $(LDADD)
-return_pass_LINK = $(CCLD) $(return_pass_CFLAGS) $(CFLAGS) \
-	$(return_pass_LDFLAGS) $(LDFLAGS) -o $@
+libmetal_gloss_a_OBJECTS = $(am_libmetal_gloss_a_OBJECTS)
+libmetal_segger_a_AR = $(AR) $(ARFLAGS)
+libmetal_segger_a_LIBADD =
+am__libmetal_segger_a_SOURCES_DIST = gloss/crt0.S \
+	segger/SEGGER_target_metal.c
+#am_libmetal_segger_a_OBJECTS =  \
+#	gloss/crt0.$(OBJEXT) \
+#	segger/SEGGER_target_metal.$(OBJEXT)
+libmetal_segger_a_OBJECTS = $(am_libmetal_segger_a_OBJECTS)
+libmetal_a_AR = $(AR) $(ARFLAGS)
+libmetal_a_LIBADD =
+am_libmetal_a_OBJECTS = src/drivers/fixed-clock.$(OBJEXT) \
+	src/drivers/fixed-factor-clock.$(OBJEXT) \
+	src/drivers/inline.$(OBJEXT) \
+	src/drivers/riscv_clint0.$(OBJEXT) \
+	src/drivers/riscv_cpu.$(OBJEXT) \
+	src/drivers/riscv_plic0.$(OBJEXT) \
+	src/drivers/sifive_remapper2.$(OBJEXT) \
+	src/drivers/sifive_buserror0.$(OBJEXT) \
+	src/drivers/sifive_ccache0.$(OBJEXT) \
+	src/drivers/sifive_clic0.$(OBJEXT) \
+	src/drivers/sifive_fe310-g000_hfrosc.$(OBJEXT) \
+	src/drivers/sifive_fe310-g000_hfxosc.$(OBJEXT) \
+	src/drivers/sifive_fe310-g000_lfrosc.$(OBJEXT) \
+	src/drivers/sifive_fe310-g000_pll.$(OBJEXT) \
+	src/drivers/sifive_fe310-g000_prci.$(OBJEXT) \
+	src/drivers/sifive_global-external-interrupts0.$(OBJEXT) \
+	src/drivers/sifive_gpio-buttons.$(OBJEXT) \
+	src/drivers/sifive_gpio-leds.$(OBJEXT) \
+	src/drivers/sifive_gpio-switches.$(OBJEXT) \
+	src/drivers/sifive_gpio0.$(OBJEXT) \
+	src/drivers/sifive_i2c0.$(OBJEXT) \
+	src/drivers/sifive_l2pf0.$(OBJEXT) \
+	src/drivers/sifive_l2pf1.$(OBJEXT) \
+	src/drivers/sifive_local-external-interrupts0.$(OBJEXT) \
+	src/drivers/sifive_mallard0.$(OBJEXT) \
+	src/drivers/sifive_pl2cache0.$(OBJEXT) \
+	src/drivers/sifive_prci0.$(OBJEXT) \
+	src/drivers/sifive_pwm0.$(OBJEXT) \
+	src/drivers/sifive_rtc0.$(OBJEXT) \
+	src/drivers/sifive_spi0.$(OBJEXT) \
+	src/drivers/sifive_test0.$(OBJEXT) \
+	src/drivers/sifive_trace.$(OBJEXT) \
+	src/drivers/sifive_uart0.$(OBJEXT) \
+	src/drivers/sifive_simuart0.$(OBJEXT) \
+	src/drivers/sifive_wdog0.$(OBJEXT) \
+	src/drivers/ucb_htif0.$(OBJEXT) src/atomic.$(OBJEXT) \
+	src/button.$(OBJEXT) src/cache.$(OBJEXT) src/clock.$(OBJEXT) \
+	src/cpu.$(OBJEXT) src/entry.$(OBJEXT) src/scrub.$(OBJEXT) \
+	src/trap.$(OBJEXT) src/gpio.$(OBJEXT) src/hpm.$(OBJEXT) \
+	src/i2c.$(OBJEXT) src/init.$(OBJEXT) src/interrupt.$(OBJEXT) \
+	src/led.$(OBJEXT) src/lock.$(OBJEXT) src/memory.$(OBJEXT) \
+	src/mallard.$(OBJEXT) src/pmp.$(OBJEXT) src/privilege.$(OBJEXT) \
+	src/prci.$(OBJEXT) src/pwm.$(OBJEXT) src/rtc.$(OBJEXT) \
+	src/shutdown.$(OBJEXT) src/spi.$(OBJEXT) src/switch.$(OBJEXT) \
+	src/synchronize_harts.$(OBJEXT) src/timer.$(OBJEXT) src/time.$(OBJEXT) \
+	src/trap.$(OBJEXT) src/tty.$(OBJEXT) src/uart.$(OBJEXT) \
+	src/vector.$(OBJEXT) src/watchdog.$(OBJEXT) src/remapper.$(OBJEXT)
+libmetal_a_OBJECTS = $(am_libmetal_a_OBJECTS)
 AM_V_P = $(am__v_P_$(V))
 am__v_P_ = $(am__v_P_$(AM_DEFAULT_VERBOSITY))
 am__v_P_0 = false
@@ -282,10 +284,6 @@ DEFAULT_INCLUDES = -I. -I$(srcdir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles
 am__mv = mv -f
-AM_V_lt = $(am__v_lt_$(V))
-am__v_lt_ = $(am__v_lt_$(AM_DEFAULT_VERBOSITY))
-am__v_lt_0 = --silent
-am__v_lt_1 = 
 CPPASCOMPILE = $(CCAS) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
 	$(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CCASFLAGS) $(CCASFLAGS)
 AM_V_CPPAS = $(am__v_CPPAS_$(V))
@@ -304,18 +302,15 @@ AM_V_CCLD = $(am__v_CCLD_$(V))
 am__v_CCLD_ = $(am__v_CCLD_$(AM_DEFAULT_VERBOSITY))
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
-SOURCES = $(libriscv__menv__metal_a_SOURCES) \
-	$(libriscv__mmachine__sifive-hifive1-revb_a_SOURCES) \
-	$(hello_SOURCES) $(return_fail_SOURCES) $(return_pass_SOURCES)
-DIST_SOURCES = $(am__libriscv__menv__metal_a_SOURCES_DIST) \
-	$(libriscv__mmachine__sifive-hifive1-revb_a_SOURCES) \
-	$(hello_SOURCES) $(return_fail_SOURCES) $(return_pass_SOURCES)
+SOURCES = $(libmetal_gloss_a_SOURCES) $(libmetal_segger_a_SOURCES) \
+	$(libmetal_a_SOURCES)
+DIST_SOURCES = $(am__libmetal_gloss_a_SOURCES_DIST) \
+	$(am__libmetal_segger_a_SOURCES_DIST) $(libmetal_a_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
     *) (install-info --version) >/dev/null 2>&1;; \
   esac
-DATA = $(lds_DATA) $(spec_DATA)
 HEADERS = $(nobase_include_HEADERS)
 am__tagged_files = $(HEADERS) $(SOURCES) $(TAGS_FILES) $(LISP)
 # Read a list of newline-separated strings from the standard input,
@@ -338,8 +333,8 @@ ETAGS = etags
 CTAGS = ctags
 CSCOPE = cscope
 AM_RECURSIVE_TARGETS = cscope
-am__DIST_COMMON = $(srcdir)/Makefile.in ar-lib compile depcomp \
-	install-sh missing
+am__DIST_COMMON = $(srcdir)/Makefile.in ar-lib compile config.guess \
+	config.sub depcomp install-sh missing
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 distdir = $(PACKAGE)-$(VERSION)
 top_distdir = $(distdir)
@@ -357,26 +352,24 @@ distuninstallcheck_listfiles = find . -type f -print
 am__distuninstallcheck_listfiles = $(distuninstallcheck_listfiles) \
   | sed 's|^\./|$(prefix)/|' | grep -v '$(infodir)/dir$$'
 distcleancheck_listfiles = find . -type f -print
-ACLOCAL = ${SHELL} /home/albertojor/GitHub/freedom-e-sdk/freedom-metal/missing aclocal-1.15
+ACLOCAL = ${SHELL} /home/ajor/github/freedom-e-sdk/freedom-metal/missing aclocal-1.15
 AMTAR = $${TAR-tar}
 AM_DEFAULT_VERBOSITY = 1
 AR = riscv64-unknown-elf-ar
-AUTOCONF = ${SHELL} /home/albertojor/GitHub/freedom-e-sdk/freedom-metal/missing autoconf
-AUTOHEADER = ${SHELL} /home/albertojor/GitHub/freedom-e-sdk/freedom-metal/missing autoheader
-AUTOMAKE = ${SHELL} /home/albertojor/GitHub/freedom-e-sdk/freedom-metal/missing automake-1.15
-AWK = gawk
-BARE_HEADER_GENERATOR = 
+AUTOCONF = ${SHELL} /home/ajor/github/freedom-e-sdk/freedom-metal/missing autoconf
+AUTOHEADER = ${SHELL} /home/ajor/github/freedom-e-sdk/freedom-metal/missing autoheader
+AUTOMAKE = ${SHELL} /home/ajor/github/freedom-e-sdk/freedom-metal/missing automake-1.15
+AWK = mawk
 CC = riscv64-unknown-elf-gcc
 CCAS = riscv64-unknown-elf-gcc
 CCASDEPMODE = depmode=gcc3
-CCASFLAGS = -march=rv32imac -mabi=ilp32 -mcmodel=medlow -ffunction-sections -fdata-sections -I/home/albertojor/GitHub/freedom-e-sdk/bsp/sifive-hifive1-revb/install/include --specs=nano.specs -O0 -g
+CCASFLAGS = -march=rv32imac -mabi=ilp32 -mcmodel=medlow -ffunction-sections -fdata-sections -I/home/ajor/github/freedom-e-sdk/bsp/sifive-hifive1-revb/install/include --specs=nano.specs -O0 -g
 CCDEPMODE = depmode=gcc3
-CFLAGS = -march=rv32imac -mabi=ilp32 -mcmodel=medlow -ffunction-sections -fdata-sections -I/home/albertojor/GitHub/freedom-e-sdk/bsp/sifive-hifive1-revb/install/include --specs=nano.specs -O0 -g
+CFLAGS = -march=rv32imac -mabi=ilp32 -mcmodel=medlow -ffunction-sections -fdata-sections -I/home/ajor/github/freedom-e-sdk/bsp/sifive-hifive1-revb/install/include --specs=nano.specs -O0 -g
 CPPFLAGS = 
 CYGPATH_W = echo
 DEFS = -DPACKAGE_NAME=\"freedom-metal\" -DPACKAGE_TARNAME=\"freedom-metal\" -DPACKAGE_VERSION=\"v0.1.2\" -DPACKAGE_STRING=\"freedom-metal\ v0.1.2\" -DPACKAGE_BUGREPORT=\"https://github.com/sifive/freedom-metal/issues\" -DPACKAGE_URL=\"https://github.com/sifive/freedom-metal\" -DPACKAGE=\"freedom-metal\" -DVERSION=\"v0.1.2\"
 DEPDIR = .deps
-DTC = 
 ECHO_C = 
 ECHO_N = -n
 ECHO_T = 
@@ -387,22 +380,14 @@ INSTALL_PROGRAM = ${INSTALL}
 INSTALL_SCRIPT = ${INSTALL}
 INSTALL_STRIP_PROGRAM = $(install_sh) -c -s
 LDFLAGS = 
-LDSCRIPT_GENERATOR = 
 LIBOBJS = 
 LIBS = 
 LTLIBOBJS = 
-MACHINE_DTS = 
-MACHINE_HEADER = /home/albertojor/GitHub/freedom-e-sdk/bsp/sifive-hifive1-revb/metal.h
-MACHINE_INLINE = /home/albertojor/GitHub/freedom-e-sdk/bsp/sifive-hifive1-revb/metal-inline.h
-MACHINE_LDSCRIPT = /home/albertojor/GitHub/freedom-e-sdk/bsp/sifive-hifive1-revb/metal.default.lds
-MACHINE_NAME = sifive-hifive1-revb
+MACHINE_HEADER = /home/ajor/github/freedom-e-sdk/bsp/sifive-hifive1-revb/metal.h
+MACHINE_INLINE = /home/ajor/github/freedom-e-sdk/bsp/sifive-hifive1-revb/metal-inline.h
 MAINT = #
-MAKEATTRIBUTES_GENERATOR = false
-MAKEINFO = ${SHELL} /home/albertojor/GitHub/freedom-e-sdk/freedom-metal/missing makeinfo
-MENV_METAL = -lriscv_metal_
-METAL_HEADER_GENERATOR = 
+MAKEINFO = ${SHELL} /home/ajor/github/freedom-e-sdk/freedom-metal/missing makeinfo
 MKDIR_P = /usr/bin/mkdir -p
-MMACHINE_MACHINE_NAME = 
 OBJEXT = o
 PACKAGE = freedom-metal
 PACKAGE_BUGREPORT = https://github.com/sifive/freedom-metal/issues
@@ -412,17 +397,16 @@ PACKAGE_TARNAME = freedom-metal
 PACKAGE_URL = https://github.com/sifive/freedom-metal
 PACKAGE_VERSION = v0.1.2
 PATH_SEPARATOR = :
-PLATFORM_HEADER = /home/albertojor/GitHub/freedom-e-sdk/bsp/sifive-hifive1-revb/metal-platform.h
+PLATFORM_HEADER = /home/ajor/github/freedom-e-sdk/bsp/sifive-hifive1-revb/metal-platform.h
 RANLIB = riscv64-unknown-elf-ranlib
 SET_MAKE = 
 SHELL = /bin/bash
-SPECS_GENERATOR = false
 STRIP = riscv64-unknown-elf-strip
 VERSION = v0.1.2
-abs_builddir = /home/albertojor/GitHub/freedom-e-sdk/bsp/sifive-hifive1-revb/build/debug
-abs_srcdir = /home/albertojor/GitHub/freedom-e-sdk/freedom-metal
-abs_top_builddir = /home/albertojor/GitHub/freedom-e-sdk/bsp/sifive-hifive1-revb/build/debug
-abs_top_srcdir = /home/albertojor/GitHub/freedom-e-sdk/freedom-metal
+abs_builddir = /home/ajor/github/freedom-e-sdk/bsp/sifive-hifive1-revb/build/debug
+abs_srcdir = /home/ajor/github/freedom-e-sdk/freedom-metal
+abs_top_builddir = /home/ajor/github/freedom-e-sdk/bsp/sifive-hifive1-revb/build/debug
+abs_top_srcdir = /home/ajor/github/freedom-e-sdk/freedom-metal
 ac_ct_AR = 
 ac_ct_CC = 
 am__include = include
@@ -431,19 +415,27 @@ am__quote =
 am__tar = $${TAR-tar} chof - "$$tardir"
 am__untar = $${TAR-tar} xf -
 bindir = ${exec_prefix}/bin
+build = x86_64-pc-linux-gnu
 build_alias = 
+build_cpu = x86_64
+build_os = linux-gnu
+build_vendor = pc
 builddir = .
 datadir = ${datarootdir}
 datarootdir = ${prefix}/share
 docdir = ${datarootdir}/doc/${PACKAGE_TARNAME}
 dvidir = ${docdir}
 exec_prefix = ${prefix}
+host = riscv64-unknown-elf
 host_alias = riscv64-unknown-elf
+host_cpu = riscv64
+host_os = elf
+host_vendor = unknown
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
-install_sh = ${SHELL} /home/albertojor/GitHub/freedom-e-sdk/freedom-metal/install-sh
-libdir = /home/albertojor/GitHub/freedom-e-sdk/bsp/sifive-hifive1-revb/install/lib/debug
+install_sh = ${SHELL} /home/ajor/github/freedom-e-sdk/freedom-metal/install-sh
+libdir = /home/ajor/github/freedom-e-sdk/bsp/sifive-hifive1-revb/install/lib/debug
 libexecdir = ${exec_prefix}/libexec
 localedir = ${datarootdir}/locale
 localstatedir = ${prefix}/var
@@ -451,110 +443,80 @@ mandir = ${datarootdir}/man
 mkdir_p = $(MKDIR_P)
 oldincludedir = /usr/include
 pdfdir = ${docdir}
-prefix = /home/albertojor/GitHub/freedom-e-sdk/bsp/sifive-hifive1-revb/install
+prefix = /home/ajor/github/freedom-e-sdk/bsp/sifive-hifive1-revb/install
 program_transform_name = s,x,x,
 psdir = ${docdir}
 runstatedir = ${localstatedir}/run
 sbindir = ${exec_prefix}/sbin
 sharedstatedir = ${prefix}/com
-srcdir = /home/albertojor/GitHub/freedom-e-sdk/freedom-metal
+srcdir = /home/ajor/github/freedom-e-sdk/freedom-metal
 sysconfdir = ${prefix}/etc
 target_alias = 
 top_build_prefix = 
 top_builddir = .
-top_srcdir = /home/albertojor/GitHub/freedom-e-sdk/freedom-metal
+top_srcdir = /home/ajor/github/freedom-e-sdk/freedom-metal
 
-# Generates a linker script that's more reasonable that whatever GCC's default
-# is.
-ldsdir = $(libdir)
-lds_DATA = riscv__mmachine__sifive-hifive1-revb.lds
-
-# Generates a SPEC file that sets a reasonable set of default options for this
-# build.
-specdir = $(libdir)
-spec_DATA = riscv__mmachine__sifive-hifive1-revb.specs \
-	riscv__menv__metal.specs
-
-# Install some METAL-specific headers, one of which is automatically generated.
-# The files that aren't automatically generated are the same for all machines.
-nobase_include_HEADERS = \
-	metal/drivers/fixed-clock.h \
+########################################################
+# Metal header files
+########################################################
+nobase_include_HEADERS = metal/machine.h metal/machine/inline.h \
+	metal/machine/platform.h metal/drivers/fixed-clock.h \
 	metal/drivers/fixed-factor-clock.h \
-	metal/drivers/riscv_clint0.h \
-	metal/drivers/riscv_cpu.h \
-	metal/drivers/riscv_plic0.h \
-	metal/drivers/sifive_ccache0.h \
-	metal/drivers/sifive_clic0.h \
+	metal/drivers/riscv_clint0.h metal/drivers/riscv_cpu.h \
+	metal/drivers/sifive_remapper2.h \
+	metal/drivers/riscv_plic0.h metal/drivers/sifive_buserror0.h \
+	metal/drivers/sifive_ccache0.h metal/drivers/sifive_clic0.h \
 	metal/drivers/sifive_fe310-g000_hfrosc.h \
 	metal/drivers/sifive_fe310-g000_hfxosc.h \
 	metal/drivers/sifive_fe310-g000_lfrosc.h \
 	metal/drivers/sifive_fe310-g000_pll.h \
 	metal/drivers/sifive_fe310-g000_prci.h \
-	metal/drivers/sifive_fu540-c000_l2.h \
 	metal/drivers/sifive_global-external-interrupts0.h \
 	metal/drivers/sifive_gpio-buttons.h \
 	metal/drivers/sifive_gpio-leds.h \
 	metal/drivers/sifive_gpio-switches.h \
-	metal/drivers/sifive_gpio0.h \
+	metal/drivers/sifive_gpio0.h metal/drivers/sifive_i2c0.h \
+	metal/drivers/sifive_l2pf0.h \
+	metal/drivers/sifive_l2pf1.h \
 	metal/drivers/sifive_local-external-interrupts0.h \
-	metal/drivers/sifive_rtc0.h \
-	metal/drivers/sifive_spi0.h \
-	metal/drivers/sifive_test0.h \
-	metal/drivers/sifive_trace.h \
-	metal/drivers/sifive_uart0.h \
-	metal/drivers/sifive_wdog0.h \
-	metal/machine/inline.h \
-	metal/machine/platform.h \
-	metal/button.h \
-	metal/cache.h \
-	metal/clock.h \
-	metal/compiler.h \
-	metal/cpu.h \
-	metal/gpio.h \
-	metal/interrupt.h \
-	metal/io.h \
-	metal/itim.h \
-	metal/led.h \
-	metal/lock.h \
-	metal/machine.h \
-	metal/memory.h \
-	metal/pmp.h \
-	metal/privilege.h \
-	metal/rtc.h \
-	metal/shutdown.h \
-	metal/spi.h \
-	metal/switch.h \
-	metal/timer.h \
-	metal/time.h \
-	metal/tty.h \
-	metal/uart.h \
-	metal/watchdog.h
-
-
-# Quash an automake warning.
-
-# Everything in here is compiled into a single library, which contains all the
-# source files in the project.  It's named for one specific machine, which GCC
-# uses to select the target machine that this METAL implementation points at.
-lib_LIBRARIES = libriscv__mmachine__sifive-hifive1-revb.a $(am__append_1)
-libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS = -lriscv_metal_ 
-libriscv__mmachine__sifive-hifive1-revb_a_CCASFLAGS = -lriscv_metal_ 
+	metal/drivers/sifive_mallard0.h \
+	metal/drivers/sifive_pl2cache0.h \
+	metal/drivers/sifive_prci0.h \
+	metal/drivers/sifive_pwm0.h metal/drivers/sifive_rtc0.h \
+	metal/drivers/sifive_spi0.h metal/drivers/sifive_test0.h \
+	metal/drivers/sifive_trace.h metal/drivers/sifive_uart0.h \
+	metal/drivers/sifive_simuart0.h metal/drivers/sifive_wdog0.h \
+	metal/drivers/ucb_htif0.h metal/drivers/sifive_hca1_regs.h \
+	metal/atomic.h metal/button.h metal/cache.h metal/clock.h \
+	metal/compiler.h metal/cpu.h metal/csr.h metal/gpio.h \
+	metal/hpm.h metal/i2c.h metal/init.h \
+	metal/interrupt.h metal/io.h metal/itim.h metal/led.h \
+	metal/lim.h metal/lock.h metal/memory.h metal/mallard.h metal/nmi.h \
+	metal/pmp.h metal/prci.h metal/privilege.h metal/pwm.h metal/rtc.h \
+	metal/shutdown.h metal/scrub.h metal/spi.h metal/switch.h \
+	metal/timer.h metal/time.h metal/tty.h metal/uart.h metal/watchdog.h \
+	metal/remapper.h
 
 # This will generate these sources before the compilation step
 BUILT_SOURCES = \
 	metal/machine.h \
 	metal/machine/inline.h \
-	metal/machine/platform.h \
-	riscv__menv__metal.specs \
-	riscv__mmachine__sifive-hifive1-revb.specs
+	metal/machine/platform.h
 
-libriscv__mmachine__sifive-hifive1-revb_a_SOURCES = \
+
+########################################################
+# libmetal
+########################################################
+lib_LIBRARIES = libmetal.a $(am__append_1) $(am__append_2)
+libmetal_a_SOURCES = \
 	src/drivers/fixed-clock.c \
 	src/drivers/fixed-factor-clock.c \
 	src/drivers/inline.c \
 	src/drivers/riscv_clint0.c \
 	src/drivers/riscv_cpu.c \
 	src/drivers/riscv_plic0.c \
+	src/drivers/sifive_remapper2.c \
+	src/drivers/sifive_buserror0.c \
 	src/drivers/sifive_ccache0.c \
 	src/drivers/sifive_clic0.c \
 	src/drivers/sifive_fe310-g000_hfrosc.c \
@@ -562,31 +524,49 @@ libriscv__mmachine__sifive-hifive1-revb_a_SOURCES = \
 	src/drivers/sifive_fe310-g000_lfrosc.c \
 	src/drivers/sifive_fe310-g000_pll.c \
 	src/drivers/sifive_fe310-g000_prci.c \
-	src/drivers/sifive_fu540-c000_l2.c \
 	src/drivers/sifive_global-external-interrupts0.c \
 	src/drivers/sifive_gpio-buttons.c \
 	src/drivers/sifive_gpio-leds.c \
 	src/drivers/sifive_gpio-switches.c \
 	src/drivers/sifive_gpio0.c \
+	src/drivers/sifive_i2c0.c \
+	src/drivers/sifive_l2pf0.c \
+	src/drivers/sifive_l2pf1.c \
 	src/drivers/sifive_local-external-interrupts0.c \
+	src/drivers/sifive_mallard0.c \
+	src/drivers/sifive_pl2cache0.c \
+	src/drivers/sifive_prci0.c \
+	src/drivers/sifive_pwm0.c \
 	src/drivers/sifive_rtc0.c \
 	src/drivers/sifive_spi0.c \
 	src/drivers/sifive_test0.c \
 	src/drivers/sifive_trace.c \
 	src/drivers/sifive_uart0.c \
+	src/drivers/sifive_simuart0.c \
 	src/drivers/sifive_wdog0.c \
+	src/drivers/ucb_htif0.c \
+	src/remapper.c \
+	src/atomic.c \
 	src/button.c \
 	src/cache.c \
 	src/clock.c \
 	src/cpu.c \
 	src/entry.S \
+	src/scrub.S \
+	src/trap.S \
 	src/gpio.c \
+	src/hpm.c \
+	src/i2c.c \
+	src/init.c \
 	src/interrupt.c \
 	src/led.c \
 	src/lock.c \
 	src/memory.c \
+	src/mallard.c \
 	src/pmp.c \
+	src/prci.c \
 	src/privilege.c \
+	src/pwm.c\
 	src/rtc.c \
 	src/shutdown.c \
 	src/spi.c \
@@ -600,13 +580,18 @@ libriscv__mmachine__sifive-hifive1-revb_a_SOURCES = \
 	src/vector.S \
 	src/watchdog.c
 
-libriscv__menv__metal_a_SOURCES = \
+#libmetal_segger_a_SOURCES = \
+#       gloss/crt0.S \
+#       segger/SEGGER_target_metal.c
+
+libmetal_gloss_a_SOURCES = \
 	gloss/crt0.S \
 	gloss/nanosleep.c \
 	gloss/sys_access.c \
 	gloss/sys_chdir.c \
 	gloss/sys_chmod.c \
 	gloss/sys_chown.c \
+	gloss/sys_clock_gettime.c \
 	gloss/sys_close.c \
 	gloss/sys_execve.c \
 	gloss/sys_exit.c \
@@ -635,15 +620,6 @@ libriscv__menv__metal_a_SOURCES = \
 	gloss/sys_wait.c \
 	gloss/sys_write.c
 
-return_pass_SOURCES = test/return_pass.c
-return_pass_CFLAGS = -lriscv_metal_ 
-return_pass_LDFLAGS = -L. -Wl,--gc-sections -Wl,-Map=return_pass.map
-return_fail_SOURCES = test/return_fail.c
-return_fail_CFLAGS = -lriscv_metal_ 
-return_fail_LDFLAGS = -L. -Wl,--gc-sections -Wl,-Map=return_fail.map
-hello_SOURCES = test/hello.c
-hello_CFLAGS = -lriscv_metal_ 
-hello_LDFLAGS = -L. -Wl,--gc-sections -Wl,-Map=hello.map
 all: $(BUILT_SOURCES)
 	$(MAKE) $(AM_MAKEFLAGS) all-am
 
@@ -731,6 +707,8 @@ gloss/sys_chmod.$(OBJEXT): gloss/$(am__dirstamp) \
 	gloss/$(DEPDIR)/$(am__dirstamp)
 gloss/sys_chown.$(OBJEXT): gloss/$(am__dirstamp) \
 	gloss/$(DEPDIR)/$(am__dirstamp)
+gloss/sys_clock_gettime.$(OBJEXT): gloss/$(am__dirstamp) \
+	gloss/$(DEPDIR)/$(am__dirstamp)
 gloss/sys_close.$(OBJEXT): gloss/$(am__dirstamp) \
 	gloss/$(DEPDIR)/$(am__dirstamp)
 gloss/sys_execve.$(OBJEXT): gloss/$(am__dirstamp) \
@@ -786,93 +764,109 @@ gloss/sys_wait.$(OBJEXT): gloss/$(am__dirstamp) \
 gloss/sys_write.$(OBJEXT): gloss/$(am__dirstamp) \
 	gloss/$(DEPDIR)/$(am__dirstamp)
 
-libriscv__menv__metal.a: $(libriscv__menv__metal_a_OBJECTS) $(libriscv__menv__metal_a_DEPENDENCIES) $(EXTRA_libriscv__menv__metal_a_DEPENDENCIES) 
-	$(AM_V_at)-rm -f libriscv__menv__metal.a
-	$(AM_V_AR)$(libriscv__menv__metal_a_AR) libriscv__menv__metal.a $(libriscv__menv__metal_a_OBJECTS) $(libriscv__menv__metal_a_LIBADD)
-	$(AM_V_at)$(RANLIB) libriscv__menv__metal.a
+libmetal-gloss.a: $(libmetal_gloss_a_OBJECTS) $(libmetal_gloss_a_DEPENDENCIES) $(EXTRA_libmetal_gloss_a_DEPENDENCIES) 
+	$(AM_V_at)-rm -f libmetal-gloss.a
+	$(AM_V_AR)$(libmetal_gloss_a_AR) libmetal-gloss.a $(libmetal_gloss_a_OBJECTS) $(libmetal_gloss_a_LIBADD)
+	$(AM_V_at)$(RANLIB) libmetal-gloss.a
+segger/$(am__dirstamp):
+	@$(MKDIR_P) segger
+	@: > segger/$(am__dirstamp)
+segger/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) segger/$(DEPDIR)
+	@: > segger/$(DEPDIR)/$(am__dirstamp)
+segger/SEGGER_target_metal.$(OBJEXT): segger/$(am__dirstamp) \
+	segger/$(DEPDIR)/$(am__dirstamp)
+
+libmetal-segger.a: $(libmetal_segger_a_OBJECTS) $(libmetal_segger_a_DEPENDENCIES) $(EXTRA_libmetal_segger_a_DEPENDENCIES) 
+	$(AM_V_at)-rm -f libmetal-segger.a
+	$(AM_V_AR)$(libmetal_segger_a_AR) libmetal-segger.a $(libmetal_segger_a_OBJECTS) $(libmetal_segger_a_LIBADD)
+	$(AM_V_at)$(RANLIB) libmetal-segger.a
 src/drivers/$(am__dirstamp):
 	@$(MKDIR_P) src/drivers
 	@: > src/drivers/$(am__dirstamp)
 src/drivers/$(DEPDIR)/$(am__dirstamp):
 	@$(MKDIR_P) src/drivers/$(DEPDIR)
 	@: > src/drivers/$(DEPDIR)/$(am__dirstamp)
-src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-fixed-clock.$(OBJEXT):  \
+src/drivers/fixed-clock.$(OBJEXT): src/drivers/$(am__dirstamp) \
+	src/drivers/$(DEPDIR)/$(am__dirstamp)
+src/drivers/fixed-factor-clock.$(OBJEXT): src/drivers/$(am__dirstamp) \
+	src/drivers/$(DEPDIR)/$(am__dirstamp)
+src/drivers/inline.$(OBJEXT): src/drivers/$(am__dirstamp) \
+	src/drivers/$(DEPDIR)/$(am__dirstamp)
+src/drivers/riscv_clint0.$(OBJEXT): src/drivers/$(am__dirstamp) \
+	src/drivers/$(DEPDIR)/$(am__dirstamp)
+src/drivers/riscv_cpu.$(OBJEXT): src/drivers/$(am__dirstamp) \
+	src/drivers/$(DEPDIR)/$(am__dirstamp)
+src/drivers/riscv_plic0.$(OBJEXT): src/drivers/$(am__dirstamp) \
+	src/drivers/$(DEPDIR)/$(am__dirstamp)
+src/drivers/sifive_remapper2.$(OBJEXT): src/drivers/$(am__dirstamp) \
+	src/drivers/$(DEPDIR)/$(am__dirstamp)
+src/drivers/sifive_buserror0.$(OBJEXT): src/drivers/$(am__dirstamp) \
+	src/drivers/$(DEPDIR)/$(am__dirstamp)
+src/drivers/sifive_ccache0.$(OBJEXT): src/drivers/$(am__dirstamp) \
+	src/drivers/$(DEPDIR)/$(am__dirstamp)
+src/drivers/sifive_clic0.$(OBJEXT): src/drivers/$(am__dirstamp) \
+	src/drivers/$(DEPDIR)/$(am__dirstamp)
+src/drivers/sifive_fe310-g000_hfrosc.$(OBJEXT):  \
 	src/drivers/$(am__dirstamp) \
 	src/drivers/$(DEPDIR)/$(am__dirstamp)
-src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-fixed-factor-clock.$(OBJEXT):  \
+src/drivers/sifive_fe310-g000_hfxosc.$(OBJEXT):  \
 	src/drivers/$(am__dirstamp) \
 	src/drivers/$(DEPDIR)/$(am__dirstamp)
-src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-inline.$(OBJEXT):  \
+src/drivers/sifive_fe310-g000_lfrosc.$(OBJEXT):  \
 	src/drivers/$(am__dirstamp) \
 	src/drivers/$(DEPDIR)/$(am__dirstamp)
-src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-riscv_clint0.$(OBJEXT):  \
+src/drivers/sifive_fe310-g000_pll.$(OBJEXT):  \
 	src/drivers/$(am__dirstamp) \
 	src/drivers/$(DEPDIR)/$(am__dirstamp)
-src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-riscv_cpu.$(OBJEXT):  \
+src/drivers/sifive_fe310-g000_prci.$(OBJEXT):  \
 	src/drivers/$(am__dirstamp) \
 	src/drivers/$(DEPDIR)/$(am__dirstamp)
-src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-riscv_plic0.$(OBJEXT):  \
+src/drivers/sifive_global-external-interrupts0.$(OBJEXT):  \
 	src/drivers/$(am__dirstamp) \
 	src/drivers/$(DEPDIR)/$(am__dirstamp)
-src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_ccache0.$(OBJEXT):  \
+src/drivers/sifive_gpio-buttons.$(OBJEXT):  \
 	src/drivers/$(am__dirstamp) \
 	src/drivers/$(DEPDIR)/$(am__dirstamp)
-src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_clic0.$(OBJEXT):  \
+src/drivers/sifive_gpio-leds.$(OBJEXT): src/drivers/$(am__dirstamp) \
+	src/drivers/$(DEPDIR)/$(am__dirstamp)
+src/drivers/sifive_gpio-switches.$(OBJEXT):  \
 	src/drivers/$(am__dirstamp) \
 	src/drivers/$(DEPDIR)/$(am__dirstamp)
-src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_hfrosc.$(OBJEXT):  \
+src/drivers/sifive_gpio0.$(OBJEXT): src/drivers/$(am__dirstamp) \
+	src/drivers/$(DEPDIR)/$(am__dirstamp)
+src/drivers/sifive_i2c0.$(OBJEXT): src/drivers/$(am__dirstamp) \
+	src/drivers/$(DEPDIR)/$(am__dirstamp)
+src/drivers/sifive_l2pf0.$(OBJEXT): src/drivers/$(am__dirstamp) \
+	src/drivers/$(DEPDIR)/$(am__dirstamp)
+src/drivers/sifive_l2pf1.$(OBJEXT): src/drivers/$(am__dirstamp) \
+	src/drivers/$(DEPDIR)/$(am__dirstamp)
+src/drivers/sifive_local-external-interrupts0.$(OBJEXT):  \
 	src/drivers/$(am__dirstamp) \
 	src/drivers/$(DEPDIR)/$(am__dirstamp)
-src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_hfxosc.$(OBJEXT):  \
-	src/drivers/$(am__dirstamp) \
+src/drivers/sifive_mallard0.$(OBJEXT): src/drivers/$(am__dirstamp) \
 	src/drivers/$(DEPDIR)/$(am__dirstamp)
-src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_lfrosc.$(OBJEXT):  \
-	src/drivers/$(am__dirstamp) \
+src/drivers/sifive_pl2cache0.$(OBJEXT): src/drivers/$(am__dirstamp) \
 	src/drivers/$(DEPDIR)/$(am__dirstamp)
-src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_pll.$(OBJEXT):  \
-	src/drivers/$(am__dirstamp) \
+src/drivers/sifive_prci0.$(OBJEXT): src/drivers/$(am__dirstamp) \
 	src/drivers/$(DEPDIR)/$(am__dirstamp)
-src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_prci.$(OBJEXT):  \
-	src/drivers/$(am__dirstamp) \
+src/drivers/sifive_pwm0.$(OBJEXT): src/drivers/$(am__dirstamp) \
 	src/drivers/$(DEPDIR)/$(am__dirstamp)
-src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fu540-c000_l2.$(OBJEXT):  \
-	src/drivers/$(am__dirstamp) \
+src/drivers/sifive_rtc0.$(OBJEXT): src/drivers/$(am__dirstamp) \
 	src/drivers/$(DEPDIR)/$(am__dirstamp)
-src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_global-external-interrupts0.$(OBJEXT):  \
-	src/drivers/$(am__dirstamp) \
+src/drivers/sifive_spi0.$(OBJEXT): src/drivers/$(am__dirstamp) \
 	src/drivers/$(DEPDIR)/$(am__dirstamp)
-src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_gpio-buttons.$(OBJEXT):  \
-	src/drivers/$(am__dirstamp) \
+src/drivers/sifive_test0.$(OBJEXT): src/drivers/$(am__dirstamp) \
 	src/drivers/$(DEPDIR)/$(am__dirstamp)
-src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_gpio-leds.$(OBJEXT):  \
-	src/drivers/$(am__dirstamp) \
+src/drivers/sifive_trace.$(OBJEXT): src/drivers/$(am__dirstamp) \
 	src/drivers/$(DEPDIR)/$(am__dirstamp)
-src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_gpio-switches.$(OBJEXT):  \
-	src/drivers/$(am__dirstamp) \
+src/drivers/sifive_uart0.$(OBJEXT): src/drivers/$(am__dirstamp) \
 	src/drivers/$(DEPDIR)/$(am__dirstamp)
-src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_gpio0.$(OBJEXT):  \
-	src/drivers/$(am__dirstamp) \
+src/drivers/sifive_simuart0.$(OBJEXT): src/drivers/$(am__dirstamp) \
 	src/drivers/$(DEPDIR)/$(am__dirstamp)
-src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_local-external-interrupts0.$(OBJEXT):  \
-	src/drivers/$(am__dirstamp) \
+src/drivers/sifive_wdog0.$(OBJEXT): src/drivers/$(am__dirstamp) \
 	src/drivers/$(DEPDIR)/$(am__dirstamp)
-src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_rtc0.$(OBJEXT):  \
-	src/drivers/$(am__dirstamp) \
-	src/drivers/$(DEPDIR)/$(am__dirstamp)
-src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_spi0.$(OBJEXT):  \
-	src/drivers/$(am__dirstamp) \
-	src/drivers/$(DEPDIR)/$(am__dirstamp)
-src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_test0.$(OBJEXT):  \
-	src/drivers/$(am__dirstamp) \
-	src/drivers/$(DEPDIR)/$(am__dirstamp)
-src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_trace.$(OBJEXT):  \
-	src/drivers/$(am__dirstamp) \
-	src/drivers/$(DEPDIR)/$(am__dirstamp)
-src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_uart0.$(OBJEXT):  \
-	src/drivers/$(am__dirstamp) \
-	src/drivers/$(DEPDIR)/$(am__dirstamp)
-src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_wdog0.$(OBJEXT):  \
-	src/drivers/$(am__dirstamp) \
+src/drivers/ucb_htif0.$(OBJEXT): src/drivers/$(am__dirstamp) \
 	src/drivers/$(DEPDIR)/$(am__dirstamp)
 src/$(am__dirstamp):
 	@$(MKDIR_P) src
@@ -880,93 +874,62 @@ src/$(am__dirstamp):
 src/$(DEPDIR)/$(am__dirstamp):
 	@$(MKDIR_P) src/$(DEPDIR)
 	@: > src/$(DEPDIR)/$(am__dirstamp)
-src/libriscv__mmachine__sifive-hifive1-revb_a-button.$(OBJEXT):  \
-	src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
-src/libriscv__mmachine__sifive-hifive1-revb_a-cache.$(OBJEXT):  \
-	src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
-src/libriscv__mmachine__sifive-hifive1-revb_a-clock.$(OBJEXT):  \
-	src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
-src/libriscv__mmachine__sifive-hifive1-revb_a-cpu.$(OBJEXT):  \
-	src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
-src/libriscv__mmachine__sifive-hifive1-revb_a-entry.$(OBJEXT):  \
-	src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
-src/libriscv__mmachine__sifive-hifive1-revb_a-gpio.$(OBJEXT):  \
-	src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
-src/libriscv__mmachine__sifive-hifive1-revb_a-interrupt.$(OBJEXT):  \
-	src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
-src/libriscv__mmachine__sifive-hifive1-revb_a-led.$(OBJEXT):  \
-	src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
-src/libriscv__mmachine__sifive-hifive1-revb_a-lock.$(OBJEXT):  \
-	src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
-src/libriscv__mmachine__sifive-hifive1-revb_a-memory.$(OBJEXT):  \
-	src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
-src/libriscv__mmachine__sifive-hifive1-revb_a-pmp.$(OBJEXT):  \
-	src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
-src/libriscv__mmachine__sifive-hifive1-revb_a-privilege.$(OBJEXT):  \
-	src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
-src/libriscv__mmachine__sifive-hifive1-revb_a-rtc.$(OBJEXT):  \
-	src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
-src/libriscv__mmachine__sifive-hifive1-revb_a-shutdown.$(OBJEXT):  \
-	src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
-src/libriscv__mmachine__sifive-hifive1-revb_a-spi.$(OBJEXT):  \
-	src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
-src/libriscv__mmachine__sifive-hifive1-revb_a-switch.$(OBJEXT):  \
-	src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
-src/libriscv__mmachine__sifive-hifive1-revb_a-synchronize_harts.$(OBJEXT):  \
-	src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
-src/libriscv__mmachine__sifive-hifive1-revb_a-timer.$(OBJEXT):  \
-	src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
-src/libriscv__mmachine__sifive-hifive1-revb_a-time.$(OBJEXT):  \
-	src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
-src/libriscv__mmachine__sifive-hifive1-revb_a-trap.$(OBJEXT):  \
-	src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
-src/libriscv__mmachine__sifive-hifive1-revb_a-tty.$(OBJEXT):  \
-	src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
-src/libriscv__mmachine__sifive-hifive1-revb_a-uart.$(OBJEXT):  \
-	src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
-src/libriscv__mmachine__sifive-hifive1-revb_a-vector.$(OBJEXT):  \
-	src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
-src/libriscv__mmachine__sifive-hifive1-revb_a-watchdog.$(OBJEXT):  \
-	src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
+src/remapper.$(OBJEXT): src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
+src/atomic.$(OBJEXT): src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
+src/button.$(OBJEXT): src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
+src/cache.$(OBJEXT): src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
+src/clock.$(OBJEXT): src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
+src/cpu.$(OBJEXT): src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
+src/entry.$(OBJEXT): src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
+src/scrub.$(OBJEXT): src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
+src/trap.$(OBJEXT): src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
+src/gpio.$(OBJEXT): src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
+src/hpm.$(OBJEXT): src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
+src/i2c.$(OBJEXT): src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
+src/init.$(OBJEXT): src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
+src/interrupt.$(OBJEXT): src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
+src/led.$(OBJEXT): src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
+src/lock.$(OBJEXT): src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
+src/mallard.$(OBJEXT): src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
+src/memory.$(OBJEXT): src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
+src/pmp.$(OBJEXT): src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
+src/prci.$(OBJEXT): src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
+src/privilege.$(OBJEXT): src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
+src/pwm.$(OBJEXT): src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
+src/rtc.$(OBJEXT): src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
+src/shutdown.$(OBJEXT): src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
+src/spi.$(OBJEXT): src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
+src/switch.$(OBJEXT): src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
+src/synchronize_harts.$(OBJEXT): src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
+src/timer.$(OBJEXT): src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
+src/time.$(OBJEXT): src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
+src/tty.$(OBJEXT): src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
+src/uart.$(OBJEXT): src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
+src/vector.$(OBJEXT): src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
+src/watchdog.$(OBJEXT): src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
 
-libriscv__mmachine__sifive-hifive1-revb.a: $(libriscv__mmachine__sifive-hifive1-revb_a_OBJECTS) $(libriscv__mmachine__sifive-hifive1-revb_a_DEPENDENCIES) $(EXTRA_libriscv__mmachine__sifive-hifive1-revb_a_DEPENDENCIES) 
-	$(AM_V_at)-rm -f libriscv__mmachine__sifive-hifive1-revb.a
-	$(AM_V_AR)$(libriscv__mmachine__sifive-hifive1-revb_a_AR) libriscv__mmachine__sifive-hifive1-revb.a $(libriscv__mmachine__sifive-hifive1-revb_a_OBJECTS) $(libriscv__mmachine__sifive-hifive1-revb_a_LIBADD)
-	$(AM_V_at)$(RANLIB) libriscv__mmachine__sifive-hifive1-revb.a
-
-clean-checkPROGRAMS:
-	-test -z "$(check_PROGRAMS)" || rm -f $(check_PROGRAMS)
-test/$(am__dirstamp):
-	@$(MKDIR_P) test
-	@: > test/$(am__dirstamp)
-test/$(DEPDIR)/$(am__dirstamp):
-	@$(MKDIR_P) test/$(DEPDIR)
-	@: > test/$(DEPDIR)/$(am__dirstamp)
-test/hello-hello.$(OBJEXT): test/$(am__dirstamp) \
-	test/$(DEPDIR)/$(am__dirstamp)
-
-hello$(EXEEXT): $(hello_OBJECTS) $(hello_DEPENDENCIES) $(EXTRA_hello_DEPENDENCIES) 
-	@rm -f hello$(EXEEXT)
-	$(AM_V_CCLD)$(hello_LINK) $(hello_OBJECTS) $(hello_LDADD) $(LIBS)
-test/return_fail-return_fail.$(OBJEXT): test/$(am__dirstamp) \
-	test/$(DEPDIR)/$(am__dirstamp)
-
-return_fail$(EXEEXT): $(return_fail_OBJECTS) $(return_fail_DEPENDENCIES) $(EXTRA_return_fail_DEPENDENCIES) 
-	@rm -f return_fail$(EXEEXT)
-	$(AM_V_CCLD)$(return_fail_LINK) $(return_fail_OBJECTS) $(return_fail_LDADD) $(LIBS)
-test/return_pass-return_pass.$(OBJEXT): test/$(am__dirstamp) \
-	test/$(DEPDIR)/$(am__dirstamp)
-
-return_pass$(EXEEXT): $(return_pass_OBJECTS) $(return_pass_DEPENDENCIES) $(EXTRA_return_pass_DEPENDENCIES) 
-	@rm -f return_pass$(EXEEXT)
-	$(AM_V_CCLD)$(return_pass_LINK) $(return_pass_OBJECTS) $(return_pass_LDADD) $(LIBS)
+libmetal.a: $(libmetal_a_OBJECTS) $(libmetal_a_DEPENDENCIES) $(EXTRA_libmetal_a_DEPENDENCIES) 
+	$(AM_V_at)-rm -f libmetal.a
+	$(AM_V_AR)$(libmetal_a_AR) libmetal.a $(libmetal_a_OBJECTS) $(libmetal_a_LIBADD)
+	$(AM_V_at)$(RANLIB) libmetal.a
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
 	-rm -f gloss/*.$(OBJEXT)
+	-rm -f segger/*.$(OBJEXT)
 	-rm -f src/*.$(OBJEXT)
 	-rm -f src/drivers/*.$(OBJEXT)
-	-rm -f test/*.$(OBJEXT)
 
 distclean-compile:
 	-rm -f *.tab.c
@@ -977,6 +940,7 @@ include gloss/$(DEPDIR)/sys_access.Po
 include gloss/$(DEPDIR)/sys_chdir.Po
 include gloss/$(DEPDIR)/sys_chmod.Po
 include gloss/$(DEPDIR)/sys_chown.Po
+include gloss/$(DEPDIR)/sys_clock_gettime.Po
 include gloss/$(DEPDIR)/sys_close.Po
 include gloss/$(DEPDIR)/sys_execve.Po
 include gloss/$(DEPDIR)/sys_exit.Po
@@ -1004,59 +968,76 @@ include gloss/$(DEPDIR)/sys_unlink.Po
 include gloss/$(DEPDIR)/sys_utime.Po
 include gloss/$(DEPDIR)/sys_wait.Po
 include gloss/$(DEPDIR)/sys_write.Po
-include src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-button.Po
-include src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-cache.Po
-include src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-clock.Po
-include src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-cpu.Po
-include src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-entry.Po
-include src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-gpio.Po
-include src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-interrupt.Po
-include src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-led.Po
-include src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-lock.Po
-include src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-memory.Po
-include src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-pmp.Po
-include src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-privilege.Po
-include src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-rtc.Po
-include src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-shutdown.Po
-include src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-spi.Po
-include src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-switch.Po
-include src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-synchronize_harts.Po
-include src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-time.Po
-include src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-timer.Po
-include src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-trap.Po
-include src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-tty.Po
-include src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-uart.Po
-include src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-vector.Po
-include src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-watchdog.Po
-include src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-fixed-clock.Po
-include src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-fixed-factor-clock.Po
-include src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-inline.Po
-include src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-riscv_clint0.Po
-include src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-riscv_cpu.Po
-include src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-riscv_plic0.Po
-include src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_ccache0.Po
-include src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_clic0.Po
-include src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_hfrosc.Po
-include src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_hfxosc.Po
-include src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_lfrosc.Po
-include src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_pll.Po
-include src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_prci.Po
-include src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fu540-c000_l2.Po
-include src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_global-external-interrupts0.Po
-include src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_gpio-buttons.Po
-include src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_gpio-leds.Po
-include src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_gpio-switches.Po
-include src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_gpio0.Po
-include src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_local-external-interrupts0.Po
-include src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_rtc0.Po
-include src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_spi0.Po
-include src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_test0.Po
-include src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_trace.Po
-include src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_uart0.Po
-include src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_wdog0.Po
-include test/$(DEPDIR)/hello-hello.Po
-include test/$(DEPDIR)/return_fail-return_fail.Po
-include test/$(DEPDIR)/return_pass-return_pass.Po
+include segger/$(DEPDIR)/SEGGER_target_metal.Po
+include src/$(DEPDIR)/remapper.Po
+include src/$(DEPDIR)/atomic.Po
+include src/$(DEPDIR)/button.Po
+include src/$(DEPDIR)/cache.Po
+include src/$(DEPDIR)/clock.Po
+include src/$(DEPDIR)/cpu.Po
+include src/$(DEPDIR)/entry.Po
+include src/$(DEPDIR)/gpio.Po
+include src/$(DEPDIR)/hpm.Po
+include src/$(DEPDIR)/i2c.Po
+include src/$(DEPDIR)/init.Po
+include src/$(DEPDIR)/interrupt.Po
+include src/$(DEPDIR)/led.Po
+include src/$(DEPDIR)/lock.Po
+include src/$(DEPDIR)/mallard.Po
+include src/$(DEPDIR)/memory.Po
+include src/$(DEPDIR)/pmp.Po
+include src/$(DEPDIR)/prci.Po
+include src/$(DEPDIR)/privilege.Po
+include src/$(DEPDIR)/pwm.Po
+include src/$(DEPDIR)/rtc.Po
+include src/$(DEPDIR)/scrub.Po
+include src/$(DEPDIR)/shutdown.Po
+include src/$(DEPDIR)/spi.Po
+include src/$(DEPDIR)/switch.Po
+include src/$(DEPDIR)/synchronize_harts.Po
+include src/$(DEPDIR)/time.Po
+include src/$(DEPDIR)/timer.Po
+include src/$(DEPDIR)/trap.Po
+include src/$(DEPDIR)/tty.Po
+include src/$(DEPDIR)/uart.Po
+include src/$(DEPDIR)/vector.Po
+include src/$(DEPDIR)/watchdog.Po
+include src/drivers/$(DEPDIR)/fixed-clock.Po
+include src/drivers/$(DEPDIR)/fixed-factor-clock.Po
+include src/drivers/$(DEPDIR)/inline.Po
+include src/drivers/$(DEPDIR)/riscv_clint0.Po
+include src/drivers/$(DEPDIR)/riscv_cpu.Po
+include src/drivers/$(DEPDIR)/riscv_plic0.Po
+include src/drivers/$(DEPDIR)/sifive_remapper2.Po
+include src/drivers/$(DEPDIR)/sifive_buserror0.Po
+include src/drivers/$(DEPDIR)/sifive_ccache0.Po
+include src/drivers/$(DEPDIR)/sifive_clic0.Po
+include src/drivers/$(DEPDIR)/sifive_fe310-g000_hfrosc.Po
+include src/drivers/$(DEPDIR)/sifive_fe310-g000_hfxosc.Po
+include src/drivers/$(DEPDIR)/sifive_fe310-g000_lfrosc.Po
+include src/drivers/$(DEPDIR)/sifive_fe310-g000_pll.Po
+include src/drivers/$(DEPDIR)/sifive_fe310-g000_prci.Po
+include src/drivers/$(DEPDIR)/sifive_global-external-interrupts0.Po
+include src/drivers/$(DEPDIR)/sifive_gpio-buttons.Po
+include src/drivers/$(DEPDIR)/sifive_gpio-leds.Po
+include src/drivers/$(DEPDIR)/sifive_gpio-switches.Po
+include src/drivers/$(DEPDIR)/sifive_gpio0.Po
+include src/drivers/$(DEPDIR)/sifive_i2c0.Po
+include src/drivers/$(DEPDIR)/sifive_l2pf0.Po
+include src/drivers/$(DEPDIR)/sifive_l2pf1.Po
+include src/drivers/$(DEPDIR)/sifive_local-external-interrupts0.Po
+include src/drivers/$(DEPDIR)/sifive_mallard0.Po
+include src/drivers/$(DEPDIR)/sifive_pl2cache0.Po
+include src/drivers/$(DEPDIR)/sifive_prci0.Po
+include src/drivers/$(DEPDIR)/sifive_pwm0.Po
+include src/drivers/$(DEPDIR)/sifive_rtc0.Po
+include src/drivers/$(DEPDIR)/sifive_simuart0.Po
+include src/drivers/$(DEPDIR)/sifive_spi0.Po
+include src/drivers/$(DEPDIR)/sifive_test0.Po
+include src/drivers/$(DEPDIR)/sifive_trace.Po
+include src/drivers/$(DEPDIR)/sifive_uart0.Po
+include src/drivers/$(DEPDIR)/sifive_wdog0.Po
+include src/drivers/$(DEPDIR)/ucb_htif0.Po
 
 .S.o:
 	$(AM_V_CPPAS)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.o$$||'`;\
@@ -1074,48 +1055,6 @@ include test/$(DEPDIR)/return_pass-return_pass.Po
 #	DEPDIR=$(DEPDIR) $(CCASDEPMODE) $(depcomp) \
 #	$(AM_V_CPPAS_no)$(CPPASCOMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
 
-src/libriscv__mmachine__sifive-hifive1-revb_a-entry.o: src/entry.S
-	$(AM_V_CPPAS)$(CCAS) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CCASFLAGS) $(CCASFLAGS) -MT src/libriscv__mmachine__sifive-hifive1-revb_a-entry.o -MD -MP -MF src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-entry.Tpo -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-entry.o `test -f 'src/entry.S' || echo '$(srcdir)/'`src/entry.S
-	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-entry.Tpo src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-entry.Po
-#	$(AM_V_CPPAS)source='src/entry.S' object='src/libriscv__mmachine__sifive-hifive1-revb_a-entry.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCASDEPMODE) $(depcomp) \
-#	$(AM_V_CPPAS_no)$(CCAS) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CCASFLAGS) $(CCASFLAGS) -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-entry.o `test -f 'src/entry.S' || echo '$(srcdir)/'`src/entry.S
-
-src/libriscv__mmachine__sifive-hifive1-revb_a-entry.obj: src/entry.S
-	$(AM_V_CPPAS)$(CCAS) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CCASFLAGS) $(CCASFLAGS) -MT src/libriscv__mmachine__sifive-hifive1-revb_a-entry.obj -MD -MP -MF src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-entry.Tpo -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-entry.obj `if test -f 'src/entry.S'; then $(CYGPATH_W) 'src/entry.S'; else $(CYGPATH_W) '$(srcdir)/src/entry.S'; fi`
-	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-entry.Tpo src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-entry.Po
-#	$(AM_V_CPPAS)source='src/entry.S' object='src/libriscv__mmachine__sifive-hifive1-revb_a-entry.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCASDEPMODE) $(depcomp) \
-#	$(AM_V_CPPAS_no)$(CCAS) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CCASFLAGS) $(CCASFLAGS) -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-entry.obj `if test -f 'src/entry.S'; then $(CYGPATH_W) 'src/entry.S'; else $(CYGPATH_W) '$(srcdir)/src/entry.S'; fi`
-
-src/libriscv__mmachine__sifive-hifive1-revb_a-trap.o: src/trap.S
-	$(AM_V_CPPAS)$(CCAS) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CCASFLAGS) $(CCASFLAGS) -MT src/libriscv__mmachine__sifive-hifive1-revb_a-trap.o -MD -MP -MF src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-trap.Tpo -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-trap.o `test -f 'src/trap.S' || echo '$(srcdir)/'`src/trap.S
-	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-trap.Tpo src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-trap.Po
-#	$(AM_V_CPPAS)source='src/trap.S' object='src/libriscv__mmachine__sifive-hifive1-revb_a-trap.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCASDEPMODE) $(depcomp) \
-#	$(AM_V_CPPAS_no)$(CCAS) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CCASFLAGS) $(CCASFLAGS) -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-trap.o `test -f 'src/trap.S' || echo '$(srcdir)/'`src/trap.S
-
-src/libriscv__mmachine__sifive-hifive1-revb_a-trap.obj: src/trap.S
-	$(AM_V_CPPAS)$(CCAS) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CCASFLAGS) $(CCASFLAGS) -MT src/libriscv__mmachine__sifive-hifive1-revb_a-trap.obj -MD -MP -MF src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-trap.Tpo -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-trap.obj `if test -f 'src/trap.S'; then $(CYGPATH_W) 'src/trap.S'; else $(CYGPATH_W) '$(srcdir)/src/trap.S'; fi`
-	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-trap.Tpo src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-trap.Po
-#	$(AM_V_CPPAS)source='src/trap.S' object='src/libriscv__mmachine__sifive-hifive1-revb_a-trap.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCASDEPMODE) $(depcomp) \
-#	$(AM_V_CPPAS_no)$(CCAS) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CCASFLAGS) $(CCASFLAGS) -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-trap.obj `if test -f 'src/trap.S'; then $(CYGPATH_W) 'src/trap.S'; else $(CYGPATH_W) '$(srcdir)/src/trap.S'; fi`
-
-src/libriscv__mmachine__sifive-hifive1-revb_a-vector.o: src/vector.S
-	$(AM_V_CPPAS)$(CCAS) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CCASFLAGS) $(CCASFLAGS) -MT src/libriscv__mmachine__sifive-hifive1-revb_a-vector.o -MD -MP -MF src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-vector.Tpo -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-vector.o `test -f 'src/vector.S' || echo '$(srcdir)/'`src/vector.S
-	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-vector.Tpo src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-vector.Po
-#	$(AM_V_CPPAS)source='src/vector.S' object='src/libriscv__mmachine__sifive-hifive1-revb_a-vector.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCASDEPMODE) $(depcomp) \
-#	$(AM_V_CPPAS_no)$(CCAS) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CCASFLAGS) $(CCASFLAGS) -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-vector.o `test -f 'src/vector.S' || echo '$(srcdir)/'`src/vector.S
-
-src/libriscv__mmachine__sifive-hifive1-revb_a-vector.obj: src/vector.S
-	$(AM_V_CPPAS)$(CCAS) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CCASFLAGS) $(CCASFLAGS) -MT src/libriscv__mmachine__sifive-hifive1-revb_a-vector.obj -MD -MP -MF src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-vector.Tpo -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-vector.obj `if test -f 'src/vector.S'; then $(CYGPATH_W) 'src/vector.S'; else $(CYGPATH_W) '$(srcdir)/src/vector.S'; fi`
-	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-vector.Tpo src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-vector.Po
-#	$(AM_V_CPPAS)source='src/vector.S' object='src/libriscv__mmachine__sifive-hifive1-revb_a-vector.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCASDEPMODE) $(depcomp) \
-#	$(AM_V_CPPAS_no)$(CCAS) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CCASFLAGS) $(CCASFLAGS) -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-vector.obj `if test -f 'src/vector.S'; then $(CYGPATH_W) 'src/vector.S'; else $(CYGPATH_W) '$(srcdir)/src/vector.S'; fi`
-
 .c.o:
 	$(AM_V_CC)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.o$$||'`;\
 	$(COMPILE) -MT $@ -MD -MP -MF $$depbase.Tpo -c -o $@ $< &&\
@@ -1131,748 +1070,6 @@ src/libriscv__mmachine__sifive-hifive1-revb_a-vector.obj: src/vector.S
 #	$(AM_V_CC)source='$<' object='$@' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
 #	$(AM_V_CC_no)$(COMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
-
-src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-fixed-clock.o: src/drivers/fixed-clock.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-fixed-clock.o -MD -MP -MF src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-fixed-clock.Tpo -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-fixed-clock.o `test -f 'src/drivers/fixed-clock.c' || echo '$(srcdir)/'`src/drivers/fixed-clock.c
-	$(AM_V_at)$(am__mv) src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-fixed-clock.Tpo src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-fixed-clock.Po
-#	$(AM_V_CC)source='src/drivers/fixed-clock.c' object='src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-fixed-clock.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-fixed-clock.o `test -f 'src/drivers/fixed-clock.c' || echo '$(srcdir)/'`src/drivers/fixed-clock.c
-
-src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-fixed-clock.obj: src/drivers/fixed-clock.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-fixed-clock.obj -MD -MP -MF src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-fixed-clock.Tpo -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-fixed-clock.obj `if test -f 'src/drivers/fixed-clock.c'; then $(CYGPATH_W) 'src/drivers/fixed-clock.c'; else $(CYGPATH_W) '$(srcdir)/src/drivers/fixed-clock.c'; fi`
-	$(AM_V_at)$(am__mv) src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-fixed-clock.Tpo src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-fixed-clock.Po
-#	$(AM_V_CC)source='src/drivers/fixed-clock.c' object='src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-fixed-clock.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-fixed-clock.obj `if test -f 'src/drivers/fixed-clock.c'; then $(CYGPATH_W) 'src/drivers/fixed-clock.c'; else $(CYGPATH_W) '$(srcdir)/src/drivers/fixed-clock.c'; fi`
-
-src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-fixed-factor-clock.o: src/drivers/fixed-factor-clock.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-fixed-factor-clock.o -MD -MP -MF src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-fixed-factor-clock.Tpo -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-fixed-factor-clock.o `test -f 'src/drivers/fixed-factor-clock.c' || echo '$(srcdir)/'`src/drivers/fixed-factor-clock.c
-	$(AM_V_at)$(am__mv) src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-fixed-factor-clock.Tpo src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-fixed-factor-clock.Po
-#	$(AM_V_CC)source='src/drivers/fixed-factor-clock.c' object='src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-fixed-factor-clock.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-fixed-factor-clock.o `test -f 'src/drivers/fixed-factor-clock.c' || echo '$(srcdir)/'`src/drivers/fixed-factor-clock.c
-
-src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-fixed-factor-clock.obj: src/drivers/fixed-factor-clock.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-fixed-factor-clock.obj -MD -MP -MF src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-fixed-factor-clock.Tpo -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-fixed-factor-clock.obj `if test -f 'src/drivers/fixed-factor-clock.c'; then $(CYGPATH_W) 'src/drivers/fixed-factor-clock.c'; else $(CYGPATH_W) '$(srcdir)/src/drivers/fixed-factor-clock.c'; fi`
-	$(AM_V_at)$(am__mv) src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-fixed-factor-clock.Tpo src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-fixed-factor-clock.Po
-#	$(AM_V_CC)source='src/drivers/fixed-factor-clock.c' object='src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-fixed-factor-clock.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-fixed-factor-clock.obj `if test -f 'src/drivers/fixed-factor-clock.c'; then $(CYGPATH_W) 'src/drivers/fixed-factor-clock.c'; else $(CYGPATH_W) '$(srcdir)/src/drivers/fixed-factor-clock.c'; fi`
-
-src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-inline.o: src/drivers/inline.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-inline.o -MD -MP -MF src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-inline.Tpo -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-inline.o `test -f 'src/drivers/inline.c' || echo '$(srcdir)/'`src/drivers/inline.c
-	$(AM_V_at)$(am__mv) src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-inline.Tpo src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-inline.Po
-#	$(AM_V_CC)source='src/drivers/inline.c' object='src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-inline.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-inline.o `test -f 'src/drivers/inline.c' || echo '$(srcdir)/'`src/drivers/inline.c
-
-src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-inline.obj: src/drivers/inline.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-inline.obj -MD -MP -MF src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-inline.Tpo -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-inline.obj `if test -f 'src/drivers/inline.c'; then $(CYGPATH_W) 'src/drivers/inline.c'; else $(CYGPATH_W) '$(srcdir)/src/drivers/inline.c'; fi`
-	$(AM_V_at)$(am__mv) src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-inline.Tpo src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-inline.Po
-#	$(AM_V_CC)source='src/drivers/inline.c' object='src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-inline.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-inline.obj `if test -f 'src/drivers/inline.c'; then $(CYGPATH_W) 'src/drivers/inline.c'; else $(CYGPATH_W) '$(srcdir)/src/drivers/inline.c'; fi`
-
-src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-riscv_clint0.o: src/drivers/riscv_clint0.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-riscv_clint0.o -MD -MP -MF src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-riscv_clint0.Tpo -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-riscv_clint0.o `test -f 'src/drivers/riscv_clint0.c' || echo '$(srcdir)/'`src/drivers/riscv_clint0.c
-	$(AM_V_at)$(am__mv) src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-riscv_clint0.Tpo src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-riscv_clint0.Po
-#	$(AM_V_CC)source='src/drivers/riscv_clint0.c' object='src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-riscv_clint0.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-riscv_clint0.o `test -f 'src/drivers/riscv_clint0.c' || echo '$(srcdir)/'`src/drivers/riscv_clint0.c
-
-src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-riscv_clint0.obj: src/drivers/riscv_clint0.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-riscv_clint0.obj -MD -MP -MF src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-riscv_clint0.Tpo -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-riscv_clint0.obj `if test -f 'src/drivers/riscv_clint0.c'; then $(CYGPATH_W) 'src/drivers/riscv_clint0.c'; else $(CYGPATH_W) '$(srcdir)/src/drivers/riscv_clint0.c'; fi`
-	$(AM_V_at)$(am__mv) src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-riscv_clint0.Tpo src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-riscv_clint0.Po
-#	$(AM_V_CC)source='src/drivers/riscv_clint0.c' object='src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-riscv_clint0.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-riscv_clint0.obj `if test -f 'src/drivers/riscv_clint0.c'; then $(CYGPATH_W) 'src/drivers/riscv_clint0.c'; else $(CYGPATH_W) '$(srcdir)/src/drivers/riscv_clint0.c'; fi`
-
-src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-riscv_cpu.o: src/drivers/riscv_cpu.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-riscv_cpu.o -MD -MP -MF src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-riscv_cpu.Tpo -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-riscv_cpu.o `test -f 'src/drivers/riscv_cpu.c' || echo '$(srcdir)/'`src/drivers/riscv_cpu.c
-	$(AM_V_at)$(am__mv) src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-riscv_cpu.Tpo src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-riscv_cpu.Po
-#	$(AM_V_CC)source='src/drivers/riscv_cpu.c' object='src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-riscv_cpu.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-riscv_cpu.o `test -f 'src/drivers/riscv_cpu.c' || echo '$(srcdir)/'`src/drivers/riscv_cpu.c
-
-src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-riscv_cpu.obj: src/drivers/riscv_cpu.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-riscv_cpu.obj -MD -MP -MF src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-riscv_cpu.Tpo -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-riscv_cpu.obj `if test -f 'src/drivers/riscv_cpu.c'; then $(CYGPATH_W) 'src/drivers/riscv_cpu.c'; else $(CYGPATH_W) '$(srcdir)/src/drivers/riscv_cpu.c'; fi`
-	$(AM_V_at)$(am__mv) src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-riscv_cpu.Tpo src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-riscv_cpu.Po
-#	$(AM_V_CC)source='src/drivers/riscv_cpu.c' object='src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-riscv_cpu.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-riscv_cpu.obj `if test -f 'src/drivers/riscv_cpu.c'; then $(CYGPATH_W) 'src/drivers/riscv_cpu.c'; else $(CYGPATH_W) '$(srcdir)/src/drivers/riscv_cpu.c'; fi`
-
-src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-riscv_plic0.o: src/drivers/riscv_plic0.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-riscv_plic0.o -MD -MP -MF src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-riscv_plic0.Tpo -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-riscv_plic0.o `test -f 'src/drivers/riscv_plic0.c' || echo '$(srcdir)/'`src/drivers/riscv_plic0.c
-	$(AM_V_at)$(am__mv) src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-riscv_plic0.Tpo src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-riscv_plic0.Po
-#	$(AM_V_CC)source='src/drivers/riscv_plic0.c' object='src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-riscv_plic0.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-riscv_plic0.o `test -f 'src/drivers/riscv_plic0.c' || echo '$(srcdir)/'`src/drivers/riscv_plic0.c
-
-src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-riscv_plic0.obj: src/drivers/riscv_plic0.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-riscv_plic0.obj -MD -MP -MF src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-riscv_plic0.Tpo -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-riscv_plic0.obj `if test -f 'src/drivers/riscv_plic0.c'; then $(CYGPATH_W) 'src/drivers/riscv_plic0.c'; else $(CYGPATH_W) '$(srcdir)/src/drivers/riscv_plic0.c'; fi`
-	$(AM_V_at)$(am__mv) src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-riscv_plic0.Tpo src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-riscv_plic0.Po
-#	$(AM_V_CC)source='src/drivers/riscv_plic0.c' object='src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-riscv_plic0.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-riscv_plic0.obj `if test -f 'src/drivers/riscv_plic0.c'; then $(CYGPATH_W) 'src/drivers/riscv_plic0.c'; else $(CYGPATH_W) '$(srcdir)/src/drivers/riscv_plic0.c'; fi`
-
-src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_ccache0.o: src/drivers/sifive_ccache0.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_ccache0.o -MD -MP -MF src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_ccache0.Tpo -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_ccache0.o `test -f 'src/drivers/sifive_ccache0.c' || echo '$(srcdir)/'`src/drivers/sifive_ccache0.c
-	$(AM_V_at)$(am__mv) src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_ccache0.Tpo src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_ccache0.Po
-#	$(AM_V_CC)source='src/drivers/sifive_ccache0.c' object='src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_ccache0.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_ccache0.o `test -f 'src/drivers/sifive_ccache0.c' || echo '$(srcdir)/'`src/drivers/sifive_ccache0.c
-
-src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_ccache0.obj: src/drivers/sifive_ccache0.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_ccache0.obj -MD -MP -MF src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_ccache0.Tpo -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_ccache0.obj `if test -f 'src/drivers/sifive_ccache0.c'; then $(CYGPATH_W) 'src/drivers/sifive_ccache0.c'; else $(CYGPATH_W) '$(srcdir)/src/drivers/sifive_ccache0.c'; fi`
-	$(AM_V_at)$(am__mv) src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_ccache0.Tpo src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_ccache0.Po
-#	$(AM_V_CC)source='src/drivers/sifive_ccache0.c' object='src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_ccache0.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_ccache0.obj `if test -f 'src/drivers/sifive_ccache0.c'; then $(CYGPATH_W) 'src/drivers/sifive_ccache0.c'; else $(CYGPATH_W) '$(srcdir)/src/drivers/sifive_ccache0.c'; fi`
-
-src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_clic0.o: src/drivers/sifive_clic0.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_clic0.o -MD -MP -MF src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_clic0.Tpo -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_clic0.o `test -f 'src/drivers/sifive_clic0.c' || echo '$(srcdir)/'`src/drivers/sifive_clic0.c
-	$(AM_V_at)$(am__mv) src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_clic0.Tpo src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_clic0.Po
-#	$(AM_V_CC)source='src/drivers/sifive_clic0.c' object='src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_clic0.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_clic0.o `test -f 'src/drivers/sifive_clic0.c' || echo '$(srcdir)/'`src/drivers/sifive_clic0.c
-
-src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_clic0.obj: src/drivers/sifive_clic0.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_clic0.obj -MD -MP -MF src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_clic0.Tpo -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_clic0.obj `if test -f 'src/drivers/sifive_clic0.c'; then $(CYGPATH_W) 'src/drivers/sifive_clic0.c'; else $(CYGPATH_W) '$(srcdir)/src/drivers/sifive_clic0.c'; fi`
-	$(AM_V_at)$(am__mv) src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_clic0.Tpo src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_clic0.Po
-#	$(AM_V_CC)source='src/drivers/sifive_clic0.c' object='src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_clic0.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_clic0.obj `if test -f 'src/drivers/sifive_clic0.c'; then $(CYGPATH_W) 'src/drivers/sifive_clic0.c'; else $(CYGPATH_W) '$(srcdir)/src/drivers/sifive_clic0.c'; fi`
-
-src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_hfrosc.o: src/drivers/sifive_fe310-g000_hfrosc.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_hfrosc.o -MD -MP -MF src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_hfrosc.Tpo -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_hfrosc.o `test -f 'src/drivers/sifive_fe310-g000_hfrosc.c' || echo '$(srcdir)/'`src/drivers/sifive_fe310-g000_hfrosc.c
-	$(AM_V_at)$(am__mv) src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_hfrosc.Tpo src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_hfrosc.Po
-#	$(AM_V_CC)source='src/drivers/sifive_fe310-g000_hfrosc.c' object='src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_hfrosc.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_hfrosc.o `test -f 'src/drivers/sifive_fe310-g000_hfrosc.c' || echo '$(srcdir)/'`src/drivers/sifive_fe310-g000_hfrosc.c
-
-src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_hfrosc.obj: src/drivers/sifive_fe310-g000_hfrosc.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_hfrosc.obj -MD -MP -MF src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_hfrosc.Tpo -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_hfrosc.obj `if test -f 'src/drivers/sifive_fe310-g000_hfrosc.c'; then $(CYGPATH_W) 'src/drivers/sifive_fe310-g000_hfrosc.c'; else $(CYGPATH_W) '$(srcdir)/src/drivers/sifive_fe310-g000_hfrosc.c'; fi`
-	$(AM_V_at)$(am__mv) src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_hfrosc.Tpo src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_hfrosc.Po
-#	$(AM_V_CC)source='src/drivers/sifive_fe310-g000_hfrosc.c' object='src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_hfrosc.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_hfrosc.obj `if test -f 'src/drivers/sifive_fe310-g000_hfrosc.c'; then $(CYGPATH_W) 'src/drivers/sifive_fe310-g000_hfrosc.c'; else $(CYGPATH_W) '$(srcdir)/src/drivers/sifive_fe310-g000_hfrosc.c'; fi`
-
-src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_hfxosc.o: src/drivers/sifive_fe310-g000_hfxosc.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_hfxosc.o -MD -MP -MF src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_hfxosc.Tpo -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_hfxosc.o `test -f 'src/drivers/sifive_fe310-g000_hfxosc.c' || echo '$(srcdir)/'`src/drivers/sifive_fe310-g000_hfxosc.c
-	$(AM_V_at)$(am__mv) src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_hfxosc.Tpo src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_hfxosc.Po
-#	$(AM_V_CC)source='src/drivers/sifive_fe310-g000_hfxosc.c' object='src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_hfxosc.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_hfxosc.o `test -f 'src/drivers/sifive_fe310-g000_hfxosc.c' || echo '$(srcdir)/'`src/drivers/sifive_fe310-g000_hfxosc.c
-
-src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_hfxosc.obj: src/drivers/sifive_fe310-g000_hfxosc.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_hfxosc.obj -MD -MP -MF src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_hfxosc.Tpo -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_hfxosc.obj `if test -f 'src/drivers/sifive_fe310-g000_hfxosc.c'; then $(CYGPATH_W) 'src/drivers/sifive_fe310-g000_hfxosc.c'; else $(CYGPATH_W) '$(srcdir)/src/drivers/sifive_fe310-g000_hfxosc.c'; fi`
-	$(AM_V_at)$(am__mv) src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_hfxosc.Tpo src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_hfxosc.Po
-#	$(AM_V_CC)source='src/drivers/sifive_fe310-g000_hfxosc.c' object='src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_hfxosc.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_hfxosc.obj `if test -f 'src/drivers/sifive_fe310-g000_hfxosc.c'; then $(CYGPATH_W) 'src/drivers/sifive_fe310-g000_hfxosc.c'; else $(CYGPATH_W) '$(srcdir)/src/drivers/sifive_fe310-g000_hfxosc.c'; fi`
-
-src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_lfrosc.o: src/drivers/sifive_fe310-g000_lfrosc.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_lfrosc.o -MD -MP -MF src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_lfrosc.Tpo -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_lfrosc.o `test -f 'src/drivers/sifive_fe310-g000_lfrosc.c' || echo '$(srcdir)/'`src/drivers/sifive_fe310-g000_lfrosc.c
-	$(AM_V_at)$(am__mv) src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_lfrosc.Tpo src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_lfrosc.Po
-#	$(AM_V_CC)source='src/drivers/sifive_fe310-g000_lfrosc.c' object='src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_lfrosc.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_lfrosc.o `test -f 'src/drivers/sifive_fe310-g000_lfrosc.c' || echo '$(srcdir)/'`src/drivers/sifive_fe310-g000_lfrosc.c
-
-src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_lfrosc.obj: src/drivers/sifive_fe310-g000_lfrosc.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_lfrosc.obj -MD -MP -MF src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_lfrosc.Tpo -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_lfrosc.obj `if test -f 'src/drivers/sifive_fe310-g000_lfrosc.c'; then $(CYGPATH_W) 'src/drivers/sifive_fe310-g000_lfrosc.c'; else $(CYGPATH_W) '$(srcdir)/src/drivers/sifive_fe310-g000_lfrosc.c'; fi`
-	$(AM_V_at)$(am__mv) src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_lfrosc.Tpo src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_lfrosc.Po
-#	$(AM_V_CC)source='src/drivers/sifive_fe310-g000_lfrosc.c' object='src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_lfrosc.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_lfrosc.obj `if test -f 'src/drivers/sifive_fe310-g000_lfrosc.c'; then $(CYGPATH_W) 'src/drivers/sifive_fe310-g000_lfrosc.c'; else $(CYGPATH_W) '$(srcdir)/src/drivers/sifive_fe310-g000_lfrosc.c'; fi`
-
-src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_pll.o: src/drivers/sifive_fe310-g000_pll.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_pll.o -MD -MP -MF src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_pll.Tpo -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_pll.o `test -f 'src/drivers/sifive_fe310-g000_pll.c' || echo '$(srcdir)/'`src/drivers/sifive_fe310-g000_pll.c
-	$(AM_V_at)$(am__mv) src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_pll.Tpo src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_pll.Po
-#	$(AM_V_CC)source='src/drivers/sifive_fe310-g000_pll.c' object='src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_pll.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_pll.o `test -f 'src/drivers/sifive_fe310-g000_pll.c' || echo '$(srcdir)/'`src/drivers/sifive_fe310-g000_pll.c
-
-src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_pll.obj: src/drivers/sifive_fe310-g000_pll.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_pll.obj -MD -MP -MF src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_pll.Tpo -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_pll.obj `if test -f 'src/drivers/sifive_fe310-g000_pll.c'; then $(CYGPATH_W) 'src/drivers/sifive_fe310-g000_pll.c'; else $(CYGPATH_W) '$(srcdir)/src/drivers/sifive_fe310-g000_pll.c'; fi`
-	$(AM_V_at)$(am__mv) src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_pll.Tpo src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_pll.Po
-#	$(AM_V_CC)source='src/drivers/sifive_fe310-g000_pll.c' object='src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_pll.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_pll.obj `if test -f 'src/drivers/sifive_fe310-g000_pll.c'; then $(CYGPATH_W) 'src/drivers/sifive_fe310-g000_pll.c'; else $(CYGPATH_W) '$(srcdir)/src/drivers/sifive_fe310-g000_pll.c'; fi`
-
-src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_prci.o: src/drivers/sifive_fe310-g000_prci.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_prci.o -MD -MP -MF src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_prci.Tpo -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_prci.o `test -f 'src/drivers/sifive_fe310-g000_prci.c' || echo '$(srcdir)/'`src/drivers/sifive_fe310-g000_prci.c
-	$(AM_V_at)$(am__mv) src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_prci.Tpo src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_prci.Po
-#	$(AM_V_CC)source='src/drivers/sifive_fe310-g000_prci.c' object='src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_prci.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_prci.o `test -f 'src/drivers/sifive_fe310-g000_prci.c' || echo '$(srcdir)/'`src/drivers/sifive_fe310-g000_prci.c
-
-src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_prci.obj: src/drivers/sifive_fe310-g000_prci.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_prci.obj -MD -MP -MF src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_prci.Tpo -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_prci.obj `if test -f 'src/drivers/sifive_fe310-g000_prci.c'; then $(CYGPATH_W) 'src/drivers/sifive_fe310-g000_prci.c'; else $(CYGPATH_W) '$(srcdir)/src/drivers/sifive_fe310-g000_prci.c'; fi`
-	$(AM_V_at)$(am__mv) src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_prci.Tpo src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_prci.Po
-#	$(AM_V_CC)source='src/drivers/sifive_fe310-g000_prci.c' object='src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_prci.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fe310-g000_prci.obj `if test -f 'src/drivers/sifive_fe310-g000_prci.c'; then $(CYGPATH_W) 'src/drivers/sifive_fe310-g000_prci.c'; else $(CYGPATH_W) '$(srcdir)/src/drivers/sifive_fe310-g000_prci.c'; fi`
-
-src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fu540-c000_l2.o: src/drivers/sifive_fu540-c000_l2.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fu540-c000_l2.o -MD -MP -MF src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fu540-c000_l2.Tpo -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fu540-c000_l2.o `test -f 'src/drivers/sifive_fu540-c000_l2.c' || echo '$(srcdir)/'`src/drivers/sifive_fu540-c000_l2.c
-	$(AM_V_at)$(am__mv) src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fu540-c000_l2.Tpo src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fu540-c000_l2.Po
-#	$(AM_V_CC)source='src/drivers/sifive_fu540-c000_l2.c' object='src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fu540-c000_l2.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fu540-c000_l2.o `test -f 'src/drivers/sifive_fu540-c000_l2.c' || echo '$(srcdir)/'`src/drivers/sifive_fu540-c000_l2.c
-
-src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fu540-c000_l2.obj: src/drivers/sifive_fu540-c000_l2.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fu540-c000_l2.obj -MD -MP -MF src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fu540-c000_l2.Tpo -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fu540-c000_l2.obj `if test -f 'src/drivers/sifive_fu540-c000_l2.c'; then $(CYGPATH_W) 'src/drivers/sifive_fu540-c000_l2.c'; else $(CYGPATH_W) '$(srcdir)/src/drivers/sifive_fu540-c000_l2.c'; fi`
-	$(AM_V_at)$(am__mv) src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fu540-c000_l2.Tpo src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fu540-c000_l2.Po
-#	$(AM_V_CC)source='src/drivers/sifive_fu540-c000_l2.c' object='src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fu540-c000_l2.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_fu540-c000_l2.obj `if test -f 'src/drivers/sifive_fu540-c000_l2.c'; then $(CYGPATH_W) 'src/drivers/sifive_fu540-c000_l2.c'; else $(CYGPATH_W) '$(srcdir)/src/drivers/sifive_fu540-c000_l2.c'; fi`
-
-src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_global-external-interrupts0.o: src/drivers/sifive_global-external-interrupts0.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_global-external-interrupts0.o -MD -MP -MF src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_global-external-interrupts0.Tpo -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_global-external-interrupts0.o `test -f 'src/drivers/sifive_global-external-interrupts0.c' || echo '$(srcdir)/'`src/drivers/sifive_global-external-interrupts0.c
-	$(AM_V_at)$(am__mv) src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_global-external-interrupts0.Tpo src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_global-external-interrupts0.Po
-#	$(AM_V_CC)source='src/drivers/sifive_global-external-interrupts0.c' object='src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_global-external-interrupts0.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_global-external-interrupts0.o `test -f 'src/drivers/sifive_global-external-interrupts0.c' || echo '$(srcdir)/'`src/drivers/sifive_global-external-interrupts0.c
-
-src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_global-external-interrupts0.obj: src/drivers/sifive_global-external-interrupts0.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_global-external-interrupts0.obj -MD -MP -MF src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_global-external-interrupts0.Tpo -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_global-external-interrupts0.obj `if test -f 'src/drivers/sifive_global-external-interrupts0.c'; then $(CYGPATH_W) 'src/drivers/sifive_global-external-interrupts0.c'; else $(CYGPATH_W) '$(srcdir)/src/drivers/sifive_global-external-interrupts0.c'; fi`
-	$(AM_V_at)$(am__mv) src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_global-external-interrupts0.Tpo src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_global-external-interrupts0.Po
-#	$(AM_V_CC)source='src/drivers/sifive_global-external-interrupts0.c' object='src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_global-external-interrupts0.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_global-external-interrupts0.obj `if test -f 'src/drivers/sifive_global-external-interrupts0.c'; then $(CYGPATH_W) 'src/drivers/sifive_global-external-interrupts0.c'; else $(CYGPATH_W) '$(srcdir)/src/drivers/sifive_global-external-interrupts0.c'; fi`
-
-src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_gpio-buttons.o: src/drivers/sifive_gpio-buttons.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_gpio-buttons.o -MD -MP -MF src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_gpio-buttons.Tpo -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_gpio-buttons.o `test -f 'src/drivers/sifive_gpio-buttons.c' || echo '$(srcdir)/'`src/drivers/sifive_gpio-buttons.c
-	$(AM_V_at)$(am__mv) src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_gpio-buttons.Tpo src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_gpio-buttons.Po
-#	$(AM_V_CC)source='src/drivers/sifive_gpio-buttons.c' object='src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_gpio-buttons.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_gpio-buttons.o `test -f 'src/drivers/sifive_gpio-buttons.c' || echo '$(srcdir)/'`src/drivers/sifive_gpio-buttons.c
-
-src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_gpio-buttons.obj: src/drivers/sifive_gpio-buttons.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_gpio-buttons.obj -MD -MP -MF src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_gpio-buttons.Tpo -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_gpio-buttons.obj `if test -f 'src/drivers/sifive_gpio-buttons.c'; then $(CYGPATH_W) 'src/drivers/sifive_gpio-buttons.c'; else $(CYGPATH_W) '$(srcdir)/src/drivers/sifive_gpio-buttons.c'; fi`
-	$(AM_V_at)$(am__mv) src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_gpio-buttons.Tpo src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_gpio-buttons.Po
-#	$(AM_V_CC)source='src/drivers/sifive_gpio-buttons.c' object='src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_gpio-buttons.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_gpio-buttons.obj `if test -f 'src/drivers/sifive_gpio-buttons.c'; then $(CYGPATH_W) 'src/drivers/sifive_gpio-buttons.c'; else $(CYGPATH_W) '$(srcdir)/src/drivers/sifive_gpio-buttons.c'; fi`
-
-src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_gpio-leds.o: src/drivers/sifive_gpio-leds.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_gpio-leds.o -MD -MP -MF src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_gpio-leds.Tpo -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_gpio-leds.o `test -f 'src/drivers/sifive_gpio-leds.c' || echo '$(srcdir)/'`src/drivers/sifive_gpio-leds.c
-	$(AM_V_at)$(am__mv) src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_gpio-leds.Tpo src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_gpio-leds.Po
-#	$(AM_V_CC)source='src/drivers/sifive_gpio-leds.c' object='src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_gpio-leds.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_gpio-leds.o `test -f 'src/drivers/sifive_gpio-leds.c' || echo '$(srcdir)/'`src/drivers/sifive_gpio-leds.c
-
-src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_gpio-leds.obj: src/drivers/sifive_gpio-leds.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_gpio-leds.obj -MD -MP -MF src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_gpio-leds.Tpo -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_gpio-leds.obj `if test -f 'src/drivers/sifive_gpio-leds.c'; then $(CYGPATH_W) 'src/drivers/sifive_gpio-leds.c'; else $(CYGPATH_W) '$(srcdir)/src/drivers/sifive_gpio-leds.c'; fi`
-	$(AM_V_at)$(am__mv) src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_gpio-leds.Tpo src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_gpio-leds.Po
-#	$(AM_V_CC)source='src/drivers/sifive_gpio-leds.c' object='src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_gpio-leds.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_gpio-leds.obj `if test -f 'src/drivers/sifive_gpio-leds.c'; then $(CYGPATH_W) 'src/drivers/sifive_gpio-leds.c'; else $(CYGPATH_W) '$(srcdir)/src/drivers/sifive_gpio-leds.c'; fi`
-
-src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_gpio-switches.o: src/drivers/sifive_gpio-switches.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_gpio-switches.o -MD -MP -MF src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_gpio-switches.Tpo -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_gpio-switches.o `test -f 'src/drivers/sifive_gpio-switches.c' || echo '$(srcdir)/'`src/drivers/sifive_gpio-switches.c
-	$(AM_V_at)$(am__mv) src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_gpio-switches.Tpo src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_gpio-switches.Po
-#	$(AM_V_CC)source='src/drivers/sifive_gpio-switches.c' object='src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_gpio-switches.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_gpio-switches.o `test -f 'src/drivers/sifive_gpio-switches.c' || echo '$(srcdir)/'`src/drivers/sifive_gpio-switches.c
-
-src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_gpio-switches.obj: src/drivers/sifive_gpio-switches.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_gpio-switches.obj -MD -MP -MF src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_gpio-switches.Tpo -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_gpio-switches.obj `if test -f 'src/drivers/sifive_gpio-switches.c'; then $(CYGPATH_W) 'src/drivers/sifive_gpio-switches.c'; else $(CYGPATH_W) '$(srcdir)/src/drivers/sifive_gpio-switches.c'; fi`
-	$(AM_V_at)$(am__mv) src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_gpio-switches.Tpo src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_gpio-switches.Po
-#	$(AM_V_CC)source='src/drivers/sifive_gpio-switches.c' object='src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_gpio-switches.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_gpio-switches.obj `if test -f 'src/drivers/sifive_gpio-switches.c'; then $(CYGPATH_W) 'src/drivers/sifive_gpio-switches.c'; else $(CYGPATH_W) '$(srcdir)/src/drivers/sifive_gpio-switches.c'; fi`
-
-src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_gpio0.o: src/drivers/sifive_gpio0.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_gpio0.o -MD -MP -MF src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_gpio0.Tpo -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_gpio0.o `test -f 'src/drivers/sifive_gpio0.c' || echo '$(srcdir)/'`src/drivers/sifive_gpio0.c
-	$(AM_V_at)$(am__mv) src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_gpio0.Tpo src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_gpio0.Po
-#	$(AM_V_CC)source='src/drivers/sifive_gpio0.c' object='src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_gpio0.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_gpio0.o `test -f 'src/drivers/sifive_gpio0.c' || echo '$(srcdir)/'`src/drivers/sifive_gpio0.c
-
-src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_gpio0.obj: src/drivers/sifive_gpio0.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_gpio0.obj -MD -MP -MF src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_gpio0.Tpo -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_gpio0.obj `if test -f 'src/drivers/sifive_gpio0.c'; then $(CYGPATH_W) 'src/drivers/sifive_gpio0.c'; else $(CYGPATH_W) '$(srcdir)/src/drivers/sifive_gpio0.c'; fi`
-	$(AM_V_at)$(am__mv) src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_gpio0.Tpo src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_gpio0.Po
-#	$(AM_V_CC)source='src/drivers/sifive_gpio0.c' object='src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_gpio0.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_gpio0.obj `if test -f 'src/drivers/sifive_gpio0.c'; then $(CYGPATH_W) 'src/drivers/sifive_gpio0.c'; else $(CYGPATH_W) '$(srcdir)/src/drivers/sifive_gpio0.c'; fi`
-
-src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_local-external-interrupts0.o: src/drivers/sifive_local-external-interrupts0.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_local-external-interrupts0.o -MD -MP -MF src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_local-external-interrupts0.Tpo -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_local-external-interrupts0.o `test -f 'src/drivers/sifive_local-external-interrupts0.c' || echo '$(srcdir)/'`src/drivers/sifive_local-external-interrupts0.c
-	$(AM_V_at)$(am__mv) src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_local-external-interrupts0.Tpo src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_local-external-interrupts0.Po
-#	$(AM_V_CC)source='src/drivers/sifive_local-external-interrupts0.c' object='src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_local-external-interrupts0.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_local-external-interrupts0.o `test -f 'src/drivers/sifive_local-external-interrupts0.c' || echo '$(srcdir)/'`src/drivers/sifive_local-external-interrupts0.c
-
-src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_local-external-interrupts0.obj: src/drivers/sifive_local-external-interrupts0.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_local-external-interrupts0.obj -MD -MP -MF src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_local-external-interrupts0.Tpo -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_local-external-interrupts0.obj `if test -f 'src/drivers/sifive_local-external-interrupts0.c'; then $(CYGPATH_W) 'src/drivers/sifive_local-external-interrupts0.c'; else $(CYGPATH_W) '$(srcdir)/src/drivers/sifive_local-external-interrupts0.c'; fi`
-	$(AM_V_at)$(am__mv) src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_local-external-interrupts0.Tpo src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_local-external-interrupts0.Po
-#	$(AM_V_CC)source='src/drivers/sifive_local-external-interrupts0.c' object='src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_local-external-interrupts0.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_local-external-interrupts0.obj `if test -f 'src/drivers/sifive_local-external-interrupts0.c'; then $(CYGPATH_W) 'src/drivers/sifive_local-external-interrupts0.c'; else $(CYGPATH_W) '$(srcdir)/src/drivers/sifive_local-external-interrupts0.c'; fi`
-
-src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_rtc0.o: src/drivers/sifive_rtc0.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_rtc0.o -MD -MP -MF src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_rtc0.Tpo -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_rtc0.o `test -f 'src/drivers/sifive_rtc0.c' || echo '$(srcdir)/'`src/drivers/sifive_rtc0.c
-	$(AM_V_at)$(am__mv) src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_rtc0.Tpo src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_rtc0.Po
-#	$(AM_V_CC)source='src/drivers/sifive_rtc0.c' object='src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_rtc0.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_rtc0.o `test -f 'src/drivers/sifive_rtc0.c' || echo '$(srcdir)/'`src/drivers/sifive_rtc0.c
-
-src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_rtc0.obj: src/drivers/sifive_rtc0.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_rtc0.obj -MD -MP -MF src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_rtc0.Tpo -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_rtc0.obj `if test -f 'src/drivers/sifive_rtc0.c'; then $(CYGPATH_W) 'src/drivers/sifive_rtc0.c'; else $(CYGPATH_W) '$(srcdir)/src/drivers/sifive_rtc0.c'; fi`
-	$(AM_V_at)$(am__mv) src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_rtc0.Tpo src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_rtc0.Po
-#	$(AM_V_CC)source='src/drivers/sifive_rtc0.c' object='src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_rtc0.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_rtc0.obj `if test -f 'src/drivers/sifive_rtc0.c'; then $(CYGPATH_W) 'src/drivers/sifive_rtc0.c'; else $(CYGPATH_W) '$(srcdir)/src/drivers/sifive_rtc0.c'; fi`
-
-src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_spi0.o: src/drivers/sifive_spi0.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_spi0.o -MD -MP -MF src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_spi0.Tpo -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_spi0.o `test -f 'src/drivers/sifive_spi0.c' || echo '$(srcdir)/'`src/drivers/sifive_spi0.c
-	$(AM_V_at)$(am__mv) src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_spi0.Tpo src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_spi0.Po
-#	$(AM_V_CC)source='src/drivers/sifive_spi0.c' object='src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_spi0.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_spi0.o `test -f 'src/drivers/sifive_spi0.c' || echo '$(srcdir)/'`src/drivers/sifive_spi0.c
-
-src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_spi0.obj: src/drivers/sifive_spi0.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_spi0.obj -MD -MP -MF src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_spi0.Tpo -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_spi0.obj `if test -f 'src/drivers/sifive_spi0.c'; then $(CYGPATH_W) 'src/drivers/sifive_spi0.c'; else $(CYGPATH_W) '$(srcdir)/src/drivers/sifive_spi0.c'; fi`
-	$(AM_V_at)$(am__mv) src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_spi0.Tpo src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_spi0.Po
-#	$(AM_V_CC)source='src/drivers/sifive_spi0.c' object='src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_spi0.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_spi0.obj `if test -f 'src/drivers/sifive_spi0.c'; then $(CYGPATH_W) 'src/drivers/sifive_spi0.c'; else $(CYGPATH_W) '$(srcdir)/src/drivers/sifive_spi0.c'; fi`
-
-src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_test0.o: src/drivers/sifive_test0.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_test0.o -MD -MP -MF src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_test0.Tpo -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_test0.o `test -f 'src/drivers/sifive_test0.c' || echo '$(srcdir)/'`src/drivers/sifive_test0.c
-	$(AM_V_at)$(am__mv) src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_test0.Tpo src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_test0.Po
-#	$(AM_V_CC)source='src/drivers/sifive_test0.c' object='src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_test0.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_test0.o `test -f 'src/drivers/sifive_test0.c' || echo '$(srcdir)/'`src/drivers/sifive_test0.c
-
-src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_test0.obj: src/drivers/sifive_test0.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_test0.obj -MD -MP -MF src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_test0.Tpo -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_test0.obj `if test -f 'src/drivers/sifive_test0.c'; then $(CYGPATH_W) 'src/drivers/sifive_test0.c'; else $(CYGPATH_W) '$(srcdir)/src/drivers/sifive_test0.c'; fi`
-	$(AM_V_at)$(am__mv) src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_test0.Tpo src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_test0.Po
-#	$(AM_V_CC)source='src/drivers/sifive_test0.c' object='src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_test0.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_test0.obj `if test -f 'src/drivers/sifive_test0.c'; then $(CYGPATH_W) 'src/drivers/sifive_test0.c'; else $(CYGPATH_W) '$(srcdir)/src/drivers/sifive_test0.c'; fi`
-
-src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_trace.o: src/drivers/sifive_trace.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_trace.o -MD -MP -MF src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_trace.Tpo -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_trace.o `test -f 'src/drivers/sifive_trace.c' || echo '$(srcdir)/'`src/drivers/sifive_trace.c
-	$(AM_V_at)$(am__mv) src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_trace.Tpo src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_trace.Po
-#	$(AM_V_CC)source='src/drivers/sifive_trace.c' object='src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_trace.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_trace.o `test -f 'src/drivers/sifive_trace.c' || echo '$(srcdir)/'`src/drivers/sifive_trace.c
-
-src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_trace.obj: src/drivers/sifive_trace.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_trace.obj -MD -MP -MF src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_trace.Tpo -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_trace.obj `if test -f 'src/drivers/sifive_trace.c'; then $(CYGPATH_W) 'src/drivers/sifive_trace.c'; else $(CYGPATH_W) '$(srcdir)/src/drivers/sifive_trace.c'; fi`
-	$(AM_V_at)$(am__mv) src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_trace.Tpo src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_trace.Po
-#	$(AM_V_CC)source='src/drivers/sifive_trace.c' object='src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_trace.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_trace.obj `if test -f 'src/drivers/sifive_trace.c'; then $(CYGPATH_W) 'src/drivers/sifive_trace.c'; else $(CYGPATH_W) '$(srcdir)/src/drivers/sifive_trace.c'; fi`
-
-src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_uart0.o: src/drivers/sifive_uart0.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_uart0.o -MD -MP -MF src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_uart0.Tpo -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_uart0.o `test -f 'src/drivers/sifive_uart0.c' || echo '$(srcdir)/'`src/drivers/sifive_uart0.c
-	$(AM_V_at)$(am__mv) src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_uart0.Tpo src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_uart0.Po
-#	$(AM_V_CC)source='src/drivers/sifive_uart0.c' object='src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_uart0.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_uart0.o `test -f 'src/drivers/sifive_uart0.c' || echo '$(srcdir)/'`src/drivers/sifive_uart0.c
-
-src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_uart0.obj: src/drivers/sifive_uart0.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_uart0.obj -MD -MP -MF src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_uart0.Tpo -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_uart0.obj `if test -f 'src/drivers/sifive_uart0.c'; then $(CYGPATH_W) 'src/drivers/sifive_uart0.c'; else $(CYGPATH_W) '$(srcdir)/src/drivers/sifive_uart0.c'; fi`
-	$(AM_V_at)$(am__mv) src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_uart0.Tpo src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_uart0.Po
-#	$(AM_V_CC)source='src/drivers/sifive_uart0.c' object='src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_uart0.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_uart0.obj `if test -f 'src/drivers/sifive_uart0.c'; then $(CYGPATH_W) 'src/drivers/sifive_uart0.c'; else $(CYGPATH_W) '$(srcdir)/src/drivers/sifive_uart0.c'; fi`
-
-src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_wdog0.o: src/drivers/sifive_wdog0.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_wdog0.o -MD -MP -MF src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_wdog0.Tpo -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_wdog0.o `test -f 'src/drivers/sifive_wdog0.c' || echo '$(srcdir)/'`src/drivers/sifive_wdog0.c
-	$(AM_V_at)$(am__mv) src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_wdog0.Tpo src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_wdog0.Po
-#	$(AM_V_CC)source='src/drivers/sifive_wdog0.c' object='src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_wdog0.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_wdog0.o `test -f 'src/drivers/sifive_wdog0.c' || echo '$(srcdir)/'`src/drivers/sifive_wdog0.c
-
-src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_wdog0.obj: src/drivers/sifive_wdog0.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_wdog0.obj -MD -MP -MF src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_wdog0.Tpo -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_wdog0.obj `if test -f 'src/drivers/sifive_wdog0.c'; then $(CYGPATH_W) 'src/drivers/sifive_wdog0.c'; else $(CYGPATH_W) '$(srcdir)/src/drivers/sifive_wdog0.c'; fi`
-	$(AM_V_at)$(am__mv) src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_wdog0.Tpo src/drivers/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-sifive_wdog0.Po
-#	$(AM_V_CC)source='src/drivers/sifive_wdog0.c' object='src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_wdog0.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/drivers/libriscv__mmachine__sifive-hifive1-revb_a-sifive_wdog0.obj `if test -f 'src/drivers/sifive_wdog0.c'; then $(CYGPATH_W) 'src/drivers/sifive_wdog0.c'; else $(CYGPATH_W) '$(srcdir)/src/drivers/sifive_wdog0.c'; fi`
-
-src/libriscv__mmachine__sifive-hifive1-revb_a-button.o: src/button.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/libriscv__mmachine__sifive-hifive1-revb_a-button.o -MD -MP -MF src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-button.Tpo -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-button.o `test -f 'src/button.c' || echo '$(srcdir)/'`src/button.c
-	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-button.Tpo src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-button.Po
-#	$(AM_V_CC)source='src/button.c' object='src/libriscv__mmachine__sifive-hifive1-revb_a-button.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-button.o `test -f 'src/button.c' || echo '$(srcdir)/'`src/button.c
-
-src/libriscv__mmachine__sifive-hifive1-revb_a-button.obj: src/button.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/libriscv__mmachine__sifive-hifive1-revb_a-button.obj -MD -MP -MF src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-button.Tpo -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-button.obj `if test -f 'src/button.c'; then $(CYGPATH_W) 'src/button.c'; else $(CYGPATH_W) '$(srcdir)/src/button.c'; fi`
-	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-button.Tpo src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-button.Po
-#	$(AM_V_CC)source='src/button.c' object='src/libriscv__mmachine__sifive-hifive1-revb_a-button.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-button.obj `if test -f 'src/button.c'; then $(CYGPATH_W) 'src/button.c'; else $(CYGPATH_W) '$(srcdir)/src/button.c'; fi`
-
-src/libriscv__mmachine__sifive-hifive1-revb_a-cache.o: src/cache.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/libriscv__mmachine__sifive-hifive1-revb_a-cache.o -MD -MP -MF src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-cache.Tpo -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-cache.o `test -f 'src/cache.c' || echo '$(srcdir)/'`src/cache.c
-	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-cache.Tpo src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-cache.Po
-#	$(AM_V_CC)source='src/cache.c' object='src/libriscv__mmachine__sifive-hifive1-revb_a-cache.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-cache.o `test -f 'src/cache.c' || echo '$(srcdir)/'`src/cache.c
-
-src/libriscv__mmachine__sifive-hifive1-revb_a-cache.obj: src/cache.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/libriscv__mmachine__sifive-hifive1-revb_a-cache.obj -MD -MP -MF src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-cache.Tpo -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-cache.obj `if test -f 'src/cache.c'; then $(CYGPATH_W) 'src/cache.c'; else $(CYGPATH_W) '$(srcdir)/src/cache.c'; fi`
-	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-cache.Tpo src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-cache.Po
-#	$(AM_V_CC)source='src/cache.c' object='src/libriscv__mmachine__sifive-hifive1-revb_a-cache.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-cache.obj `if test -f 'src/cache.c'; then $(CYGPATH_W) 'src/cache.c'; else $(CYGPATH_W) '$(srcdir)/src/cache.c'; fi`
-
-src/libriscv__mmachine__sifive-hifive1-revb_a-clock.o: src/clock.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/libriscv__mmachine__sifive-hifive1-revb_a-clock.o -MD -MP -MF src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-clock.Tpo -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-clock.o `test -f 'src/clock.c' || echo '$(srcdir)/'`src/clock.c
-	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-clock.Tpo src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-clock.Po
-#	$(AM_V_CC)source='src/clock.c' object='src/libriscv__mmachine__sifive-hifive1-revb_a-clock.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-clock.o `test -f 'src/clock.c' || echo '$(srcdir)/'`src/clock.c
-
-src/libriscv__mmachine__sifive-hifive1-revb_a-clock.obj: src/clock.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/libriscv__mmachine__sifive-hifive1-revb_a-clock.obj -MD -MP -MF src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-clock.Tpo -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-clock.obj `if test -f 'src/clock.c'; then $(CYGPATH_W) 'src/clock.c'; else $(CYGPATH_W) '$(srcdir)/src/clock.c'; fi`
-	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-clock.Tpo src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-clock.Po
-#	$(AM_V_CC)source='src/clock.c' object='src/libriscv__mmachine__sifive-hifive1-revb_a-clock.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-clock.obj `if test -f 'src/clock.c'; then $(CYGPATH_W) 'src/clock.c'; else $(CYGPATH_W) '$(srcdir)/src/clock.c'; fi`
-
-src/libriscv__mmachine__sifive-hifive1-revb_a-cpu.o: src/cpu.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/libriscv__mmachine__sifive-hifive1-revb_a-cpu.o -MD -MP -MF src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-cpu.Tpo -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-cpu.o `test -f 'src/cpu.c' || echo '$(srcdir)/'`src/cpu.c
-	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-cpu.Tpo src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-cpu.Po
-#	$(AM_V_CC)source='src/cpu.c' object='src/libriscv__mmachine__sifive-hifive1-revb_a-cpu.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-cpu.o `test -f 'src/cpu.c' || echo '$(srcdir)/'`src/cpu.c
-
-src/libriscv__mmachine__sifive-hifive1-revb_a-cpu.obj: src/cpu.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/libriscv__mmachine__sifive-hifive1-revb_a-cpu.obj -MD -MP -MF src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-cpu.Tpo -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-cpu.obj `if test -f 'src/cpu.c'; then $(CYGPATH_W) 'src/cpu.c'; else $(CYGPATH_W) '$(srcdir)/src/cpu.c'; fi`
-	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-cpu.Tpo src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-cpu.Po
-#	$(AM_V_CC)source='src/cpu.c' object='src/libriscv__mmachine__sifive-hifive1-revb_a-cpu.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-cpu.obj `if test -f 'src/cpu.c'; then $(CYGPATH_W) 'src/cpu.c'; else $(CYGPATH_W) '$(srcdir)/src/cpu.c'; fi`
-
-src/libriscv__mmachine__sifive-hifive1-revb_a-gpio.o: src/gpio.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/libriscv__mmachine__sifive-hifive1-revb_a-gpio.o -MD -MP -MF src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-gpio.Tpo -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-gpio.o `test -f 'src/gpio.c' || echo '$(srcdir)/'`src/gpio.c
-	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-gpio.Tpo src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-gpio.Po
-#	$(AM_V_CC)source='src/gpio.c' object='src/libriscv__mmachine__sifive-hifive1-revb_a-gpio.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-gpio.o `test -f 'src/gpio.c' || echo '$(srcdir)/'`src/gpio.c
-
-src/libriscv__mmachine__sifive-hifive1-revb_a-gpio.obj: src/gpio.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/libriscv__mmachine__sifive-hifive1-revb_a-gpio.obj -MD -MP -MF src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-gpio.Tpo -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-gpio.obj `if test -f 'src/gpio.c'; then $(CYGPATH_W) 'src/gpio.c'; else $(CYGPATH_W) '$(srcdir)/src/gpio.c'; fi`
-	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-gpio.Tpo src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-gpio.Po
-#	$(AM_V_CC)source='src/gpio.c' object='src/libriscv__mmachine__sifive-hifive1-revb_a-gpio.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-gpio.obj `if test -f 'src/gpio.c'; then $(CYGPATH_W) 'src/gpio.c'; else $(CYGPATH_W) '$(srcdir)/src/gpio.c'; fi`
-
-src/libriscv__mmachine__sifive-hifive1-revb_a-interrupt.o: src/interrupt.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/libriscv__mmachine__sifive-hifive1-revb_a-interrupt.o -MD -MP -MF src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-interrupt.Tpo -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-interrupt.o `test -f 'src/interrupt.c' || echo '$(srcdir)/'`src/interrupt.c
-	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-interrupt.Tpo src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-interrupt.Po
-#	$(AM_V_CC)source='src/interrupt.c' object='src/libriscv__mmachine__sifive-hifive1-revb_a-interrupt.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-interrupt.o `test -f 'src/interrupt.c' || echo '$(srcdir)/'`src/interrupt.c
-
-src/libriscv__mmachine__sifive-hifive1-revb_a-interrupt.obj: src/interrupt.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/libriscv__mmachine__sifive-hifive1-revb_a-interrupt.obj -MD -MP -MF src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-interrupt.Tpo -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-interrupt.obj `if test -f 'src/interrupt.c'; then $(CYGPATH_W) 'src/interrupt.c'; else $(CYGPATH_W) '$(srcdir)/src/interrupt.c'; fi`
-	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-interrupt.Tpo src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-interrupt.Po
-#	$(AM_V_CC)source='src/interrupt.c' object='src/libriscv__mmachine__sifive-hifive1-revb_a-interrupt.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-interrupt.obj `if test -f 'src/interrupt.c'; then $(CYGPATH_W) 'src/interrupt.c'; else $(CYGPATH_W) '$(srcdir)/src/interrupt.c'; fi`
-
-src/libriscv__mmachine__sifive-hifive1-revb_a-led.o: src/led.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/libriscv__mmachine__sifive-hifive1-revb_a-led.o -MD -MP -MF src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-led.Tpo -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-led.o `test -f 'src/led.c' || echo '$(srcdir)/'`src/led.c
-	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-led.Tpo src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-led.Po
-#	$(AM_V_CC)source='src/led.c' object='src/libriscv__mmachine__sifive-hifive1-revb_a-led.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-led.o `test -f 'src/led.c' || echo '$(srcdir)/'`src/led.c
-
-src/libriscv__mmachine__sifive-hifive1-revb_a-led.obj: src/led.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/libriscv__mmachine__sifive-hifive1-revb_a-led.obj -MD -MP -MF src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-led.Tpo -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-led.obj `if test -f 'src/led.c'; then $(CYGPATH_W) 'src/led.c'; else $(CYGPATH_W) '$(srcdir)/src/led.c'; fi`
-	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-led.Tpo src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-led.Po
-#	$(AM_V_CC)source='src/led.c' object='src/libriscv__mmachine__sifive-hifive1-revb_a-led.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-led.obj `if test -f 'src/led.c'; then $(CYGPATH_W) 'src/led.c'; else $(CYGPATH_W) '$(srcdir)/src/led.c'; fi`
-
-src/libriscv__mmachine__sifive-hifive1-revb_a-lock.o: src/lock.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/libriscv__mmachine__sifive-hifive1-revb_a-lock.o -MD -MP -MF src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-lock.Tpo -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-lock.o `test -f 'src/lock.c' || echo '$(srcdir)/'`src/lock.c
-	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-lock.Tpo src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-lock.Po
-#	$(AM_V_CC)source='src/lock.c' object='src/libriscv__mmachine__sifive-hifive1-revb_a-lock.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-lock.o `test -f 'src/lock.c' || echo '$(srcdir)/'`src/lock.c
-
-src/libriscv__mmachine__sifive-hifive1-revb_a-lock.obj: src/lock.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/libriscv__mmachine__sifive-hifive1-revb_a-lock.obj -MD -MP -MF src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-lock.Tpo -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-lock.obj `if test -f 'src/lock.c'; then $(CYGPATH_W) 'src/lock.c'; else $(CYGPATH_W) '$(srcdir)/src/lock.c'; fi`
-	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-lock.Tpo src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-lock.Po
-#	$(AM_V_CC)source='src/lock.c' object='src/libriscv__mmachine__sifive-hifive1-revb_a-lock.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-lock.obj `if test -f 'src/lock.c'; then $(CYGPATH_W) 'src/lock.c'; else $(CYGPATH_W) '$(srcdir)/src/lock.c'; fi`
-
-src/libriscv__mmachine__sifive-hifive1-revb_a-memory.o: src/memory.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/libriscv__mmachine__sifive-hifive1-revb_a-memory.o -MD -MP -MF src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-memory.Tpo -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-memory.o `test -f 'src/memory.c' || echo '$(srcdir)/'`src/memory.c
-	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-memory.Tpo src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-memory.Po
-#	$(AM_V_CC)source='src/memory.c' object='src/libriscv__mmachine__sifive-hifive1-revb_a-memory.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-memory.o `test -f 'src/memory.c' || echo '$(srcdir)/'`src/memory.c
-
-src/libriscv__mmachine__sifive-hifive1-revb_a-memory.obj: src/memory.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/libriscv__mmachine__sifive-hifive1-revb_a-memory.obj -MD -MP -MF src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-memory.Tpo -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-memory.obj `if test -f 'src/memory.c'; then $(CYGPATH_W) 'src/memory.c'; else $(CYGPATH_W) '$(srcdir)/src/memory.c'; fi`
-	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-memory.Tpo src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-memory.Po
-#	$(AM_V_CC)source='src/memory.c' object='src/libriscv__mmachine__sifive-hifive1-revb_a-memory.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-memory.obj `if test -f 'src/memory.c'; then $(CYGPATH_W) 'src/memory.c'; else $(CYGPATH_W) '$(srcdir)/src/memory.c'; fi`
-
-src/libriscv__mmachine__sifive-hifive1-revb_a-pmp.o: src/pmp.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/libriscv__mmachine__sifive-hifive1-revb_a-pmp.o -MD -MP -MF src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-pmp.Tpo -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-pmp.o `test -f 'src/pmp.c' || echo '$(srcdir)/'`src/pmp.c
-	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-pmp.Tpo src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-pmp.Po
-#	$(AM_V_CC)source='src/pmp.c' object='src/libriscv__mmachine__sifive-hifive1-revb_a-pmp.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-pmp.o `test -f 'src/pmp.c' || echo '$(srcdir)/'`src/pmp.c
-
-src/libriscv__mmachine__sifive-hifive1-revb_a-pmp.obj: src/pmp.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/libriscv__mmachine__sifive-hifive1-revb_a-pmp.obj -MD -MP -MF src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-pmp.Tpo -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-pmp.obj `if test -f 'src/pmp.c'; then $(CYGPATH_W) 'src/pmp.c'; else $(CYGPATH_W) '$(srcdir)/src/pmp.c'; fi`
-	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-pmp.Tpo src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-pmp.Po
-#	$(AM_V_CC)source='src/pmp.c' object='src/libriscv__mmachine__sifive-hifive1-revb_a-pmp.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-pmp.obj `if test -f 'src/pmp.c'; then $(CYGPATH_W) 'src/pmp.c'; else $(CYGPATH_W) '$(srcdir)/src/pmp.c'; fi`
-
-src/libriscv__mmachine__sifive-hifive1-revb_a-privilege.o: src/privilege.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/libriscv__mmachine__sifive-hifive1-revb_a-privilege.o -MD -MP -MF src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-privilege.Tpo -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-privilege.o `test -f 'src/privilege.c' || echo '$(srcdir)/'`src/privilege.c
-	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-privilege.Tpo src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-privilege.Po
-#	$(AM_V_CC)source='src/privilege.c' object='src/libriscv__mmachine__sifive-hifive1-revb_a-privilege.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-privilege.o `test -f 'src/privilege.c' || echo '$(srcdir)/'`src/privilege.c
-
-src/libriscv__mmachine__sifive-hifive1-revb_a-privilege.obj: src/privilege.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/libriscv__mmachine__sifive-hifive1-revb_a-privilege.obj -MD -MP -MF src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-privilege.Tpo -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-privilege.obj `if test -f 'src/privilege.c'; then $(CYGPATH_W) 'src/privilege.c'; else $(CYGPATH_W) '$(srcdir)/src/privilege.c'; fi`
-	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-privilege.Tpo src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-privilege.Po
-#	$(AM_V_CC)source='src/privilege.c' object='src/libriscv__mmachine__sifive-hifive1-revb_a-privilege.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-privilege.obj `if test -f 'src/privilege.c'; then $(CYGPATH_W) 'src/privilege.c'; else $(CYGPATH_W) '$(srcdir)/src/privilege.c'; fi`
-
-src/libriscv__mmachine__sifive-hifive1-revb_a-rtc.o: src/rtc.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/libriscv__mmachine__sifive-hifive1-revb_a-rtc.o -MD -MP -MF src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-rtc.Tpo -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-rtc.o `test -f 'src/rtc.c' || echo '$(srcdir)/'`src/rtc.c
-	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-rtc.Tpo src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-rtc.Po
-#	$(AM_V_CC)source='src/rtc.c' object='src/libriscv__mmachine__sifive-hifive1-revb_a-rtc.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-rtc.o `test -f 'src/rtc.c' || echo '$(srcdir)/'`src/rtc.c
-
-src/libriscv__mmachine__sifive-hifive1-revb_a-rtc.obj: src/rtc.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/libriscv__mmachine__sifive-hifive1-revb_a-rtc.obj -MD -MP -MF src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-rtc.Tpo -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-rtc.obj `if test -f 'src/rtc.c'; then $(CYGPATH_W) 'src/rtc.c'; else $(CYGPATH_W) '$(srcdir)/src/rtc.c'; fi`
-	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-rtc.Tpo src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-rtc.Po
-#	$(AM_V_CC)source='src/rtc.c' object='src/libriscv__mmachine__sifive-hifive1-revb_a-rtc.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-rtc.obj `if test -f 'src/rtc.c'; then $(CYGPATH_W) 'src/rtc.c'; else $(CYGPATH_W) '$(srcdir)/src/rtc.c'; fi`
-
-src/libriscv__mmachine__sifive-hifive1-revb_a-shutdown.o: src/shutdown.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/libriscv__mmachine__sifive-hifive1-revb_a-shutdown.o -MD -MP -MF src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-shutdown.Tpo -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-shutdown.o `test -f 'src/shutdown.c' || echo '$(srcdir)/'`src/shutdown.c
-	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-shutdown.Tpo src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-shutdown.Po
-#	$(AM_V_CC)source='src/shutdown.c' object='src/libriscv__mmachine__sifive-hifive1-revb_a-shutdown.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-shutdown.o `test -f 'src/shutdown.c' || echo '$(srcdir)/'`src/shutdown.c
-
-src/libriscv__mmachine__sifive-hifive1-revb_a-shutdown.obj: src/shutdown.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/libriscv__mmachine__sifive-hifive1-revb_a-shutdown.obj -MD -MP -MF src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-shutdown.Tpo -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-shutdown.obj `if test -f 'src/shutdown.c'; then $(CYGPATH_W) 'src/shutdown.c'; else $(CYGPATH_W) '$(srcdir)/src/shutdown.c'; fi`
-	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-shutdown.Tpo src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-shutdown.Po
-#	$(AM_V_CC)source='src/shutdown.c' object='src/libriscv__mmachine__sifive-hifive1-revb_a-shutdown.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-shutdown.obj `if test -f 'src/shutdown.c'; then $(CYGPATH_W) 'src/shutdown.c'; else $(CYGPATH_W) '$(srcdir)/src/shutdown.c'; fi`
-
-src/libriscv__mmachine__sifive-hifive1-revb_a-spi.o: src/spi.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/libriscv__mmachine__sifive-hifive1-revb_a-spi.o -MD -MP -MF src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-spi.Tpo -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-spi.o `test -f 'src/spi.c' || echo '$(srcdir)/'`src/spi.c
-	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-spi.Tpo src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-spi.Po
-#	$(AM_V_CC)source='src/spi.c' object='src/libriscv__mmachine__sifive-hifive1-revb_a-spi.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-spi.o `test -f 'src/spi.c' || echo '$(srcdir)/'`src/spi.c
-
-src/libriscv__mmachine__sifive-hifive1-revb_a-spi.obj: src/spi.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/libriscv__mmachine__sifive-hifive1-revb_a-spi.obj -MD -MP -MF src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-spi.Tpo -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-spi.obj `if test -f 'src/spi.c'; then $(CYGPATH_W) 'src/spi.c'; else $(CYGPATH_W) '$(srcdir)/src/spi.c'; fi`
-	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-spi.Tpo src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-spi.Po
-#	$(AM_V_CC)source='src/spi.c' object='src/libriscv__mmachine__sifive-hifive1-revb_a-spi.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-spi.obj `if test -f 'src/spi.c'; then $(CYGPATH_W) 'src/spi.c'; else $(CYGPATH_W) '$(srcdir)/src/spi.c'; fi`
-
-src/libriscv__mmachine__sifive-hifive1-revb_a-switch.o: src/switch.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/libriscv__mmachine__sifive-hifive1-revb_a-switch.o -MD -MP -MF src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-switch.Tpo -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-switch.o `test -f 'src/switch.c' || echo '$(srcdir)/'`src/switch.c
-	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-switch.Tpo src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-switch.Po
-#	$(AM_V_CC)source='src/switch.c' object='src/libriscv__mmachine__sifive-hifive1-revb_a-switch.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-switch.o `test -f 'src/switch.c' || echo '$(srcdir)/'`src/switch.c
-
-src/libriscv__mmachine__sifive-hifive1-revb_a-switch.obj: src/switch.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/libriscv__mmachine__sifive-hifive1-revb_a-switch.obj -MD -MP -MF src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-switch.Tpo -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-switch.obj `if test -f 'src/switch.c'; then $(CYGPATH_W) 'src/switch.c'; else $(CYGPATH_W) '$(srcdir)/src/switch.c'; fi`
-	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-switch.Tpo src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-switch.Po
-#	$(AM_V_CC)source='src/switch.c' object='src/libriscv__mmachine__sifive-hifive1-revb_a-switch.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-switch.obj `if test -f 'src/switch.c'; then $(CYGPATH_W) 'src/switch.c'; else $(CYGPATH_W) '$(srcdir)/src/switch.c'; fi`
-
-src/libriscv__mmachine__sifive-hifive1-revb_a-synchronize_harts.o: src/synchronize_harts.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/libriscv__mmachine__sifive-hifive1-revb_a-synchronize_harts.o -MD -MP -MF src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-synchronize_harts.Tpo -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-synchronize_harts.o `test -f 'src/synchronize_harts.c' || echo '$(srcdir)/'`src/synchronize_harts.c
-	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-synchronize_harts.Tpo src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-synchronize_harts.Po
-#	$(AM_V_CC)source='src/synchronize_harts.c' object='src/libriscv__mmachine__sifive-hifive1-revb_a-synchronize_harts.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-synchronize_harts.o `test -f 'src/synchronize_harts.c' || echo '$(srcdir)/'`src/synchronize_harts.c
-
-src/libriscv__mmachine__sifive-hifive1-revb_a-synchronize_harts.obj: src/synchronize_harts.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/libriscv__mmachine__sifive-hifive1-revb_a-synchronize_harts.obj -MD -MP -MF src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-synchronize_harts.Tpo -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-synchronize_harts.obj `if test -f 'src/synchronize_harts.c'; then $(CYGPATH_W) 'src/synchronize_harts.c'; else $(CYGPATH_W) '$(srcdir)/src/synchronize_harts.c'; fi`
-	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-synchronize_harts.Tpo src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-synchronize_harts.Po
-#	$(AM_V_CC)source='src/synchronize_harts.c' object='src/libriscv__mmachine__sifive-hifive1-revb_a-synchronize_harts.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-synchronize_harts.obj `if test -f 'src/synchronize_harts.c'; then $(CYGPATH_W) 'src/synchronize_harts.c'; else $(CYGPATH_W) '$(srcdir)/src/synchronize_harts.c'; fi`
-
-src/libriscv__mmachine__sifive-hifive1-revb_a-timer.o: src/timer.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/libriscv__mmachine__sifive-hifive1-revb_a-timer.o -MD -MP -MF src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-timer.Tpo -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-timer.o `test -f 'src/timer.c' || echo '$(srcdir)/'`src/timer.c
-	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-timer.Tpo src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-timer.Po
-#	$(AM_V_CC)source='src/timer.c' object='src/libriscv__mmachine__sifive-hifive1-revb_a-timer.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-timer.o `test -f 'src/timer.c' || echo '$(srcdir)/'`src/timer.c
-
-src/libriscv__mmachine__sifive-hifive1-revb_a-timer.obj: src/timer.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/libriscv__mmachine__sifive-hifive1-revb_a-timer.obj -MD -MP -MF src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-timer.Tpo -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-timer.obj `if test -f 'src/timer.c'; then $(CYGPATH_W) 'src/timer.c'; else $(CYGPATH_W) '$(srcdir)/src/timer.c'; fi`
-	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-timer.Tpo src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-timer.Po
-#	$(AM_V_CC)source='src/timer.c' object='src/libriscv__mmachine__sifive-hifive1-revb_a-timer.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-timer.obj `if test -f 'src/timer.c'; then $(CYGPATH_W) 'src/timer.c'; else $(CYGPATH_W) '$(srcdir)/src/timer.c'; fi`
-
-src/libriscv__mmachine__sifive-hifive1-revb_a-time.o: src/time.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/libriscv__mmachine__sifive-hifive1-revb_a-time.o -MD -MP -MF src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-time.Tpo -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-time.o `test -f 'src/time.c' || echo '$(srcdir)/'`src/time.c
-	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-time.Tpo src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-time.Po
-#	$(AM_V_CC)source='src/time.c' object='src/libriscv__mmachine__sifive-hifive1-revb_a-time.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-time.o `test -f 'src/time.c' || echo '$(srcdir)/'`src/time.c
-
-src/libriscv__mmachine__sifive-hifive1-revb_a-time.obj: src/time.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/libriscv__mmachine__sifive-hifive1-revb_a-time.obj -MD -MP -MF src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-time.Tpo -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-time.obj `if test -f 'src/time.c'; then $(CYGPATH_W) 'src/time.c'; else $(CYGPATH_W) '$(srcdir)/src/time.c'; fi`
-	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-time.Tpo src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-time.Po
-#	$(AM_V_CC)source='src/time.c' object='src/libriscv__mmachine__sifive-hifive1-revb_a-time.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-time.obj `if test -f 'src/time.c'; then $(CYGPATH_W) 'src/time.c'; else $(CYGPATH_W) '$(srcdir)/src/time.c'; fi`
-
-src/libriscv__mmachine__sifive-hifive1-revb_a-tty.o: src/tty.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/libriscv__mmachine__sifive-hifive1-revb_a-tty.o -MD -MP -MF src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-tty.Tpo -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-tty.o `test -f 'src/tty.c' || echo '$(srcdir)/'`src/tty.c
-	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-tty.Tpo src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-tty.Po
-#	$(AM_V_CC)source='src/tty.c' object='src/libriscv__mmachine__sifive-hifive1-revb_a-tty.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-tty.o `test -f 'src/tty.c' || echo '$(srcdir)/'`src/tty.c
-
-src/libriscv__mmachine__sifive-hifive1-revb_a-tty.obj: src/tty.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/libriscv__mmachine__sifive-hifive1-revb_a-tty.obj -MD -MP -MF src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-tty.Tpo -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-tty.obj `if test -f 'src/tty.c'; then $(CYGPATH_W) 'src/tty.c'; else $(CYGPATH_W) '$(srcdir)/src/tty.c'; fi`
-	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-tty.Tpo src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-tty.Po
-#	$(AM_V_CC)source='src/tty.c' object='src/libriscv__mmachine__sifive-hifive1-revb_a-tty.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-tty.obj `if test -f 'src/tty.c'; then $(CYGPATH_W) 'src/tty.c'; else $(CYGPATH_W) '$(srcdir)/src/tty.c'; fi`
-
-src/libriscv__mmachine__sifive-hifive1-revb_a-uart.o: src/uart.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/libriscv__mmachine__sifive-hifive1-revb_a-uart.o -MD -MP -MF src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-uart.Tpo -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-uart.o `test -f 'src/uart.c' || echo '$(srcdir)/'`src/uart.c
-	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-uart.Tpo src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-uart.Po
-#	$(AM_V_CC)source='src/uart.c' object='src/libriscv__mmachine__sifive-hifive1-revb_a-uart.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-uart.o `test -f 'src/uart.c' || echo '$(srcdir)/'`src/uart.c
-
-src/libriscv__mmachine__sifive-hifive1-revb_a-uart.obj: src/uart.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/libriscv__mmachine__sifive-hifive1-revb_a-uart.obj -MD -MP -MF src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-uart.Tpo -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-uart.obj `if test -f 'src/uart.c'; then $(CYGPATH_W) 'src/uart.c'; else $(CYGPATH_W) '$(srcdir)/src/uart.c'; fi`
-	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-uart.Tpo src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-uart.Po
-#	$(AM_V_CC)source='src/uart.c' object='src/libriscv__mmachine__sifive-hifive1-revb_a-uart.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-uart.obj `if test -f 'src/uart.c'; then $(CYGPATH_W) 'src/uart.c'; else $(CYGPATH_W) '$(srcdir)/src/uart.c'; fi`
-
-src/libriscv__mmachine__sifive-hifive1-revb_a-watchdog.o: src/watchdog.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/libriscv__mmachine__sifive-hifive1-revb_a-watchdog.o -MD -MP -MF src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-watchdog.Tpo -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-watchdog.o `test -f 'src/watchdog.c' || echo '$(srcdir)/'`src/watchdog.c
-	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-watchdog.Tpo src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-watchdog.Po
-#	$(AM_V_CC)source='src/watchdog.c' object='src/libriscv__mmachine__sifive-hifive1-revb_a-watchdog.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-watchdog.o `test -f 'src/watchdog.c' || echo '$(srcdir)/'`src/watchdog.c
-
-src/libriscv__mmachine__sifive-hifive1-revb_a-watchdog.obj: src/watchdog.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -MT src/libriscv__mmachine__sifive-hifive1-revb_a-watchdog.obj -MD -MP -MF src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-watchdog.Tpo -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-watchdog.obj `if test -f 'src/watchdog.c'; then $(CYGPATH_W) 'src/watchdog.c'; else $(CYGPATH_W) '$(srcdir)/src/watchdog.c'; fi`
-	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-watchdog.Tpo src/$(DEPDIR)/libriscv__mmachine__sifive-hifive1-revb_a-watchdog.Po
-#	$(AM_V_CC)source='src/watchdog.c' object='src/libriscv__mmachine__sifive-hifive1-revb_a-watchdog.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libriscv__mmachine__sifive-hifive1-revb_a_CFLAGS) $(CFLAGS) -c -o src/libriscv__mmachine__sifive-hifive1-revb_a-watchdog.obj `if test -f 'src/watchdog.c'; then $(CYGPATH_W) 'src/watchdog.c'; else $(CYGPATH_W) '$(srcdir)/src/watchdog.c'; fi`
-
-test/hello-hello.o: test/hello.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(hello_CFLAGS) $(CFLAGS) -MT test/hello-hello.o -MD -MP -MF test/$(DEPDIR)/hello-hello.Tpo -c -o test/hello-hello.o `test -f 'test/hello.c' || echo '$(srcdir)/'`test/hello.c
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/hello-hello.Tpo test/$(DEPDIR)/hello-hello.Po
-#	$(AM_V_CC)source='test/hello.c' object='test/hello-hello.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(hello_CFLAGS) $(CFLAGS) -c -o test/hello-hello.o `test -f 'test/hello.c' || echo '$(srcdir)/'`test/hello.c
-
-test/hello-hello.obj: test/hello.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(hello_CFLAGS) $(CFLAGS) -MT test/hello-hello.obj -MD -MP -MF test/$(DEPDIR)/hello-hello.Tpo -c -o test/hello-hello.obj `if test -f 'test/hello.c'; then $(CYGPATH_W) 'test/hello.c'; else $(CYGPATH_W) '$(srcdir)/test/hello.c'; fi`
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/hello-hello.Tpo test/$(DEPDIR)/hello-hello.Po
-#	$(AM_V_CC)source='test/hello.c' object='test/hello-hello.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(hello_CFLAGS) $(CFLAGS) -c -o test/hello-hello.obj `if test -f 'test/hello.c'; then $(CYGPATH_W) 'test/hello.c'; else $(CYGPATH_W) '$(srcdir)/test/hello.c'; fi`
-
-test/return_fail-return_fail.o: test/return_fail.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(return_fail_CFLAGS) $(CFLAGS) -MT test/return_fail-return_fail.o -MD -MP -MF test/$(DEPDIR)/return_fail-return_fail.Tpo -c -o test/return_fail-return_fail.o `test -f 'test/return_fail.c' || echo '$(srcdir)/'`test/return_fail.c
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/return_fail-return_fail.Tpo test/$(DEPDIR)/return_fail-return_fail.Po
-#	$(AM_V_CC)source='test/return_fail.c' object='test/return_fail-return_fail.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(return_fail_CFLAGS) $(CFLAGS) -c -o test/return_fail-return_fail.o `test -f 'test/return_fail.c' || echo '$(srcdir)/'`test/return_fail.c
-
-test/return_fail-return_fail.obj: test/return_fail.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(return_fail_CFLAGS) $(CFLAGS) -MT test/return_fail-return_fail.obj -MD -MP -MF test/$(DEPDIR)/return_fail-return_fail.Tpo -c -o test/return_fail-return_fail.obj `if test -f 'test/return_fail.c'; then $(CYGPATH_W) 'test/return_fail.c'; else $(CYGPATH_W) '$(srcdir)/test/return_fail.c'; fi`
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/return_fail-return_fail.Tpo test/$(DEPDIR)/return_fail-return_fail.Po
-#	$(AM_V_CC)source='test/return_fail.c' object='test/return_fail-return_fail.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(return_fail_CFLAGS) $(CFLAGS) -c -o test/return_fail-return_fail.obj `if test -f 'test/return_fail.c'; then $(CYGPATH_W) 'test/return_fail.c'; else $(CYGPATH_W) '$(srcdir)/test/return_fail.c'; fi`
-
-test/return_pass-return_pass.o: test/return_pass.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(return_pass_CFLAGS) $(CFLAGS) -MT test/return_pass-return_pass.o -MD -MP -MF test/$(DEPDIR)/return_pass-return_pass.Tpo -c -o test/return_pass-return_pass.o `test -f 'test/return_pass.c' || echo '$(srcdir)/'`test/return_pass.c
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/return_pass-return_pass.Tpo test/$(DEPDIR)/return_pass-return_pass.Po
-#	$(AM_V_CC)source='test/return_pass.c' object='test/return_pass-return_pass.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(return_pass_CFLAGS) $(CFLAGS) -c -o test/return_pass-return_pass.o `test -f 'test/return_pass.c' || echo '$(srcdir)/'`test/return_pass.c
-
-test/return_pass-return_pass.obj: test/return_pass.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(return_pass_CFLAGS) $(CFLAGS) -MT test/return_pass-return_pass.obj -MD -MP -MF test/$(DEPDIR)/return_pass-return_pass.Tpo -c -o test/return_pass-return_pass.obj `if test -f 'test/return_pass.c'; then $(CYGPATH_W) 'test/return_pass.c'; else $(CYGPATH_W) '$(srcdir)/test/return_pass.c'; fi`
-	$(AM_V_at)$(am__mv) test/$(DEPDIR)/return_pass-return_pass.Tpo test/$(DEPDIR)/return_pass-return_pass.Po
-#	$(AM_V_CC)source='test/return_pass.c' object='test/return_pass-return_pass.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(return_pass_CFLAGS) $(CFLAGS) -c -o test/return_pass-return_pass.obj `if test -f 'test/return_pass.c'; then $(CYGPATH_W) 'test/return_pass.c'; else $(CYGPATH_W) '$(srcdir)/test/return_pass.c'; fi`
-install-ldsDATA: $(lds_DATA)
-	@$(NORMAL_INSTALL)
-	@list='$(lds_DATA)'; test -n "$(ldsdir)" || list=; \
-	if test -n "$$list"; then \
-	  echo " $(MKDIR_P) '$(DESTDIR)$(ldsdir)'"; \
-	  $(MKDIR_P) "$(DESTDIR)$(ldsdir)" || exit 1; \
-	fi; \
-	for p in $$list; do \
-	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
-	  echo "$$d$$p"; \
-	done | $(am__base_list) | \
-	while read files; do \
-	  echo " $(INSTALL_DATA) $$files '$(DESTDIR)$(ldsdir)'"; \
-	  $(INSTALL_DATA) $$files "$(DESTDIR)$(ldsdir)" || exit $$?; \
-	done
-
-uninstall-ldsDATA:
-	@$(NORMAL_UNINSTALL)
-	@list='$(lds_DATA)'; test -n "$(ldsdir)" || list=; \
-	files=`for p in $$list; do echo $$p; done | sed -e 's|^.*/||'`; \
-	dir='$(DESTDIR)$(ldsdir)'; $(am__uninstall_files_from_dir)
-install-specDATA: $(spec_DATA)
-	@$(NORMAL_INSTALL)
-	@list='$(spec_DATA)'; test -n "$(specdir)" || list=; \
-	if test -n "$$list"; then \
-	  echo " $(MKDIR_P) '$(DESTDIR)$(specdir)'"; \
-	  $(MKDIR_P) "$(DESTDIR)$(specdir)" || exit 1; \
-	fi; \
-	for p in $$list; do \
-	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
-	  echo "$$d$$p"; \
-	done | $(am__base_list) | \
-	while read files; do \
-	  echo " $(INSTALL_DATA) $$files '$(DESTDIR)$(specdir)'"; \
-	  $(INSTALL_DATA) $$files "$(DESTDIR)$(specdir)" || exit $$?; \
-	done
-
-uninstall-specDATA:
-	@$(NORMAL_UNINSTALL)
-	@list='$(spec_DATA)'; test -n "$(specdir)" || list=; \
-	files=`for p in $$list; do echo $$p; done | sed -e 's|^.*/||'`; \
-	dir='$(DESTDIR)$(specdir)'; $(am__uninstall_files_from_dir)
 install-nobase_includeHEADERS: $(nobase_include_HEADERS)
 	@$(NORMAL_INSTALL)
 	@list='$(nobase_include_HEADERS)'; test -n "$(includedir)" || list=; \
@@ -2121,12 +1318,11 @@ distcleancheck: distclean
 	       $(distcleancheck_listfiles) ; \
 	       exit 1; } >&2
 check-am: all-am
-	$(MAKE) $(AM_MAKEFLAGS) $(check_PROGRAMS)
 check: $(BUILT_SOURCES)
 	$(MAKE) $(AM_MAKEFLAGS) check-am
-all-am: Makefile $(LIBRARIES) $(DATA) $(HEADERS)
+all-am: Makefile $(LIBRARIES) $(HEADERS)
 installdirs:
-	for dir in "$(DESTDIR)$(libdir)" "$(DESTDIR)$(ldsdir)" "$(DESTDIR)$(specdir)" "$(DESTDIR)$(includedir)"; do \
+	for dir in "$(DESTDIR)$(libdir)" "$(DESTDIR)$(includedir)"; do \
 	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
 	done
 install: $(BUILT_SOURCES)
@@ -2158,12 +1354,12 @@ distclean-generic:
 	-test . = "$(srcdir)" || test -z "$(CONFIG_CLEAN_VPATH_FILES)" || rm -f $(CONFIG_CLEAN_VPATH_FILES)
 	-rm -f gloss/$(DEPDIR)/$(am__dirstamp)
 	-rm -f gloss/$(am__dirstamp)
+	-rm -f segger/$(DEPDIR)/$(am__dirstamp)
+	-rm -f segger/$(am__dirstamp)
 	-rm -f src/$(DEPDIR)/$(am__dirstamp)
 	-rm -f src/$(am__dirstamp)
 	-rm -f src/drivers/$(DEPDIR)/$(am__dirstamp)
 	-rm -f src/drivers/$(am__dirstamp)
-	-rm -f test/$(DEPDIR)/$(am__dirstamp)
-	-rm -f test/$(am__dirstamp)
 
 maintainer-clean-generic:
 	@echo "This command is intended for maintainers to use"
@@ -2171,12 +1367,11 @@ maintainer-clean-generic:
 	-test -z "$(BUILT_SOURCES)" || rm -f $(BUILT_SOURCES)
 clean: clean-am
 
-clean-am: clean-checkPROGRAMS clean-generic clean-libLIBRARIES \
-	clean-local mostlyclean-am
+clean-am: clean-generic clean-libLIBRARIES clean-local mostlyclean-am
 
 distclean: distclean-am
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
-	-rm -rf gloss/$(DEPDIR) src/$(DEPDIR) src/drivers/$(DEPDIR) test/$(DEPDIR)
+	-rm -rf gloss/$(DEPDIR) segger/$(DEPDIR) src/$(DEPDIR) src/drivers/$(DEPDIR)
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
 	distclean-tags
@@ -2193,8 +1388,7 @@ info: info-am
 
 info-am:
 
-install-data-am: install-ldsDATA install-nobase_includeHEADERS \
-	install-specDATA
+install-data-am: install-nobase_includeHEADERS
 
 install-dvi: install-dvi-am
 
@@ -2225,7 +1419,7 @@ installcheck-am:
 maintainer-clean: maintainer-clean-am
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
 	-rm -rf $(top_srcdir)/autom4te.cache
-	-rm -rf gloss/$(DEPDIR) src/$(DEPDIR) src/drivers/$(DEPDIR) test/$(DEPDIR)
+	-rm -rf gloss/$(DEPDIR) segger/$(DEPDIR) src/$(DEPDIR) src/drivers/$(DEPDIR)
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
 
@@ -2241,95 +1435,50 @@ ps: ps-am
 
 ps-am:
 
-uninstall-am: uninstall-ldsDATA uninstall-libLIBRARIES \
-	uninstall-nobase_includeHEADERS uninstall-specDATA
+uninstall-am: uninstall-libLIBRARIES uninstall-nobase_includeHEADERS
 
-.MAKE: all check check-am install install-am install-strip
+.MAKE: all check install install-am install-strip
 
 .PHONY: CTAGS GTAGS TAGS all all-am am--refresh check check-am clean \
-	clean-checkPROGRAMS clean-cscope clean-generic \
-	clean-libLIBRARIES clean-local cscope cscopelist-am ctags \
-	ctags-am dist dist-all dist-bzip2 dist-gzip dist-lzip \
-	dist-shar dist-tarZ dist-xz dist-zip distcheck distclean \
-	distclean-compile distclean-generic distclean-tags \
-	distcleancheck distdir distuninstallcheck dvi dvi-am html \
-	html-am info info-am install install-am install-data \
-	install-data-am install-dvi install-dvi-am install-exec \
-	install-exec-am install-html install-html-am install-info \
-	install-info-am install-ldsDATA install-libLIBRARIES \
-	install-man install-nobase_includeHEADERS install-pdf \
-	install-pdf-am install-ps install-ps-am install-specDATA \
-	install-strip installcheck installcheck-am installdirs \
-	maintainer-clean maintainer-clean-generic mostlyclean \
-	mostlyclean-compile mostlyclean-generic pdf pdf-am ps ps-am \
-	tags tags-am uninstall uninstall-am uninstall-ldsDATA \
-	uninstall-libLIBRARIES uninstall-nobase_includeHEADERS \
-	uninstall-specDATA
+	clean-cscope clean-generic clean-libLIBRARIES clean-local \
+	cscope cscopelist-am ctags ctags-am dist dist-all dist-bzip2 \
+	dist-gzip dist-lzip dist-shar dist-tarZ dist-xz dist-zip \
+	distcheck distclean distclean-compile distclean-generic \
+	distclean-tags distcleancheck distdir distuninstallcheck dvi \
+	dvi-am html html-am info info-am install install-am \
+	install-data install-data-am install-dvi install-dvi-am \
+	install-exec install-exec-am install-html install-html-am \
+	install-info install-info-am install-libLIBRARIES install-man \
+	install-nobase_includeHEADERS install-pdf install-pdf-am \
+	install-ps install-ps-am install-strip installcheck \
+	installcheck-am installdirs maintainer-clean \
+	maintainer-clean-generic mostlyclean mostlyclean-compile \
+	mostlyclean-generic pdf pdf-am ps ps-am tags tags-am uninstall \
+	uninstall-am uninstall-libLIBRARIES \
+	uninstall-nobase_includeHEADERS
 
 .PRECIOUS: Makefile
 
 
-# Every test depends on the generated linker script.
-$(check_PROGRAMS): riscv__mmachine__sifive-hifive1-revb.lds
-
-# Every test depends on the freshly-compiled library.
-$(check_PROGRAMS): libriscv__mmachine__sifive-hifive1-revb.a
-
-riscv__mmachine__sifive-hifive1-revb.lds: /home/albertojor/GitHub/freedom-e-sdk/bsp/sifive-hifive1-revb/metal.h
-	cp $< $@
-#riscv__mmachine__sifive-hifive1-revb.lds:  sifive-hifive1-revb.dtb
-#	$< --dtb $(filter %.dtb,$^) --linker $@
-riscv__mmachine__sifive-hifive1-revb.specs:
-	touch $@
-#riscv__mmachine__sifive-hifive1-revb.specs: false sifive-hifive1-revb.dtb
-#	$< --dtb $(filter %.dtb,$^) --specs $@ --prefix /home/albertojor/GitHub/freedom-e-sdk/bsp/sifive-hifive1-revb/install --machine sifive-hifive1-revb
-riscv__menv__metal.specs: riscv__menv__metal.specs.in
-	cat $^ > $@
-
-# In order to generate code that's actually compatible with a machine we must
-# pass the march and mabi arguments to GCC that coorespond to the hardware.
-# This is handled by generating a makefile fragment, including it, and then
-# adding those argument to CFLAGS.
--include sifive-hifive1-revb.mk
-sifive-hifive1-revb.mk: @MACHINE_MAKEATTRIBUTES@
-	cp $< $@
-#sifive-hifive1-revb.mk: false sifive-hifive1-revb.dtb
-#	$< --dtb $(filter %.dtb,$^) --output $@
-
-metal/machine.h: /home/albertojor/GitHub/freedom-e-sdk/bsp/sifive-hifive1-revb/metal.h
+metal/machine.h: /home/ajor/github/freedom-e-sdk/bsp/sifive-hifive1-revb/metal.h
 	@mkdir -p $(dir $@)
 	cp $< $@
 
-metal/machine/inline.h: /home/albertojor/GitHub/freedom-e-sdk/bsp/sifive-hifive1-revb/metal-inline.h
+metal/machine/inline.h: /home/ajor/github/freedom-e-sdk/bsp/sifive-hifive1-revb/metal-inline.h
 	@mkdir -p $(dir $@)
 	cp $< $@
 
-metal/machine/platform.h: /home/albertojor/GitHub/freedom-e-sdk/bsp/sifive-hifive1-revb/metal-platform.h
+metal/machine/platform.h: /home/ajor/github/freedom-e-sdk/bsp/sifive-hifive1-revb/metal-platform.h
 	@mkdir -p $(dir $@)
 	cp $< $@
 
-# Builds the machine-specific METAL header file, which paramaterizes the METAL for
-# one specific machine.  This is automatically picked up by GCC so users
-# automatically get the relevant definitions.  This is a two-step process:
-# first a DTB is built, and then the DTB is converted to a header file using an
-# external tool.
-#sifive-hifive1-revb.dtb:  
-#	$< $(filter %.dts,$^) -o $@ -O dtb -I dts
+########################################################
+# Clean
+########################################################
 
-#metal/machine.h:  sifive-hifive1-revb.dtb
-#	@mkdir -p $(dir $@)
-#	$< --dtb $(filter %.dtb,$^) --output $@
-
-#metal/machine/platform.h:  sifive-hifive1-revb.dtb
-#	@mkdir -p $(dir $@)
-#	$< -d $(filter %.dtb,$^) -o $@
-
-# Extra clean targets
 clean-local:
-	-rm -rf sifive-hifive1-revb.mk
-	-rm -rf metal/machine.h metal/machine/platform.h
-	-rm -rf sifive-hifive1-revb.dtb metal-sifive-hifive1-revb.lds
-	-rm -rf *.map *.specs
+	-rm -rf metal/machine.h metal/machine/inline.h
+	-rm -rf metal/machine/platform.h
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

@@ -1,5 +1,1 @@
-gloss/sys_exit.o: \
- /home/albertojor/GitHub/freedom-e-sdk/freedom-metal/gloss/sys_exit.c \
- /home/albertojor/GitHub/freedom-e-sdk/freedom-metal/metal/shutdown.h
-
-/home/albertojor/GitHub/freedom-e-sdk/freedom-metal/metal/shutdown.h:
+# dummy

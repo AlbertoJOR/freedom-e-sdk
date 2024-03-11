@@ -1,2 +1,0 @@
-src/libriscv__mmachine__freedom-e310-arty_a-trap.o: \
- /home/albertojor/GitHub/freedom-e-sdk/freedom-metal/src/trap.S

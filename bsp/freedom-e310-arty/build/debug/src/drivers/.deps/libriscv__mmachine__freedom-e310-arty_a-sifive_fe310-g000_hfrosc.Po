@@ -1,5 +1,0 @@
-src/drivers/libriscv__mmachine__freedom-e310-arty_a-sifive_fe310-g000_hfrosc.o: \
- /home/albertojor/GitHub/freedom-e-sdk/freedom-metal/src/drivers/sifive_fe310-g000_hfrosc.c \
- metal/machine/platform.h
-
-metal/machine/platform.h:

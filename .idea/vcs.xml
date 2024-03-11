@@ -2,13 +2,18 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/FreeRTOS-metal" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/doc/html" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/freedom-devicetree-tools" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/freedom-metal" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/freedom-metal/doc/html" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/lightweight_aead" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/scl-metal" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/scripts/cmsis-svd-generator" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/scripts/devicetree-overlay-generator" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/scripts/elf2hex" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/software/asconC/lightweight_aead" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/scripts/esdk-settings-generator" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/scripts/ldscript-generator" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/scripts/openocdcfg-generator" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/software/cflush" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/software/clic-hardware-vector-interrupts" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/software/clic-selective-vector-interrupts" vcs="Git" />
